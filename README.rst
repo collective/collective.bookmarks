@@ -6,33 +6,66 @@
 collective.bookmarks
 ====================
 
-Tell me what your product does
+.. image:: https://travis-ci.com/collective/collective.bookmarks.svg?branch=master
+    :target: https://travis-ci.com/collective/collective.bookmarks
+
+Bookmarks (aka favorites, wishlists) for Plone
 
 Features
 --------
 
-- Can be bullet points
+- Stores bookmarks of
+    - anonymous users in local storage.
+    - authenticated users in user properties as JSON
+
+- REST-API backend
+- React based frontend
+
+Data Format
+-----------
+
+- list of bookmarks
+
+- a bookmark is a JSON serializable (dict-like) with keys:
+    - ``uid``: UID of content item
+    - ``created``: date in ISO (like in plone.restapi)
+    - ``group``: group name or empty string for *global* group
+    - ``payload``: arbitary dict with custom key-value data (optional)
+
+RESTAPI
+-------
+
+Reads/stores into user-property as ``application/json``.
+
+Endpoints:
+
+``@bookmark`` - single bookmark
+    - ``GET`` param uid-... (single)
+    - ``POST`` creates new bookmark, body is JSON of one bookmark
+    - ``PUT`` overrides bookmark, body is JSON of one bookmark
+    - ``DELETE`` removes bookmark, body is JSON, list with exact one uid as string
+
+``@bookmarks`` - list of bookmarks
+    - ``GET`` by uids param ``?uid=...&uid=...``
+    - ``GET`` by group params ``?group=...``
+    - ``DELETE`` body is JSON, list of uids
 
 
-Examples
+Frontend
 --------
 
-This add-on can be seen in action at the following sites:
-- Is there a page on the internet where everybody can see the features?
+- Bookmark action-button (enable/disable)
+- personal-bar entry with count of bookmarks
+- Viewlet as entry point for React
 
 
-Documentation
+Control-Panel
 -------------
 
-Full documentation for end users can be found in the "docs" folder, and is also available online at http://docs.plone.org/foo/bar
+Registry  entry with control panel
 
-
-Translations
-------------
-
-This product has been translated into
-
-- Klingon (thanks, K'Plai)
+- Heading of lists. Defaults to "Bookmarks", but maybe one needs "bookmarks" or "Wishlist" or alike.
+- List of bookmarkable portal-types.
 
 
 Installation
@@ -56,15 +89,17 @@ Contribute
 
 - Issue Tracker: https://github.com/collective/collective.bookmarks/issues
 - Source Code: https://github.com/collective/collective.bookmarks
-- Documentation: https://docs.plone.org/foo/bar
 
 
 Support
 -------
 
-If you are having issues, please let us know.
-We have a mailing list located at: project@example.com
+We'd be happy to see many forks and pull-requests to make this addon even better.
 
+Maintainers are Jens Klein, Peter Holzer and the BlueDynamics Alliance developer team.
+We appreciate any contribution and if a release is needed to be done on pypi, please just contact one of us.
+
+We also offer commercial support if any training, coaching, integration or adaptions are needed.
 
 License
 -------
