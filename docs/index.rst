@@ -1,0 +1,5 @@
+====================
+collective.bookmarks
+====================
+
+User documentation
