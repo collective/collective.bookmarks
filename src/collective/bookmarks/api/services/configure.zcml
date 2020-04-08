@@ -5,6 +5,7 @@
     i18n_domain="collective.bookmarks">
 
   -*- extra stuff goes here -*-
+<include package=".bookmarks" />
 <include package=".bookmark" />
 
 

@@ -44,4 +44,6 @@
 
   <include package=".api" />
 
+  <include package=".api" />
+
 </configure>
