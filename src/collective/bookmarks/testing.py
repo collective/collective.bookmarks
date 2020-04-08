@@ -19,11 +19,12 @@ class CollectiveBookmarksLayer(PloneSandboxLayer):
         # The z3c.autoinclude feature is disabled in the Plone fixture base
         # layer.
         import plone.restapi
+
         self.loadZCML(package=plone.restapi)
         self.loadZCML(package=collective.bookmarks)
 
     def setUpPloneSite(self, portal):
-        applyProfile(portal, 'collective.bookmarks:default')
+        applyProfile(portal, "collective.bookmarks:default")
 
 
 COLLECTIVE_BOOKMARKS_FIXTURE = CollectiveBookmarksLayer()
@@ -31,13 +32,13 @@ COLLECTIVE_BOOKMARKS_FIXTURE = CollectiveBookmarksLayer()
 
 COLLECTIVE_BOOKMARKS_INTEGRATION_TESTING = IntegrationTesting(
     bases=(COLLECTIVE_BOOKMARKS_FIXTURE,),
-    name='CollectiveBookmarksLayer:IntegrationTesting',
+    name="CollectiveBookmarksLayer:IntegrationTesting",
 )
 
 
 COLLECTIVE_BOOKMARKS_FUNCTIONAL_TESTING = FunctionalTesting(
     bases=(COLLECTIVE_BOOKMARKS_FIXTURE,),
-    name='CollectiveBookmarksLayer:FunctionalTesting',
+    name="CollectiveBookmarksLayer:FunctionalTesting",
 )
 
 
@@ -47,5 +48,5 @@ COLLECTIVE_BOOKMARKS_ACCEPTANCE_TESTING = FunctionalTesting(
         REMOTE_LIBRARY_BUNDLE_FIXTURE,
         z2.ZSERVER_FIXTURE,
     ),
-    name='CollectiveBookmarksLayer:AcceptanceTesting',
+    name="CollectiveBookmarksLayer:AcceptanceTesting",
 )
