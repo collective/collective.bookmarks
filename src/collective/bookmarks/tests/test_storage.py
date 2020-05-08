@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 """Setup tests for this package."""
 from collective.bookmarks.testing import COLLECTIVE_BOOKMARKS_INTEGRATION_TESTING
-from plone import api
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
 
 import unittest
 
@@ -43,7 +40,6 @@ class TestStorage(unittest.TestCase):
 
     def test_fetch_one_non_existing(self):
         from collective.bookmarks.storage import Bookmarks
-        from souper.soup import Record
         from repoze.catalog.query import Eq
 
         import uuid
@@ -75,7 +71,7 @@ class TestStorage(unittest.TestCase):
         bookmarks._soup.add(record2)
 
         with self.assertRaises(ValueError):
-            result = bookmarks._fetch_one(
+            bookmarks._fetch_one(
                 Eq("owner", data["owner"])
                 & Eq("uid", data["uid"])
                 & Eq("group", data["group"])
@@ -120,7 +116,6 @@ class TestStorage(unittest.TestCase):
 
     def test_add_same(self):
         from collective.bookmarks.storage import Bookmarks
-        from repoze.catalog.query import Eq
 
         import uuid
 
@@ -134,7 +129,6 @@ class TestStorage(unittest.TestCase):
             data["owner"], data["uid"], data["group"], data["payload"]
         )
         self.assertIsNone(result2)
-
 
     def test_update_existing(self):
         from collective.bookmarks.storage import Bookmarks
@@ -160,7 +154,6 @@ class TestStorage(unittest.TestCase):
 
     def test_update_non_existing(self):
         from collective.bookmarks.storage import Bookmarks
-        from repoze.catalog.query import Eq
 
         import uuid
 
@@ -181,9 +174,7 @@ class TestStorage(unittest.TestCase):
         bookmarks = Bookmarks()
         data = {"owner": "kim stanley", "uid": uuid.uuid4(), "group": "", "payload": {}}
         bookmarks.add(data["owner"], data["uid"], data["group"], data["payload"])
-        result = bookmarks.delete(
-            data["owner"], data["uid"], data["group"]
-        )
+        result = bookmarks.delete(data["owner"], data["uid"], data["group"])
         self.assertIs(result, True)
 
         record = bookmarks._fetch_one(
@@ -193,7 +184,6 @@ class TestStorage(unittest.TestCase):
         )
         self.assertIsNone(record)
 
-
     def test_delete_non_existing(self):
         from collective.bookmarks.storage import Bookmarks
 
@@ -201,9 +191,7 @@ class TestStorage(unittest.TestCase):
 
         bookmarks = Bookmarks()
         data = {"owner": "kim stanley", "uid": uuid.uuid4(), "group": "", "payload": {}}
-        result = bookmarks.delete(
-            data["owner"], data["uid"], data["group"]
-        )
+        result = bookmarks.delete(data["owner"], data["uid"], data["group"])
         self.assertIs(result, False)
 
     def test_by_owner(self):
@@ -239,5 +227,3 @@ class TestStorage(unittest.TestCase):
 
         result = bookmarks.groups(data["owner"])
         self.assertEqual(result, ["", "chilli"])
-
-

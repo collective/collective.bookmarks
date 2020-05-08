@@ -2,15 +2,12 @@
 from plone import api
 from repoze.catalog.catalog import Catalog
 from repoze.catalog.indexes.field import CatalogFieldIndex
-from repoze.catalog.indexes.text import CatalogTextIndex
 from repoze.catalog.query import Eq
 from repoze.catalog.query import Query
 from souper.interfaces import ICatalogFactory
 from souper.soup import get_soup
 from souper.soup import NodeAttributeIndexer
-from souper.soup import NodeTextIndexer
 from souper.soup import Record
-from souper.soup import LazyRecord
 from zope.interface import implementer
 
 import datetime
@@ -86,6 +83,7 @@ class Bookmarks(object):
         record.attrs["uid"] = uid
         record.attrs["group"] = group
         record.attrs["payload"] = payload
+        record.attrs["created"] = datetime.datetime.now()
         return self._soup.add(record)
 
     def update(

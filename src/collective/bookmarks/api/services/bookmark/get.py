@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from plone import api
+# from plone import api
 from plone.restapi.interfaces import IExpandableElement
 from plone.restapi.services import Service
 from zope.component import adapter
@@ -16,7 +16,7 @@ class Bookmark(object):
 
     def __call__(self, expand=False):
         result = {
-            "bookmark": {"@id": "{}/@bookmark".format(self.context.absolute_url(),),},
+            "bookmark": {"@id": f"{self.context.absolute_url()}/@bookmark"},
         }
         if not expand:
             return result

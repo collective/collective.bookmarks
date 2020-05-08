@@ -16,7 +16,7 @@ class Bookmarks(object):
 
     def __call__(self, expand=False):
         result = {
-            "bookmarks": {"@id": "{}/@bookmarks".format(self.context.absolute_url(),),},
+            "bookmarks": {"@id": "{}/@bookmarks".format(self.context.absolute_url())}
         }
         if not expand:
             return result
