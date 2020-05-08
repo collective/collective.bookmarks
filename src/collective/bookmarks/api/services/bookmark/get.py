@@ -21,32 +21,6 @@ class Bookmark(object):
         if not expand:
             return result
 
-        # === Your custom code comes here ===
-
-        # Example:
-        try:
-            subjects = self.context.Subject()
-        except AttributeError:
-            subjects = []
-        query = {}
-        query["portal_type"] = "Document"
-        query["Subject"] = {
-            "query": subjects,
-            "operator": "or",
-        }
-        brains = api.content.find(**query)
-        items = []
-        for brain in brains:
-            # obj = brain.getObject()
-            # parent = obj.aq_inner.aq_parent
-            items.append(
-                {
-                    "title": brain.Title,
-                    "description": brain.Description,
-                    "@id": brain.getURL(),
-                }
-            )
-        result["bookmark"]["items"] = items
         return result
 
 

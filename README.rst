@@ -30,6 +30,7 @@ Data Format
     - ``uid``: UID of content item
     - ``created``: date in ISO (like in plone.restapi)
     - ``group``: group name or empty string for *global* group
+    - ``owner``: unique owner identifier (str)
     - ``payload``: arbitary dict with custom key-value data (optional)
 
 RESTAPI

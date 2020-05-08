@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_FIXTURE
-from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
 from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
@@ -39,14 +38,4 @@ COLLECTIVE_BOOKMARKS_INTEGRATION_TESTING = IntegrationTesting(
 COLLECTIVE_BOOKMARKS_FUNCTIONAL_TESTING = FunctionalTesting(
     bases=(COLLECTIVE_BOOKMARKS_FIXTURE,),
     name="CollectiveBookmarksLayer:FunctionalTesting",
-)
-
-
-COLLECTIVE_BOOKMARKS_ACCEPTANCE_TESTING = FunctionalTesting(
-    bases=(
-        COLLECTIVE_BOOKMARKS_FIXTURE,
-        REMOTE_LIBRARY_BUNDLE_FIXTURE,
-        z2.ZSERVER_FIXTURE,
-    ),
-    name="CollectiveBookmarksLayer:AcceptanceTesting",
 )

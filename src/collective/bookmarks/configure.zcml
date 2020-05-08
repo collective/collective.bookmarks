@@ -7,11 +7,7 @@
 
   <i18n:registerTranslations directory="locales" />
 
-  <!--
-    Be careful if you use general includeDependencies, it can have sideffects!
-    Better import explicite packages or configurations ;)
-  -->
-  <!--<includeDependencies package="." />-->
+  <include package="souper.plone" />
 
   <include package=".browser" />
 
@@ -40,9 +36,9 @@
       name="collective.bookmarks-hiddenprofiles"
       />
 
-  <!-- -*- extra stuff goes here -*- -->
-
-  <include package=".api" />
+  <utility
+    name="collective_bookmarks"
+    factory=".storage.BookmarksCatalogFactory" />
 
   <include package=".api" />
 
