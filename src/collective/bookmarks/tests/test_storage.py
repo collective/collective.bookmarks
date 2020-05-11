@@ -81,15 +81,23 @@ class TestStorage(unittest.TestCase):
         from collective.bookmarks.storage import Bookmarks
         from souper.soup import Record
 
+        import datetime
         import uuid
 
         bookmarks = Bookmarks()
-        data = {"owner": "kim stanley", "uid": uuid.uuid4(), "group": "", "payload": {}}
+        data = {
+            "owner": "kim stanley",
+            "uid": uuid.uuid4(),
+            "group": "",
+            "payload": {},
+            "created": datetime.datetime.now(),
+        }
         record = Record()
         record.attrs["owner"] = data["owner"]
         record.attrs["uid"] = data["uid"]
         record.attrs["group"] = data["group"]
         record.attrs["payload"] = data["payload"]
+        record.attrs["created"] = data["created"]
 
         dictified = bookmarks._dictify(record)
         self.assertEqual(data, dictified)
@@ -98,10 +106,17 @@ class TestStorage(unittest.TestCase):
         from collective.bookmarks.storage import Bookmarks
         from repoze.catalog.query import Eq
 
+        import datetime
         import uuid
 
         bookmarks = Bookmarks()
-        data = {"owner": "kim stanley", "uid": uuid.uuid4(), "group": "", "payload": {}}
+        data = {
+            "owner": "kim stanley",
+            "uid": uuid.uuid4(),
+            "group": "",
+            "payload": {},
+            "created": datetime.datetime.now(),
+        }
         result = bookmarks.add(
             data["owner"], data["uid"], data["group"], data["payload"]
         )
@@ -112,6 +127,8 @@ class TestStorage(unittest.TestCase):
             & Eq("uid", data["uid"])
             & Eq("group", data["group"])
         )
+        self.assertIn("created", record.attrs)
+        record.attrs["created"] = data["created"]
         self.assertEqual(data, bookmarks._dictify(record))
 
     def test_add_same(self):
@@ -193,6 +210,27 @@ class TestStorage(unittest.TestCase):
         data = {"owner": "kim stanley", "uid": uuid.uuid4(), "group": "", "payload": {}}
         result = bookmarks.delete(data["owner"], data["uid"], data["group"])
         self.assertIs(result, False)
+
+    def test_get_existing(self):
+        from collective.bookmarks.storage import Bookmarks
+
+        import uuid
+
+        bookmarks = Bookmarks()
+        data = {"owner": "kim stanley", "uid": uuid.uuid4(), "group": "", "payload": {}}
+        bookmarks.add(data["owner"], data["uid"], data["group"], data["payload"])
+        result = bookmarks.get(data["owner"], data["uid"], data["group"])
+        result["created"] = None
+        self.assertEqual(
+            result,
+            {
+                "created": None,
+                "group": "",
+                "owner": "kim stanley",
+                "payload": {},
+                "uid": data["uid"],
+            },
+        )
 
     def test_by_owner(self):
         from collective.bookmarks.storage import Bookmarks

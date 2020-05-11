@@ -1,30 +1,16 @@
 # -*- coding: utf-8 -*-
-# from plone import api
-from plone.restapi.interfaces import IExpandableElement
+from collective.bookmarks.api.utils import bookmark_dict_to_json_dict
+from collective.bookmarks.api.utils import get_triple_from_request
+from collective.bookmarks.storage import Bookmarks
 from plone.restapi.services import Service
-from zope.component import adapter
-from zope.interface import implementer
-from zope.interface import Interface
-
-
-@implementer(IExpandableElement)
-@adapter(Interface, Interface)
-class Bookmark(object):
-    def __init__(self, context, request):
-        self.context = context.aq_explicit
-        self.request = request
-
-    def __call__(self, expand=False):
-        result = {
-            "bookmark": {"@id": f"{self.context.absolute_url()}/@bookmark"},
-        }
-        if not expand:
-            return result
-
-        return result
+from zExceptions import BadRequest
 
 
 class BookmarkGet(Service):
     def reply(self):
-        service_factory = Bookmark(self.context, self.request)
-        return service_factory(expand=True)["bookmark"]
+        owner, uid, group = get_triple_from_request(self.request)
+        bookmarks = Bookmarks()
+        bookmark = bookmarks.get(owner, uid, group)
+        if bookmark:
+            return bookmark_dict_to_json_dict(bookmark)
+        raise BadRequest("No such bookmark found.")

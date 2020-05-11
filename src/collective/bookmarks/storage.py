@@ -59,6 +59,7 @@ class Bookmarks(object):
         result["owner"] = record.attrs["owner"]
         result["uid"] = record.attrs["uid"]
         result["group"] = record.attrs["group"]
+        result["created"] = record.attrs["created"]
         result["payload"] = record.attrs["payload"]
         return result
 
@@ -84,7 +85,8 @@ class Bookmarks(object):
         record.attrs["group"] = group
         record.attrs["payload"] = payload
         record.attrs["created"] = datetime.datetime.now()
-        return self._soup.add(record)
+        if self._soup.add(record):
+            return self._dictify(record)
 
     def update(
         self, owner: str, uid: uuid.UUID, group: str, payload: dict
@@ -108,6 +110,7 @@ class Bookmarks(object):
         """delete existing entry
 
         uniqueness is given by triple of owner, uid and group.
+
         returns False if no such a triple already exists
         returns True if the Record was successfully deleted
         """
@@ -119,10 +122,27 @@ class Bookmarks(object):
         del self._soup[record]
         return True
 
+    def get(self, owner: str, uid: uuid.UUID, group: str) -> typing.Union[dict, None]:
+        """get one bookmark
+
+        uniqueness is given by triple of owner, uid and group.
+
+        returns None if no such a triple already exists
+        returns dictified data if update was successful
+        """
+        record = self._fetch_one(
+            Eq("owner", owner) & Eq("uid", uid) & Eq("group", group)
+        )
+        if record is None:
+            return None
+        return self._dictify(record)
+
     def by_owner(
         self, owner: str, group: typing.Union[str, None] = None
     ) -> typing.Iterator[dict]:
         """get all bookmarks of an owner, optional filtered by group
+
+        return dictified data
         """
         query = Eq("owner", owner)
         if group is not None:

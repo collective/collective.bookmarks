@@ -15,7 +15,7 @@
 
   <genericsetup:registerProfile
       name="default"
-      title="collective.bookmarks"
+      title="Bookmarks"
       directory="profiles/default"
       description="Installs the collective.bookmarks add-on."
       provides="Products.GenericSetup.interfaces.EXTENSION"
@@ -24,7 +24,7 @@
 
   <genericsetup:registerProfile
       name="uninstall"
-      title="collective.bookmarks (uninstall)"
+      title="Bookmarks (uninstall)"
       directory="profiles/uninstall"
       description="Uninstalls the collective.bookmarks add-on."
       provides="Products.GenericSetup.interfaces.EXTENSION"
