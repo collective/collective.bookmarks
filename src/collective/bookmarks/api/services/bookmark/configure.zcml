@@ -18,4 +18,20 @@
     permission="zope2.View"
     />
 
+  <plone:service
+    method="PUT"
+    for="zope.interface.Interface"
+    factory=".put.BookmarkPut"
+    name="@bookmark"
+    permission="zope2.View"
+    />
+
+  <plone:service
+    method="DELETE"
+    for="zope.interface.Interface"
+    factory=".delete.BookmarkDelete"
+    name="@bookmark"
+    permission="zope2.View"
+    />
+
 </configure>

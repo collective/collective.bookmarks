@@ -10,7 +10,7 @@ from zExceptions import MethodNotAllowed
 import json
 
 
-class BookmarkPost(Service):
+class BookmarkPut(Service):
     def reply(self):
         owner, uid, group = get_triple_from_request(self.request)
         payload = self.request.form.get("payload", "{}")
@@ -19,11 +19,11 @@ class BookmarkPost(Service):
         except ValueError as exc:
             raise BadRequest(f"Property 'payload' is malformed JSON: {exc}")
         bookmarks = Bookmarks()
-        bookmark = bookmarks.add(owner, uid, group, payload)
+        bookmark = bookmarks.update(owner, uid, group, payload)
         if not bookmark:
-            # existing
+            # non existing
             raise MethodNotAllowed(
-                f"Given triple owner, uid and group exists, use PUT to update."
+                f"Given triple owner, uid and group does not exist, use POST to create."
             )
         self.request.response.setStatus(201)
         return bookmark_dict_to_json_dict(bookmark)

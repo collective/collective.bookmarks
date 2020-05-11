@@ -104,7 +104,7 @@ class Bookmarks(object):
         if record is None:
             return None
         record.attrs["payload"] = payload
-        return record
+        return self._dictify(record)
 
     def delete(self, owner: str, uid: uuid.UUID, group: str) -> bool:
         """delete existing entry
