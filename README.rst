@@ -19,7 +19,7 @@ Features
     - authenticated users in user properties as JSON
 
 - REST-API backend
-- React based frontend
+- SvelteJS based frontend
 
 Data Format
 -----------
