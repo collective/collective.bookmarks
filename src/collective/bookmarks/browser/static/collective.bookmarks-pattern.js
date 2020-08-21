@@ -8,10 +8,13 @@ define(
         name: 'collectivebookmarks',
         trigger: '.pat-collectivebookmarks',
         parser: 'mockup',
-        uid: null,
+        defaults: {
+            textmarked: '&#9733;',
+            textunmarked: '&#9734;',
+        },
         init: function () {
-        var self = this;
-        collectivebookmarks.bindOnElement(this.$el.context, this.options.uid);
+            var self = this;
+            collectivebookmarks.bindOnElement(this.$el.context, this.options.uid, this.options.textmarked, this.options.textunmarked);
         }
     });
 

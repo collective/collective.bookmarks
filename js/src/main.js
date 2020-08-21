@@ -1,10 +1,12 @@
 import Bookmark from './Bookmark.svelte';
 
-function bindOnElement(element, uid) {
+function bindOnElement(element, uid, textmarked="&#9733;", textunmarked="&#9734;") {
     const bookmark = new Bookmark({
         target: element,
         props: {
-            uid: uid,
+            'uid': uid,
+            'textmarked': textmarked,
+            'textunmarked': textunmarked,
         }
     });
 }

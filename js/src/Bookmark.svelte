@@ -2,6 +2,9 @@
     import { mark, unmark, marked } from './api.js';
 
     export let uid
+    export let textmarked
+    export let textunmarked
+
     let is_marked = marked(uid)
 
     function toggle() {
@@ -21,8 +24,8 @@
 
 <span class="collectivebookmarks marker" on:click={toggle}>
     {#if is_marked}
-        &#9733;
+        {@html textmarked}
     {:else}
-        &#9734;
+        {@html textunmarked}
     {/if}
 </span>
