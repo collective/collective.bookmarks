@@ -20,10 +20,6 @@ var collectivebookmarks = (function (exports) {
     function is_empty(obj) {
         return Object.keys(obj).length === 0;
     }
-
-    function append(target, node) {
-        target.appendChild(node);
-    }
     function insert(target, node, anchor) {
         target.insertBefore(node, anchor || null);
     }
@@ -372,7 +368,7 @@ var collectivebookmarks = (function (exports) {
     	};
     }
 
-    // (24:8) {#if is_marked}
+    // (23:4) {#if is_marked}
     function create_if_block(ctx) {
     	let t;
 
@@ -390,7 +386,6 @@ var collectivebookmarks = (function (exports) {
     }
 
     function create_fragment(ctx) {
-    	let p;
     	let span;
     	let mounted;
     	let dispose;
@@ -405,14 +400,12 @@ var collectivebookmarks = (function (exports) {
 
     	return {
     		c() {
-    			p = element("p");
     			span = element("span");
     			if_block.c();
-    			attr(span, "class", "star svelte-1pym3u1");
+    			attr(span, "class", "collectivebookmarks marker svelte-ll4xj3");
     		},
     		m(target, anchor) {
-    			insert(target, p, anchor);
-    			append(p, span);
+    			insert(target, span, anchor);
     			if_block.m(span, null);
 
     			if (!mounted) {
@@ -434,7 +427,7 @@ var collectivebookmarks = (function (exports) {
     		i: noop,
     		o: noop,
     		d(detaching) {
-    			if (detaching) detach(p);
+    			if (detaching) detach(span);
     			if_block.d();
     			mounted = false;
     			dispose();

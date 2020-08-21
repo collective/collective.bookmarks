@@ -8,9 +8,9 @@
   <script type="text/javascript" src="++plone++collective.bookmarks/collective.bookmarks.js" />
   <script type="text/javascript" src="++plone++collective.bookmarks/collective.bookmarks-pattern.js" />
 
-  <div class="pat-collectivebookmarks" data-pat-collectivebookmarks="uid: 1"></div>
-  <div class="pat-collectivebookmarks" data-pat-collectivebookmarks="uid: 2"></div>
-  <div class="pat-collectivebookmarks" data-pat-collectivebookmarks="uid: 3"></div>
+  <p>Fancy Stars <span class="pat-collectivebookmarks" data-pat-collectivebookmarks="uid: 1"></span></p>
+  <p>All stars <span class="pat-collectivebookmarks" data-pat-collectivebookmarks="uid: 1"></span></p>
+  <p>Stars wars <span class="pat-collectivebookmarks" data-pat-collectivebookmarks="uid: 1"></span></p>
 
 
 </metal:block>

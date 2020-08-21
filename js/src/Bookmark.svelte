@@ -14,17 +14,15 @@
     }
 </script>
 <style>
-    .star {
+    .marker {
         cursor: pointer;
     }
 </style>
 
-<p>
-    <span class="star" on:click={toggle}>
-        {#if is_marked}
-            &#9733;
-        {:else}
-            &#9734;
-        {/if}
-    </span>
-</p>
+<span class="collectivebookmarks marker" on:click={toggle}>
+    {#if is_marked}
+        &#9733;
+    {:else}
+        &#9734;
+    {/if}
+</span>
