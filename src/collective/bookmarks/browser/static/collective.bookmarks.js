@@ -470,19 +470,23 @@ var collectivebookmarks = (function (exports) {
     	}
     }
 
-    function bind(markerClass) {
+    function bindOnElement(element, uid) {
+        const bookmark = new Bookmark({
+            target: element,
+            props: {
+                uid: uid,
+            }
+        });
+    }
+
+    function bindByClass(markerClass, uidkey) {
         for (const element of document.getElementsByClassName(markerClass)) {
-            const bookmark = new Bookmark({
-                target: element,
-                props: {
-                    uid: element.dataset.uid,
-                }
-            });
+            bindOnElement(element, element.dataset[uidkey]);
         }
     }
 
-    exports.Bookmark = Bookmark;
-    exports.bind = bind;
+    exports.bindByClass = bindByClass;
+    exports.bindOnElement = bindOnElement;
 
     return exports;
 
