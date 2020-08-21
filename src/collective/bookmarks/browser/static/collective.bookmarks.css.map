@@ -1,0 +1,12 @@
+{
+  "version": 3,
+  "file": "collective.bookmarks.css",
+  "sources": [
+    "../../Bookmark.svelte"
+  ],
+  "sourcesContent": [
+    "<script>\n    import { mark, unmark, marked } from './api.js';\n\n    export let uid\n    let is_marked = marked(uid)\n\n    function toggle() {\n        if (marked(uid)) {\n            unmark(uid)\n        } else {\n            mark(uid)\n        }\n        is_marked = marked(uid)\n    }\n</script>\n<style>\n    .star {\n        cursor: pointer;\n    }\n</style>\n\n<p>\n    <span class=\"star\" on:click={toggle}>\n        {#if is_marked}\n            &#9733;\n        {:else}\n            &#9734;\n        {/if}\n    </span>\n</p>"
+  ],
+  "names": [],
+  "mappings": "AAgBI,KAAK,eAAC,CAAC,AACH,MAAM,CAAE,OAAO,AACnB,CAAC"
+}

@@ -1,0 +1,23 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      metal:use-macro="context/main_template/macros/master">
+
+<metal:block fill-slot="content-core">
+  <link rel="stylesheet" href="++plone++collective.bookmarks/collective.bookmarks.css">
+  <script type="text/javascript" src="++plone++collective.bookmarks/collective.bookmarks.js" />
+
+  <div class="bookmark-toggle" data-uid="1"></div>
+  <div class="bookmark-toggle" data-uid="2"></div>
+  <div class="bookmark-toggle" data-uid="3"></div>
+
+  <script type="text/javascript">
+    collectivebookmarks.bind('bookmark-toggle', "&#9734;", "&#9733;")
+  </script>
+
+
+
+  </metal:block>
+
+
+</html>

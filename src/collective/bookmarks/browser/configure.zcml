@@ -12,4 +12,12 @@
       directory="static"
       />
 
+  <browser:page
+      for="*"
+      name="bookmarks_sample"
+      layer="..interfaces.ICollectiveBookmarksLayer"
+      template="sample.pt"
+      permission="zope2.View"
+      />
+
 </configure>

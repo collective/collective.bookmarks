@@ -3,6 +3,17 @@
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     i18n:domain="collective.bookmarks">
 
-<!-- -*- extra stuff goes here -*- -->
+  <!-- <records prefix="plone.bundles/collective-bookmarks-app"
+           interface="Products.CMFPlone.interfaces.IBundleRegistry">
+    <value key="last_compilation">2020-08-19 12:53:00</value>
+    <value key="jscompilation">++plone++collective.bookmarks/bundle.js</value>
+    <value key="csscompilation">++plone++collective.bookmarks/bundle.css</value>
+    <value key="develop_javascript">False</value>
+    <value key="develop_css">False</value>
+    <value key="merge_with"></value>
+    <value key="resources"></value>
+    <value key="compile">False</value>
+    <value key="enabled">True</value>
+  </records> -->
 
 </registry>
