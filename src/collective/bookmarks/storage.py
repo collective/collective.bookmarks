@@ -10,7 +10,8 @@ from souper.soup import NodeAttributeIndexer
 from souper.soup import Record
 from zope.interface import implementer
 
-import datetime
+import math
+import time
 import typing
 import uuid
 
@@ -84,7 +85,7 @@ class Bookmarks(object):
         record.attrs["uid"] = uid
         record.attrs["group"] = group
         record.attrs["payload"] = payload
-        record.attrs["created"] = datetime.datetime.now()
+        record.attrs["created"] = math.floor(time.time())
         if self._soup.add(record):
             return self._dictify(record)
 

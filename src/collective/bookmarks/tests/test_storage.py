@@ -81,7 +81,8 @@ class TestStorage(unittest.TestCase):
         from collective.bookmarks.storage import Bookmarks
         from souper.soup import Record
 
-        import datetime
+        import math
+        import time
         import uuid
 
         bookmarks = Bookmarks()
@@ -90,7 +91,7 @@ class TestStorage(unittest.TestCase):
             "uid": uuid.uuid4(),
             "group": "",
             "payload": {},
-            "created": datetime.datetime.now(),
+            "created": math.floor(time.time()),
         }
         record = Record()
         record.attrs["owner"] = data["owner"]
@@ -106,7 +107,8 @@ class TestStorage(unittest.TestCase):
         from collective.bookmarks.storage import Bookmarks
         from repoze.catalog.query import Eq
 
-        import datetime
+        import math
+        import time
         import uuid
 
         bookmarks = Bookmarks()
@@ -115,7 +117,7 @@ class TestStorage(unittest.TestCase):
             "uid": uuid.uuid4(),
             "group": "",
             "payload": {},
-            "created": datetime.datetime.now(),
+            "created": math.floor(time.time())
         }
         result = bookmarks.add(
             data["owner"], data["uid"], data["group"], data["payload"]
