@@ -33,7 +33,7 @@ export default {
 		sourcemap: true,
 		format: 'iife',
 		name: 'collectivebookmarks',
-		file: 'public/build/collective.bookmarks.js'
+		file: '../src/collective/bookmarks/browser/static/collective.bookmarks.js'
 	},
 	plugins: [
 		svelte({
@@ -42,7 +42,7 @@ export default {
 			// we'll extract any component CSS out into
 			// a separate file - better for performance
 			css: css => {
-				css.write('public/build/collective.bookmarks.css');
+				css.write('../src/collective/bookmarks/browser/static/collective.bookmarks.css');
 			}
 		}),
 

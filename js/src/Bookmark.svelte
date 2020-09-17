@@ -1,7 +1,8 @@
 <script>
-    import { mark, unmark, marked } from './api.js';
+    import { mark, unmark, marked, info } from './api.js';
 
     export let uid
+    export let currentinfo = info(uid)
     export let textmarked
     export let textunmarked
 
@@ -22,7 +23,7 @@
     }
 </style>
 
-<span class="collectivebookmarks marker" on:click={toggle}>
+<span class="collectivebookmarks marker" on:click={toggle} data-group={currentinfo['group']}>
     {#if is_marked}
         {@html textmarked}
     {:else}
