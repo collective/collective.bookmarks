@@ -117,7 +117,7 @@ class TestStorage(unittest.TestCase):
             "uid": uuid.uuid4(),
             "group": "",
             "payload": {},
-            "created": math.floor(time.time())
+            "created": math.floor(time.time()),
         }
         result = bookmarks.add(
             data["owner"], data["uid"], data["group"], data["payload"]
