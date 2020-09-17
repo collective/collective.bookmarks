@@ -5,8 +5,8 @@
     "../../../../../js/Bookmark.svelte"
   ],
   "sourcesContent": [
-    "<script>\n    import { mark, unmark, marked, info } from './api.js';\n\n    export let uid\n    export let currentinfo = info(uid)\n    export let textmarked\n    export let textunmarked\n\n    let is_marked = marked(uid)\n\n    function toggle() {\n        if (marked(uid)) {\n            unmark(uid)\n        } else {\n            mark(uid)\n        }\n        is_marked = marked(uid)\n    }\n</script>\n<style>\n    .marker {\n        cursor: pointer;\n    }\n</style>\n\n<span class=\"collectivebookmarks marker\" on:click={toggle} data-group={currentinfo['group']}>\n    {#if is_marked}\n        {@html textmarked}\n    {:else}\n        {@html textunmarked}\n    {/if}\n</span>\n"
+    "<script>\n    import { mark, unmark, marked } from './api.js';\n    import { CRUDL } from \"./restapi.js\"\n\n    export let uid\n    export let group\n    export let textmarked\n    export let textunmarked\n\n    CRUDL.read(uid)\n\n    let is_marked = marked(uid)\n\n\n    function toggle() {\n        if (marked(uid)) {\n            unmark(uid)\n        } else {\n            mark(uid, group)\n        }\n        is_marked = marked(uid)\n    }\n</script>\n<style>\n    .marker {\n        cursor: pointer;\n    }\n</style>\n\n<span class=\"collectivebookmarks marker\" on:click={toggle}>\n    {#if is_marked}\n        {@html textmarked}\n    {:else}\n        {@html textunmarked}\n    {/if}\n</span>\n"
   ],
   "names": [],
-  "mappings": "AAoBI,OAAO,cAAC,CAAC,AACL,MAAM,CAAE,OAAO,AACnB,CAAC"
+  "mappings": "AAwBI,OAAO,cAAC,CAAC,AACL,MAAM,CAAE,OAAO,AACnB,CAAC"
 }

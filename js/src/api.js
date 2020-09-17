@@ -1,11 +1,11 @@
-import { bookmarks } from "./store.js"
-import { STORAGEKEY, ANONUSER } from "./settings.js"
+import { bookmarkstore } from "./store.js"
+import { STORAGEKEY } from "./settings.js"
+import { CRUDL } from "./restapi.js"
 
 let data = new Map()
-let userid = ANONUSER
 let _initialized = false
 
-const unsubscribe = bookmarks.subscribe(changeddata => {
+const unsubscribe = bookmarkstore.subscribe(changeddata => {
     if (_initialized) {
         let objectified = {}
         data.forEach((value, key) => {
@@ -13,34 +13,27 @@ const unsubscribe = bookmarks.subscribe(changeddata => {
         })
         let stringified = JSON.stringify(objectified)
         localStorage.setItem(STORAGEKEY, stringified)
-        if (userid != ANONUSER) {
-            // write to backend
-        }
+        // write to backend
     }
 });
 
-// initialize from localStorage
 if (localStorage.getItem(STORAGEKEY)) {
     // read stored
     for (const [uid, bookmark] of Object.entries(JSON.parse(localStorage.getItem(STORAGEKEY)))) {
         data.set(uid, bookmark)
     }
 }
-if (userid != ANONUSER) {
-    // TODO -> API request to backend
-    // merge backend and frontend bookmarks!
-}
+
 _initialized = true
 
 export function mark(uid, group="default", payload={}) {
     if (!data.get(uid)) {
-        bookmarks.update(
+        bookmarkstore.update(
             function (bm) {
                 data.set(uid, {
                     'created': Math.floor((new Date()).getTime() / 1000), // timestamp in seconds
                     'group': group,
                     'payload': payload,
-                    'owner': userid
                 })
                 return data
             }
@@ -60,4 +53,15 @@ export function marked(uid) {
 
 export function info(uid) {
     return {...(data.get(uid))}
+}
+
+export function bookmarks(filter) {
+    // all bookmarks or filtered by function
+    let result = new Map()
+    data.forEach((value, key) => {
+        if (filter(uid, value)) {
+            data.set(key, value)
+        }
+    })
+    return result
 }

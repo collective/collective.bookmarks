@@ -11,10 +11,11 @@ define(
         defaults: {
             textmarked: '&#9733;',
             textunmarked: '&#9734;',
+            group: 'default',
         },
         init: function () {
             var self = this;
-            collectivebookmarks.bindOnElement(this.$el.context, this.options.uid, this.options.textmarked, this.options.textunmarked);
+            collectivebookmarks.bindOnElement(this.$el.context, this.options.uid, this.options.group, this.options.textmarked, this.options.textunmarked);
         }
     });
 

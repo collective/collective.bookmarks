@@ -1,18 +1,22 @@
 <script>
-    import { mark, unmark, marked, info } from './api.js';
+    import { mark, unmark, marked } from './api.js';
+    import { CRUDL } from "./restapi.js"
 
     export let uid
-    export let currentinfo = info(uid)
+    export let group
     export let textmarked
     export let textunmarked
 
+    CRUDL.read(uid)
+
     let is_marked = marked(uid)
+
 
     function toggle() {
         if (marked(uid)) {
             unmark(uid)
         } else {
-            mark(uid)
+            mark(uid, group)
         }
         is_marked = marked(uid)
     }
@@ -23,7 +27,7 @@
     }
 </style>
 
-<span class="collectivebookmarks marker" on:click={toggle} data-group={currentinfo['group']}>
+<span class="collectivebookmarks marker" on:click={toggle}>
     {#if is_marked}
         {@html textmarked}
     {:else}
