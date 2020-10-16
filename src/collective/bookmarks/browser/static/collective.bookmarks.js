@@ -1909,11 +1909,14 @@ var collectivebookmarks = (function (exports) {
         if (!data.get(uid)) {
             bookmarkstore.update(
                 function (bm) {
-                    data.set(uid, {
+                    let record = {
+                        'uid': uid,
                         'created': Math.floor((new Date()).getTime() / 1000), // timestamp in seconds
                         'group': group,
                         'payload': payload,
-                    });
+                    };
+                    CRUDL.update(record);
+                    data.set(uid, record);
                     return data
                 }
             );
