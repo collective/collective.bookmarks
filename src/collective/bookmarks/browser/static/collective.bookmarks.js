@@ -1789,7 +1789,7 @@ var collectivebookmarks = (function (exports) {
     const bookmarksurl = "@bookmarks";
 
     function fetch_ploneinfo() {
-        is_anonymous = document.querySelector("body.userrole-authenticated") != null;
+        is_anonymous = document.querySelector("body.userrole-authenticated") === null;
         api_url = document.getElementsByTagName('body')[0].dataset["portalUrl"];
         axiosAPI = axios$1.create({
             baseURL : api_url
