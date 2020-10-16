@@ -38,7 +38,9 @@ const apiRequest = (method, url, request, headers) => {
         return Promise.resolve(res.data);
       })
       .catch(err => {
-        console.error(err);
+          if (error.response.status != 404) {
+            console.error(err);
+          }
         return Promise.reject(err);
       });
 };
