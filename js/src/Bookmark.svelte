@@ -7,9 +7,9 @@
     export let textmarked
     export let textunmarked
 
-    CRUDL.read(uid)
+    CRUDL.read(uid, group)
 
-    let is_marked = marked(uid)
+    let is_marked = marked(uid, group)
 
 
     function toggle() {

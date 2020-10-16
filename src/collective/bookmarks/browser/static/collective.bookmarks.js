@@ -1792,7 +1792,8 @@ var collectivebookmarks = (function (exports) {
         is_anonymous = document.querySelector("body.userrole-authenticated") === null;
         api_url = document.getElementsByTagName('body')[0].dataset["portalUrl"];
         axiosAPI = axios$1.create({
-            baseURL : api_url
+            baseURL : api_url,
+            headers: {'Accept': 'application/json'}
         });
     }
 
@@ -1864,13 +1865,14 @@ var collectivebookmarks = (function (exports) {
     };
 
     // update existing bookmark
-    const update$1 = (record) => post(bookmarkurl, record);
+    const update$1 = (record) => post(bookmarkurl, record).catch(err => {});
+
 
     // delete existing bookmark
-    const del = (uid) => deleteRequest(bookmarkurl, {"uid": uid});
+    const del = (record) => deleteRequest(bookmarkurl, record).catch(err => {});
 
     // list bookmarks
-    const list = (record) => get(bookmarksurl);
+    const list = (record) => get(bookmarksurl).catch(err => {});
 
     // expose your method to other services or actions
     const CRUDL = {
@@ -1925,8 +1927,9 @@ var collectivebookmarks = (function (exports) {
 
     function unmark(uid) {
         if (data.has(uid)) {
+            let record = data.get(uid);
+            CRUDL.del(record);
             data.delete(uid);
-            CRUDL.del(uid);
         }
     }
 

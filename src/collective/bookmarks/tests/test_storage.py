@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Setup tests for this package."""
 from collective.bookmarks.testing import COLLECTIVE_BOOKMARKS_INTEGRATION_TESTING
 

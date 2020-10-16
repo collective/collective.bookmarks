@@ -27,7 +27,7 @@ if (localStorage.getItem(STORAGEKEY)) {
 _initialized = true
 
 export function mark(uid, group="default", payload={}) {
-    if (!data.get(uid)) {
+    if (!data.get(uid, group)) {
         bookmarkstore.update(
             function (bm) {
                 let record = {
@@ -44,6 +44,10 @@ export function mark(uid, group="default", payload={}) {
     }
 }
 
+export function info(uid) {
+    return {...(data.get(uid))}
+}
+
 export function unmark(uid) {
     if (data.has(uid)) {
         let record = data.get(uid)
@@ -52,13 +56,14 @@ export function unmark(uid) {
     }
 }
 
-export function marked(uid) {
-    return data.has(uid)
+export function marked(uid, group) {
+    if (data.has(uid)) {
+        let record = data.get(uid)
+        return record.group == group
+    }
+    return false
 }
 
-export function info(uid) {
-    return {...(data.get(uid))}
-}
 
 export function bookmarks(filter) {
     // all bookmarks or filtered by function

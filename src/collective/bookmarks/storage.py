@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from plone import api
 from repoze.catalog.catalog import Catalog
 from repoze.catalog.indexes.field import CatalogFieldIndex
@@ -17,7 +16,7 @@ import uuid
 
 
 @implementer(ICatalogFactory)
-class BookmarksCatalogFactory(object):
+class BookmarksCatalogFactory:
     def __call__(self, context: typing.Union[Record, None] = None) -> Catalog:
         catalog = Catalog()
         catalog["uid"] = CatalogFieldIndex(NodeAttributeIndexer("uid"))
@@ -27,7 +26,7 @@ class BookmarksCatalogFactory(object):
         return catalog
 
 
-class Bookmarks(object):
+class Bookmarks:
     """API to manage booksmarks in the portal
     """
 

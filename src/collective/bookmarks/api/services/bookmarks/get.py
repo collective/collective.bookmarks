@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from plone import api
 from plone.restapi.interfaces import IExpandableElement
 from plone.restapi.services import Service
@@ -9,14 +8,14 @@ from zope.interface import Interface
 
 @implementer(IExpandableElement)
 @adapter(Interface, Interface)
-class Bookmarks(object):
+class Bookmarks:
     def __init__(self, context, request):
         self.context = context.aq_explicit
         self.request = request
 
     def __call__(self, expand=False):
         result = {
-            "bookmarks": {"@id": "{}/@bookmarks".format(self.context.absolute_url())}
+            "bookmarks": {"@id": f"{self.context.absolute_url()}/@bookmarks"}
         }
         if not expand:
             return result

@@ -13,7 +13,8 @@ function fetch_ploneinfo() {
     is_anonymous = document.querySelector("body.userrole-authenticated") === null
     api_url = document.getElementsByTagName('body')[0].dataset["portalUrl"]
     axiosAPI = axios.create({
-        baseURL : api_url
+        baseURL : api_url,
+        headers: {'Accept': 'application/json'}
     });
 }
 
@@ -70,8 +71,8 @@ const patch = (url, request) =>  apiRequest("patch", url, request);
 const create = (record) => put(bookmarkurl, record)
 
 // read existing bookmark
-const read = (uid) => {
-    get(bookmarkurl, {"uid": uid})
+const read = (uid, group) => {
+    get(bookmarkurl, {"uid": uid, "group": group})
     .then(data => {
         bookmarkstore.subscribe(current => {
             if (current.has(data['uid']) && current.get(data['uid'])['timestamp'] < data['timestamp']) {
@@ -88,13 +89,14 @@ const read = (uid) => {
 }
 
 // update existing bookmark
-const update = (record) => post(bookmarkurl, record)
+const update = (record) => post(bookmarkurl, record).catch(err => {})
+
 
 // delete existing bookmark
-const del = (record) => deleteRequest(bookmarkurl, record)
+const del = (record) => deleteRequest(bookmarkurl, record).catch(err => {})
 
 // list bookmarks
-const list = (record) => get(bookmarksurl)
+const list = (record) => get(bookmarksurl).catch(err => {})
 
 // expose your method to other services or actions
 export const CRUDL = {
