@@ -91,7 +91,7 @@ const read = (uid) => {
 const update = (record) => post(bookmarkurl, record)
 
 // delete existing bookmark
-const del = (uid) => deleteRequest(bookmarkurl, {"uid": uid})
+const del = (record) => deleteRequest(bookmarkurl, record)
 
 // list bookmarks
 const list = (record) => get(bookmarksurl)

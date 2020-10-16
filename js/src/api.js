@@ -46,8 +46,9 @@ export function mark(uid, group="default", payload={}) {
 
 export function unmark(uid) {
     if (data.has(uid)) {
+        let record = data.get(uid)
+        CRUDL.del(record)
         data.delete(uid)
-        CRUDL.del(uid)
     }
 }
 
