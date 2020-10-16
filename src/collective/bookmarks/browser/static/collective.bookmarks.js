@@ -1803,7 +1803,7 @@ var collectivebookmarks = (function (exports) {
     }
 
     // implement a method to execute all the request from here.
-    const apiRequest = (method, url, request) => {
+    const apiRequest = (method, url, request, headers) => {
         if (is_anonymous) {
             return Promise.reject(new Error("Anonymous user"))
         }
