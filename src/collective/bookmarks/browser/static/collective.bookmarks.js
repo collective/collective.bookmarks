@@ -1867,7 +1867,7 @@ var collectivebookmarks = (function (exports) {
     const update$1 = (record) => post(bookmarkurl, record);
 
     // delete existing bookmark
-    const del = (record) => deleteRequest(bookmarkurl, record);
+    const del = (uid) => deleteRequest(bookmarkurl, {"uid": uid});
 
     // list bookmarks
     const list = (record) => get(bookmarksurl);
@@ -1926,6 +1926,7 @@ var collectivebookmarks = (function (exports) {
     function unmark(uid) {
         if (data.has(uid)) {
             data.delete(uid);
+            CRUDL.del(uid);
         }
     }
 

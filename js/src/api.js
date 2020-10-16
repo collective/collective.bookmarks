@@ -47,6 +47,7 @@ export function mark(uid, group="default", payload={}) {
 export function unmark(uid) {
     if (data.has(uid)) {
         data.delete(uid)
+        CRUDL.del(uid)
     }
 }
 
