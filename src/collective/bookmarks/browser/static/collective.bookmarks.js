@@ -1825,16 +1825,16 @@ var collectivebookmarks = (function (exports) {
     };
 
     // function to execute the http get request
-    const get = (url, request) => apiRequest("get",url,request);
+    const get = (url, request) => apiRequest("get", url, {params: request});
 
     // function to execute the http delete request
-    const deleteRequest = (url, request) =>  apiRequest("delete", url, request);
+    const deleteRequest = (url, request) =>  apiRequest("delete", url, {params: request});
 
     // function to execute the http post request
-    const post = (url, request) => apiRequest("post", url, request);
+    const post = (url, data) => apiRequest("post", url, data);
 
     // function to execute the http put request
-    const put = (url, request) => apiRequest("put", url, request);
+    const put = (url, data) => apiRequest("put", url, data);
 
     // the Plone Bookmarks API
     // add new bookmark
