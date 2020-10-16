@@ -1808,33 +1808,38 @@ var collectivebookmarks = (function (exports) {
             return Promise.reject(new Error("Anonymous user"))
         }
         //using the axios instance to perform the request that received from each http method
-        return axiosAPI({
-            method,
-            url,
-            data: request,
-            headers
-          }).then(res => {
+        let requestdata = {
+            method: method,
+            url: url,
+            headers: headers
+        };
+        if ((method == 'get') || (method == 'delete')) {
+            requestdata.params = request;
+        } else {
+            requestdata.data = request;
+        }
+        return axiosAPI(requestdata).then(res => {
             return Promise.resolve(res.data);
           })
           .catch(err => {
               if (error.response.status != 404) {
                 console.error(err);
               }
-            return Promise.reject(err);
+            return Promise.reject(err)
           });
     };
 
     // function to execute the http get request
-    const get = (url, request) => apiRequest("get", url, {params: request});
+    const get = (url, request) => apiRequest("get", url, request);
 
     // function to execute the http delete request
-    const deleteRequest = (url, request) =>  apiRequest("delete", url, {params: request});
+    const deleteRequest = (url, request) =>  apiRequest("delete", url, request);
 
     // function to execute the http post request
-    const post = (url, data) => apiRequest("post", url, data);
+    const post = (url, request) => apiRequest("post", url, request);
 
     // function to execute the http put request
-    const put = (url, data) => apiRequest("put", url, data);
+    const put = (url, request) => apiRequest("put", url, request);
 
     // the Plone Bookmarks API
     // add new bookmark
