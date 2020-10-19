@@ -37,7 +37,8 @@ if (localStorage.getItem(STORAGEKEY)) {
 }
 // INIT from restapi
 document.addEventListener("DOMContentLoaded", () => {
-    list().then(datalist => {
+    list()
+    .then(datalist => {
         datalist.forEach((serverdata) => {
             store.update(storage => {
                 const key = serverdata['uid']+serverdata['group']
@@ -55,6 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
             })
         })
     })
+    .catch(err => {})
 })
 
 const unsubscribe_localstorage = store.subscribe(storage => {

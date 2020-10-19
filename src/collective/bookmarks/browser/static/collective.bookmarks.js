@@ -1911,7 +1911,8 @@ var collectivebookmarks = (function (exports) {
     }
     // INIT from restapi
     document.addEventListener("DOMContentLoaded", () => {
-        list().then(datalist => {
+        list()
+        .then(datalist => {
             datalist.forEach((serverdata) => {
                 store.update(storage => {
                     const key = serverdata['uid']+serverdata['group'];
@@ -1928,7 +1929,8 @@ var collectivebookmarks = (function (exports) {
                     return storage
                 });
             });
-        });
+        })
+        .catch(err => {});
     });
 
     const unsubscribe_localstorage = store.subscribe(storage => {
