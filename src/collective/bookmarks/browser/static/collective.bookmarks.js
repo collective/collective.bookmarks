@@ -2122,7 +2122,7 @@ var collectivebookmarks = (function (exports) {
     }
 
     // (31:12) {#if (bookmark['payload'].title)}
-    function create_if_block_1(ctx) {
+    function create_if_block_2(ctx) {
     	let t_value = /*bookmark*/ ctx[6]["payload"].title + "";
     	let t;
 
@@ -2143,7 +2143,7 @@ var collectivebookmarks = (function (exports) {
     }
 
     // (37:12) {#if (bookmark['payload'].description)}
-    function create_if_block$1(ctx) {
+    function create_if_block_1(ctx) {
     	let p;
     	let t_value = /*bookmark*/ ctx[6]["payload"].description + "";
     	let t;
@@ -2166,37 +2166,68 @@ var collectivebookmarks = (function (exports) {
     	};
     }
 
+    // (40:12) {#if (bookmark['payload'].imagetag)}
+    function create_if_block$1(ctx) {
+    	let html_tag;
+    	let raw_value = /*bookmark*/ ctx[6]["payload"].imagetag + "";
+    	let html_anchor;
+
+    	return {
+    		c() {
+    			html_anchor = empty();
+    			html_tag = new HtmlTag(html_anchor);
+    		},
+    		m(target, anchor) {
+    			html_tag.m(raw_value, target, anchor);
+    			insert(target, html_anchor, anchor);
+    		},
+    		p(ctx, dirty) {
+    			if (dirty & /*$store*/ 1 && raw_value !== (raw_value = /*bookmark*/ ctx[6]["payload"].imagetag + "")) html_tag.p(raw_value);
+    		},
+    		d(detaching) {
+    			if (detaching) detach(html_anchor);
+    			if (detaching) html_tag.d();
+    		}
+    	};
+    }
+
     // (29:8) {#each bookmarks(group) as bookmark}
     function create_each_block_1(ctx) {
     	let li;
     	let a;
     	let a_href_value;
-    	let t;
+    	let t0;
+    	let t1;
 
     	function select_block_type(ctx, dirty) {
-    		if (/*bookmark*/ ctx[6]["payload"].title) return create_if_block_1;
+    		if (/*bookmark*/ ctx[6]["payload"].title) return create_if_block_2;
     		return create_else_block$1;
     	}
 
     	let current_block_type = select_block_type(ctx);
     	let if_block0 = current_block_type(ctx);
-    	let if_block1 = /*bookmark*/ ctx[6]["payload"].description && create_if_block$1(ctx);
+    	let if_block1 = /*bookmark*/ ctx[6]["payload"].description && create_if_block_1(ctx);
+    	let if_block2 = /*bookmark*/ ctx[6]["payload"].imagetag && create_if_block$1(ctx);
 
     	return {
     		c() {
     			li = element("li");
     			a = element("a");
     			if_block0.c();
-    			t = space();
+    			t0 = space();
     			if (if_block1) if_block1.c();
+    			t1 = space();
+    			if (if_block2) if_block2.c();
     			attr(a, "href", a_href_value = "resolveuid/" + /*bookmark*/ ctx[6]["uid"]);
     		},
     		m(target, anchor) {
     			insert(target, li, anchor);
     			append(li, a);
     			if_block0.m(a, null);
-    			append(li, t);
+    			append(li, t0);
     			if (if_block1) if_block1.m(li, null);
+    			append(li, t1);
+    			if (if_block2) if_block2.m(li, null);
     		},
     		p(ctx, dirty) {
     			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block0) {
@@ -2219,19 +2250,33 @@ var collectivebookmarks = (function (exports) {
     				if (if_block1) {
     					if_block1.p(ctx, dirty);
     				} else {
-    					if_block1 = create_if_block$1(ctx);
+    					if_block1 = create_if_block_1(ctx);
     					if_block1.c();
-    					if_block1.m(li, null);
+    					if_block1.m(li, t1);
     				}
     			} else if (if_block1) {
     				if_block1.d(1);
     				if_block1 = null;
+    			}
+
+    			if (/*bookmark*/ ctx[6]["payload"].imagetag) {
+    				if (if_block2) {
+    					if_block2.p(ctx, dirty);
+    				} else {
+    					if_block2 = create_if_block$1(ctx);
+    					if_block2.c();
+    					if_block2.m(li, null);
+    				}
+    			} else if (if_block2) {
+    				if_block2.d(1);
+    				if_block2 = null;
     			}
     		},
     		d(detaching) {
     			if (detaching) detach(li);
     			if_block0.d();
     			if (if_block1) if_block1.d();
+    			if (if_block2) if_block2.d();
     		}
     	};
     }

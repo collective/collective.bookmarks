@@ -13,21 +13,22 @@ define(
             textmarked: '&#9733;',
             textunmarked: '&#9734;',
             group: 'default',
-            payload: "{}",
+            title: '',
+            description: '',
+            imagetag: ''
         },
         init: function () {
             var self = this;
-            try {
-                this.options.payload = JSON.parse(this.options.payload)
-            } catch  {
-                console.warn('Can not JSON parse payload (ignore): ' + this.options.payload)
-                this.options.payload = {}
+            var payload = {
+                title: this.options.title,
+                description: this.options.description,
+                imagetag: this.options.imagetag
             }
             collectivebookmarks.bindBookmarkOnElement(
                 this.$el.context,
                 this.options.uid,
                 this.options.group,
-                this.options.payload,
+                payload,
                 this.options.textmarked,
                 this.options.textunmarked
             );

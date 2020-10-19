@@ -37,6 +37,9 @@ const bookmarks = (group) => {
             {#if (bookmark['payload'].description)}
                 <p>{bookmark['payload'].description}</p>
             {/if}
+            {#if (bookmark['payload'].imagetag)}
+                {@html bookmark['payload'].imagetag}
+            {/if}
         </li>
         {/each}
     </ul>
