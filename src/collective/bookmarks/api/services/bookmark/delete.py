@@ -6,7 +6,9 @@ from zExceptions import NotFound
 
 class BookmarkDelete(Service):
     def reply(self):
-        owner, uid, group, payload = get_bookmark_from_request(self.request, loadjson=True)
+        owner, uid, group, payload = get_bookmark_from_request(
+            self.request, loadjson=True
+        )
         bookmarks = Bookmarks()
         bookmark = bookmarks.delete(owner, uid, group)
         if bookmark:
