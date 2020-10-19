@@ -2,8 +2,6 @@
   xmlns="http://namespaces.zope.org/zope"
   xmlns:plone="http://namespaces.plone.org/plone">
 
-  <adapter factory=".get.Bookmarks" name="bookmarks"/>
-
   <plone:service
     method="GET"
     for="zope.interface.Interface"

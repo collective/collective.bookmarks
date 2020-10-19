@@ -1,25 +1,21 @@
 <script>
-    import { mark, unmark, marked } from './api.js';
-    import { CRUDL } from "./restapi.js"
+import store from './store.js'
 
-    export let uid
-    export let group
-    export let textmarked
-    export let textunmarked
-
-    CRUDL.read(uid, group)
-
-    let is_marked = marked(uid, group)
+export let uid
+export let group
+export let payload
+export let textmarked
+export let textunmarked
 
 
-    function toggle() {
-        if (marked(uid)) {
-            unmark(uid)
-        } else {
-            mark(uid, group)
-        }
-        is_marked = marked(uid)
+function toggle(event) {
+    if ($store.get(uid+group)) {
+        store.delete(uid, group)
+    } else {
+        store.add(uid, group, payload)
     }
+}
+
 </script>
 <style>
     .marker {
@@ -28,7 +24,7 @@
 </style>
 
 <span class="collectivebookmarks marker" on:click={toggle}>
-    {#if is_marked}
+    {#if ($store.get(uid+group)) }
         {@html textmarked}
     {:else}
         {@html textunmarked}

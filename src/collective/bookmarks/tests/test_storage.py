@@ -17,8 +17,8 @@ class TestStorage(unittest.TestCase):
 
     def test_fetch_one_existing(self):
         from collective.bookmarks.storage import Bookmarks
-        from souper.soup import Record
         from repoze.catalog.query import Eq
+        from souper.soup import Record
 
         import uuid
 
@@ -51,8 +51,8 @@ class TestStorage(unittest.TestCase):
 
     def test_fetch_one_too_many(self):
         from collective.bookmarks.storage import Bookmarks
-        from souper.soup import Record
         from repoze.catalog.query import Eq
+        from souper.soup import Record
 
         import uuid
 

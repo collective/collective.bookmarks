@@ -1,6 +1,5 @@
 // Api.js
 import axios from "axios";
-import { bookmarkstore } from "./store.js"
 
 let is_anonymous = true
 let api_url
@@ -35,7 +34,7 @@ const apiRequest = (method, url, request, headers) => {
         url: url,
         headers: headers
     }
-    if ((method == 'get') || (method == 'delete')) {
+    if (method == 'get') {
         requestdata.params = request
     } else {
         requestdata.data = request
@@ -68,42 +67,23 @@ const patch = (url, request) =>  apiRequest("patch", url, request);
 
 // the Plone Bookmarks API
 // add new bookmark
-const create = (record) => put(bookmarkurl, record)
+export const create = (record) => put(bookmarkurl, record)
 
 // read existing bookmark
-const read = (uid, group) => {
+export const read = (uid, group) => {
     get(bookmarkurl, {"uid": uid, "group": group})
-    .then(data => {
-        bookmarkstore.subscribe(current => {
-            if (current.has(data['uid']) && current.get(data['uid'])['timestamp'] < data['timestamp']) {
-                // outdated on server
-                return current
-            }
-            current.set(data['uid'], data)
-            return current
-        })
-    })
     .catch(err => {
         // pass
     })
 }
 
 // update existing bookmark
-const update = (record) => post(bookmarkurl, record).catch(err => {})
+export const update = (record) => post(bookmarkurl, record).catch(err => {})
 
 
 // delete existing bookmark
-const del = (record) => deleteRequest(bookmarkurl, record).catch(err => {})
+export const del = (record) => deleteRequest(bookmarkurl, record).catch(err => {})
 
 // list bookmarks
-const list = (record) => get(bookmarksurl).catch(err => {})
-
-// expose your method to other services or actions
-export const CRUDL = {
-    create,
-    read,
-    update,
-    del,
-    list,
-};
+export const list = () => get(bookmarksurl).catch(err => {})
 

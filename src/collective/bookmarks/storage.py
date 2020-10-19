@@ -27,13 +27,11 @@ class BookmarksCatalogFactory:
 
 
 class Bookmarks:
-    """API to manage booksmarks in the portal
-    """
+    """API to manage booksmarks in the portal"""
 
     @property
     def _soup(self):
-        """get soup storage for bookmarks
-        """
+        """get soup storage for bookmarks"""
         soup = getattr(self, "_soup_instance", None)
         if soup is None:
             soup = get_soup("collective_bookmarks", api.portal.get())

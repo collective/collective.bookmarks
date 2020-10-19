@@ -20,6 +20,16 @@ var collectivebookmarks = (function (exports) {
     function is_empty(obj) {
         return Object.keys(obj).length === 0;
     }
+    function subscribe(store, ...callbacks) {
+        if (store == null) {
+            return noop;
+        }
+        const unsub = store.subscribe(...callbacks);
+        return unsub.unsubscribe ? () => unsub.unsubscribe() : unsub;
+    }
+    function component_subscribe(component, store, callback) {
+        component.$$.on_destroy.push(subscribe(store, callback));
+    }
     function insert(target, node, anchor) {
         target.insertBefore(node, anchor || null);
     }
@@ -324,8 +334,6 @@ var collectivebookmarks = (function (exports) {
         }
         return { set, update, subscribe };
     }
-
-    const bookmarkstore = writable(new Map());
 
     const STORAGEKEY = "collective.bookmarks";
 
@@ -1814,7 +1822,7 @@ var collectivebookmarks = (function (exports) {
             url: url,
             headers: headers
         };
-        if ((method == 'get') || (method == 'delete')) {
+        if (method == 'get') {
             requestdata.params = request;
         } else {
             requestdata.data = request;
@@ -1836,9 +1844,6 @@ var collectivebookmarks = (function (exports) {
     // function to execute the http delete request
     const deleteRequest = (url, request) =>  apiRequest("delete", url, request);
 
-    // function to execute the http post request
-    const post = (url, request) => apiRequest("post", url, request);
-
     // function to execute the http put request
     const put = (url, request) => apiRequest("put", url, request);
 
@@ -1846,96 +1851,77 @@ var collectivebookmarks = (function (exports) {
     // add new bookmark
     const create = (record) => put(bookmarkurl, record);
 
-    // read existing bookmark
-    const read = (uid) => {
-        get(bookmarkurl, {"uid": uid})
-        .then(data => {
-            bookmarkstore.subscribe(current => {
-                if (current.has(data['uid']) && current.get(data['uid'])['timestamp'] < data['timestamp']) {
-                    // outdated on server
-                    return current
-                }
-                current.set(data['uid'], data);
-                return current
-            });
-        })
-        .catch(err => {
-            // pass
-        });
-    };
-
-    // update existing bookmark
-    const update$1 = (record) => post(bookmarkurl, record).catch(err => {});
-
 
     // delete existing bookmark
     const del = (record) => deleteRequest(bookmarkurl, record).catch(err => {});
 
     // list bookmarks
-    const list = (record) => get(bookmarksurl).catch(err => {});
+    const list = () => get(bookmarksurl).catch(err => {});
 
-    // expose your method to other services or actions
-    const CRUDL = {
-        create,
-        read,
-        update: update$1,
-        del,
-        list,
+    const store = writable(new Map());
+
+    store.add = (uid, group, payload) => {
+        store.update(storage => {
+            let record = {
+                'uid': uid,
+                'created': Math.floor((new Date()).getTime() / 1000), // timestamp in seconds
+                'group': group,
+                'payload': payload,
+            };
+            storage.set(uid+group, record);
+            create(record);
+            return storage
+        });
+    };
+    store.delete = (uid, group) => {
+        store.update(storage => {
+            del(storage.get(uid+group));
+            storage.delete(uid+group);
+            return storage
+        });
     };
 
-    let data = new Map();
-    let _initialized = false;
-
-    const unsubscribe = bookmarkstore.subscribe(changeddata => {
-        if (_initialized) {
-            let objectified = {};
-            data.forEach((value, key) => {
-                objectified[key] = value;
-            });
-            let stringified = JSON.stringify(objectified);
-            localStorage.setItem(STORAGEKEY, stringified);
-            // write to backend
-        }
-    });
-
+    // init from localstorage
     if (localStorage.getItem(STORAGEKEY)) {
         // read stored
-        for (const [uid, bookmark] of Object.entries(JSON.parse(localStorage.getItem(STORAGEKEY)))) {
-            data.set(uid, bookmark);
+        for (const [key, bookmark] of Object.entries(JSON.parse(localStorage.getItem(STORAGEKEY)))) {
+            store.update(storage => {
+                storage.set(key, bookmark);
+                return storage
+            });
         }
     }
+    // INIT from restapi
+    document.addEventListener("DOMContentLoaded", () => {
+        list().then(data => {
+            data.forEach((serverdata) => {
+                store.update(storage => {
+                    const key = serverdata['uid']+serverdata['group'];
+                    const localdata = storage.get(key);
+                    if (!localdata || (localdata['created'] < serverdata['created'])) {
+                        let record = {
+                            'uid': serverdata['uid'],
+                            'created': serverdata['created'],
+                            'group': serverdata['group'],
+                            'payload': serverdata['payload'],
+                        };
+                        storage.set(key, record);
+                    }
+                    return storage
+                });
+            });
+        });
+    });
 
-    _initialized = true;
-
-    function mark(uid, group="default", payload={}) {
-        if (!data.get(uid)) {
-            bookmarkstore.update(
-                function (bm) {
-                    let record = {
-                        'uid': uid,
-                        'created': Math.floor((new Date()).getTime() / 1000), // timestamp in seconds
-                        'group': group,
-                        'payload': payload,
-                    };
-                    CRUDL.update(record);
-                    data.set(uid, record);
-                    return data
-                }
-            );
-        }
-    }
-
-    function unmark(uid) {
-        if (data.has(uid)) {
-            let record = data.get(uid);
-            CRUDL.del(record);
-            data.delete(uid);
-        }
-    }
-
-    function marked(uid) {
-        return data.has(uid)
-    }
+    const unsubscribe_localstorage = store.subscribe(storage => {
+        // write changes to localstorage
+        let objectified = {};
+        storage.forEach((value, key) => {
+            objectified[key] = value;
+        });
+        let stringified = JSON.stringify(objectified);
+        localStorage.setItem(STORAGEKEY, stringified);
+    });
 
     /* src/Bookmark.svelte generated by Svelte v3.24.1 */
 
@@ -1949,11 +1935,11 @@ var collectivebookmarks = (function (exports) {
     			html_tag = new HtmlTag(html_anchor);
     		},
     		m(target, anchor) {
-    			html_tag.m(/*textunmarked*/ ctx[1], target, anchor);
+    			html_tag.m(/*textunmarked*/ ctx[3], target, anchor);
     			insert(target, html_anchor, anchor);
     		},
     		p(ctx, dirty) {
-    			if (dirty & /*textunmarked*/ 2) html_tag.p(/*textunmarked*/ ctx[1]);
+    			if (dirty & /*textunmarked*/ 8) html_tag.p(/*textunmarked*/ ctx[3]);
     		},
     		d(detaching) {
     			if (detaching) detach(html_anchor);
@@ -1962,7 +1948,7 @@ var collectivebookmarks = (function (exports) {
     	};
     }
 
-    // (31:4) {#if is_marked}
+    // (27:4) {#if ($store.get(uid+group)) }
     function create_if_block(ctx) {
     	let html_tag;
     	let html_anchor;
@@ -1973,11 +1959,11 @@ var collectivebookmarks = (function (exports) {
     			html_tag = new HtmlTag(html_anchor);
     		},
     		m(target, anchor) {
-    			html_tag.m(/*textmarked*/ ctx[0], target, anchor);
+    			html_tag.m(/*textmarked*/ ctx[2], target, anchor);
     			insert(target, html_anchor, anchor);
     		},
     		p(ctx, dirty) {
-    			if (dirty & /*textmarked*/ 1) html_tag.p(/*textmarked*/ ctx[0]);
+    			if (dirty & /*textmarked*/ 4) html_tag.p(/*textmarked*/ ctx[2]);
     		},
     		d(detaching) {
     			if (detaching) detach(html_anchor);
@@ -1988,15 +1974,17 @@ var collectivebookmarks = (function (exports) {
 
     function create_fragment(ctx) {
     	let span;
+    	let show_if;
     	let mounted;
     	let dispose;
 
     	function select_block_type(ctx, dirty) {
-    		if (/*is_marked*/ ctx[2]) return create_if_block;
+    		if (show_if == null || dirty & /*$store, uid, group*/ 19) show_if = !!/*$store*/ ctx[4].get(/*uid*/ ctx[0] + /*group*/ ctx[1]);
+    		if (show_if) return create_if_block;
     		return create_else_block;
     	}
 
-    	let current_block_type = select_block_type(ctx);
+    	let current_block_type = select_block_type(ctx, -1);
     	let if_block = current_block_type(ctx);
 
     	return {
@@ -2010,12 +1998,12 @@ var collectivebookmarks = (function (exports) {
     			if_block.m(span, null);
 
     			if (!mounted) {
-    				dispose = listen(span, "click", /*toggle*/ ctx[3]);
+    				dispose = listen(span, "click", /*toggle*/ ctx[5]);
     				mounted = true;
     			}
     		},
     		p(ctx, [dirty]) {
-    			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block) {
+    			if (current_block_type === (current_block_type = select_block_type(ctx, dirty)) && if_block) {
     				if_block.p(ctx, dirty);
     			} else {
     				if_block.d(1);
@@ -2039,31 +2027,31 @@ var collectivebookmarks = (function (exports) {
     }
 
     function instance($$self, $$props, $$invalidate) {
+    	let $store;
+    	component_subscribe($$self, store, $$value => $$invalidate(4, $store = $$value));
     	let { uid } = $$props;
     	let { group } = $$props;
+    	let { payload } = $$props;
     	let { textmarked } = $$props;
     	let { textunmarked } = $$props;
-    	CRUDL.read(uid);
-    	let is_marked = marked(uid);
 
-    	function toggle() {
-    		if (marked(uid)) {
-    			unmark(uid);
+    	function toggle(event) {
+    		if ($store.get(uid + group)) {
+    			store.delete(uid, group);
     		} else {
-    			mark(uid, group);
+    			store.add(uid, group, payload);
     		}
-
-    		$$invalidate(2, is_marked = marked(uid));
     	}
 
     	$$self.$$set = $$props => {
-    		if ("uid" in $$props) $$invalidate(4, uid = $$props.uid);
-    		if ("group" in $$props) $$invalidate(5, group = $$props.group);
-    		if ("textmarked" in $$props) $$invalidate(0, textmarked = $$props.textmarked);
-    		if ("textunmarked" in $$props) $$invalidate(1, textunmarked = $$props.textunmarked);
+    		if ("uid" in $$props) $$invalidate(0, uid = $$props.uid);
+    		if ("group" in $$props) $$invalidate(1, group = $$props.group);
+    		if ("payload" in $$props) $$invalidate(6, payload = $$props.payload);
+    		if ("textmarked" in $$props) $$invalidate(2, textmarked = $$props.textmarked);
+    		if ("textunmarked" in $$props) $$invalidate(3, textunmarked = $$props.textunmarked);
     	};
 
-    	return [textmarked, textunmarked, is_marked, toggle, uid, group];
+    	return [uid, group, textmarked, textunmarked, $store, toggle, payload];
     }
 
     class Bookmark extends SvelteComponent {
@@ -2071,10 +2059,11 @@ var collectivebookmarks = (function (exports) {
     		super();
 
     		init(this, options, instance, create_fragment, safe_not_equal, {
-    			uid: 4,
-    			group: 5,
-    			textmarked: 0,
-    			textunmarked: 1
+    			uid: 0,
+    			group: 1,
+    			payload: 6,
+    			textmarked: 2,
+    			textunmarked: 3
     		});
     	}
     }
