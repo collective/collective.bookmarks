@@ -1,7 +1,8 @@
 define(
     'pat-collectivebookmark',
     [
-    'pat-base'
+    'pat-base',
+    'collective-bookmarks'
     ], function(Base) {
     'use strict';
     var Bookmarks = Base.extend({
