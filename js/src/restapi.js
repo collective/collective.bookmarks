@@ -67,7 +67,7 @@ const patch = (url, request) =>  apiRequest("patch", url, request);
 
 // the Plone Bookmarks API
 // add new bookmark
-export const create = (record) => put(bookmarkurl, record)
+export const create = (record) => put(bookmarkurl, record).catch(err => {})
 
 // read existing bookmark
 export const read = (uid, group) => {

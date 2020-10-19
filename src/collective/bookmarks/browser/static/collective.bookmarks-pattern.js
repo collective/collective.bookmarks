@@ -41,7 +41,8 @@ define(
 define(
     'pat-collectivebookmarklist',
     [
-    'pat-base'
+    'pat-base',
+    'collective-bookmarks'
     ], function(Base) {
     'use strict';
     var BookmarkList = Base.extend({

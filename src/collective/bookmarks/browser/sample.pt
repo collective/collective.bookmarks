@@ -4,9 +4,6 @@
       metal:use-macro="context/main_template/macros/master">
 
 <metal:block fill-slot="content-core">
-  <link rel="stylesheet" href="++plone++collective.bookmarks/collective.bookmarks.css" />
-  <script type="text/javascript" src="++plone++collective.bookmarks/collective.bookmarks.js" />
-  <script type="text/javascript" src="++plone++collective.bookmarks/collective.bookmarks-pattern.js" />
 
   <p>Fancy Stars <span class="pat-collectivebookmark" data-pat-collectivebookmark="uid: a5397c7b-4186-4267-82c6-3d28053edf1e; group: stars; title: foo; description: foobar"></span></p>
   <p>More stars <span class="pat-collectivebookmark" data-pat-collectivebookmark="uid: b5397c7b-4186-4267-82c6-3d28053edf1e; group: stars"></span></p>

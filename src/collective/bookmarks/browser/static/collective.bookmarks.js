@@ -1867,7 +1867,7 @@ var collectivebookmarks = (function (exports) {
 
     // the Plone Bookmarks API
     // add new bookmark
-    const create = (record) => put(bookmarkurl, record);
+    const create = (record) => put(bookmarkurl, record).catch(err => {});
 
 
     // delete existing bookmark
