@@ -37,8 +37,8 @@ if (localStorage.getItem(STORAGEKEY)) {
 }
 // INIT from restapi
 document.addEventListener("DOMContentLoaded", () => {
-    list().then(data => {
-        data.forEach((serverdata) => {
+    list().then(datalist => {
+        datalist.forEach((serverdata) => {
             store.update(storage => {
                 const key = serverdata['uid']+serverdata['group']
                 const localdata = storage.get(key)

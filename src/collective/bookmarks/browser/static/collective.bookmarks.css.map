@@ -5,8 +5,8 @@
     "../../../../../js/Bookmark.svelte"
   ],
   "sourcesContent": [
-    "<script>\nimport store from './store.js'\n\nexport let uid\nexport let group\nexport let payload\nexport let textmarked\nexport let textunmarked\n\n\nfunction toggle(event) {\n    if ($store.get(uid+group)) {\n        store.delete(uid, group)\n    } else {\n        store.add(uid, group, payload)\n    }\n}\n\n</script>\n<style>\n    .marker {\n        cursor: pointer;\n    }\n</style>\n\n<span class=\"collectivebookmarks marker\" on:click={toggle}>\n    {#if ($store.get(uid+group)) }\n        {@html textmarked}\n    {:else}\n        {@html textunmarked}\n    {/if}\n</span>\n"
+    "<script>\nimport store from './store.js'\n\nexport let uid\nexport let group\nexport let payload\nexport let textmarked\nexport let textunmarked\n\nfunction toggle(event) {\n    if ($store.get(uid+group)) {\n        store.delete(uid, group)\n    } else {\n        store.add(uid, group, payload)\n    }\n}\n\n</script>\n<style>\n    .marker {\n        cursor: pointer;\n    }\n</style>\n\n<span class=\"collectivebookmarks marker\" on:click={toggle}>\n    {#if ($store.get(uid+group)) }\n        {@html textmarked}\n    {:else}\n        {@html textunmarked}\n    {/if}\n</span>\n"
   ],
   "names": [],
-  "mappings": "AAoBI,OAAO,cAAC,CAAC,AACL,MAAM,CAAE,OAAO,AACnB,CAAC"
+  "mappings": "AAmBI,OAAO,cAAC,CAAC,AACL,MAAM,CAAE,OAAO,AACnB,CAAC"
 }

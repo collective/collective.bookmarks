@@ -7,7 +7,6 @@ export let payload
 export let textmarked
 export let textunmarked
 
-
 function toggle(event) {
     if ($store.get(uid+group)) {
         store.delete(uid, group)

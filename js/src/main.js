@@ -1,6 +1,7 @@
 import Bookmark from './Bookmark.svelte';
+import BookmarkList from './BookmarkList.svelte';
 
-function bindOnElement(element, uid, group, textmarked="&#9733;", textunmarked="&#9734;") {
+function bindBookmarkOnElement(element, uid, group, payload,  textmarked="&#9733;", textunmarked="&#9734;") {
     const bookmark = new Bookmark({
         target: element,
         props: {
@@ -8,14 +9,16 @@ function bindOnElement(element, uid, group, textmarked="&#9733;", textunmarked="
             'group': group,
             'textmarked': textmarked,
             'textunmarked': textunmarked,
+            'payload': payload
         }
     });
 }
 
-function bindByClass(markerClass, uidkey, groupkey) {
-    for (const element of document.getElementsByClassName(markerClass)) {
-        bindOnElement(element, element.dataset[uidkey], element.dataset[groupkey])
-    }
+function bindBookmarkListOnElement(element) {
+    const bookmark = new BookmarkList({
+        target: element,
+        props: {}
+    });
 }
 
-export { bindOnElement, bindByClass }
+export { bindBookmarkOnElement, bindBookmarkListOnElement }
