@@ -27,7 +27,7 @@ const bookmarks = (group) => {
     <h2>{group}</h2>
     <ul>
         {#each bookmarks(group) as bookmark}
-        <li><a href="resolveUid/{bookmark['uid']}">
+        <li><a href="resolveuid/{bookmark['uid']}">
             {#if (bookmark['payload'].title)}
                 {bookmark['payload'].title}
             {:else}

@@ -2189,7 +2189,7 @@ var collectivebookmarks = (function (exports) {
     			if_block0.c();
     			t = space();
     			if (if_block1) if_block1.c();
-    			attr(a, "href", a_href_value = "resolveUid/" + /*bookmark*/ ctx[6]["uid"]);
+    			attr(a, "href", a_href_value = "resolveuid/" + /*bookmark*/ ctx[6]["uid"]);
     		},
     		m(target, anchor) {
     			insert(target, li, anchor);
@@ -2211,7 +2211,7 @@ var collectivebookmarks = (function (exports) {
     				}
     			}
 
-    			if (dirty & /*$store*/ 1 && a_href_value !== (a_href_value = "resolveUid/" + /*bookmark*/ ctx[6]["uid"])) {
+    			if (dirty & /*$store*/ 1 && a_href_value !== (a_href_value = "resolveuid/" + /*bookmark*/ ctx[6]["uid"])) {
     				attr(a, "href", a_href_value);
     			}
 
