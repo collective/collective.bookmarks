@@ -1,5 +1,6 @@
 import Bookmark from './Bookmark.svelte';
 import BookmarkList from './BookmarkList.svelte';
+import BookmarkSum from './BookmarkSum.svelte';
 
 function bindBookmarkOnElement(element, uid, group, payload,  textmarked="&#9733;", textunmarked="&#9734;") {
     const bookmark = new Bookmark({
@@ -20,5 +21,11 @@ function bindBookmarkListOnElement(element) {
         props: {}
     });
 }
+function bindBookmarkSumOnElement(element) {
+    const bookmark = new BookmarkSum({
+        target: element,
+        props: {}
+    });
+}
 
-export { bindBookmarkOnElement, bindBookmarkListOnElement }
+export { bindBookmarkOnElement, bindBookmarkListOnElement, bindBookmarkSumOnElement }

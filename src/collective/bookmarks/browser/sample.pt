@@ -5,6 +5,10 @@
 
 <metal:block fill-slot="content-core">
 
+  <span class="pat-collectivebookmarksum"  />
+
+  <hr />
+
   <p>Fancy Stars <span class="pat-collectivebookmark" data-pat-collectivebookmark="uid: a5397c7b-4186-4267-82c6-3d28053edf1e; group: stars; title: foo; description: foobar"></span></p>
   <p>More stars <span class="pat-collectivebookmark" data-pat-collectivebookmark="uid: b5397c7b-4186-4267-82c6-3d28053edf1e; group: stars"></span></p>
   <p>Hearts are fragile <span class="pat-collectivebookmark" data-pat-collectivebookmark="uid: c5397c7b-4186-4267-82c6-3d28053edf1e; textunmarked: '&#128148;'; textmarked: '&#128150;'"></span></p>

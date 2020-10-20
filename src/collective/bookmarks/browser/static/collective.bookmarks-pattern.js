@@ -59,7 +59,28 @@ define(
 
     return BookmarkList;
 });
+define(
+    'pat-collectivebookmarksum',
+    [
+    'pat-base',
+    'collective-bookmarks'
+    ], function(Base) {
+    'use strict';
+    var BookmarkSum = Base.extend({
+        name: 'collectivebookmarksum',
+        trigger: '.pat-collectivebookmarksum',
+        parser: 'mockup',
+        defaults: {
+        },
+        init: function () {
+            var self = this;
+            collectivebookmarks.bindBookmarkSumOnElement(this.$el.context);
+        }
+    });
 
-require(["pat-registry", "pat-collectivebookmark", "pat-collectivebookmarklist"], function(reg) {
+    return BookmarkSum;
+});
+
+require(["pat-registry", "pat-collectivebookmark", "pat-collectivebookmarklist", "pat-collectivebookmarksum"], function(reg) {
     reg.init();
 });
