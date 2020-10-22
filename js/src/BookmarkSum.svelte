@@ -8,10 +8,8 @@ const sum = (storage) => {
 </script>
 <style>
 </style>
-<div>
-    {#if (sum($store))}
-    <span class="filled">{sum($store)}</span>
-    {:else}
-    <span class="empty">0</span>
-    {/if}
-</div>
+{#if (sum($store))}
+<span class="filled">{sum($store)}</span>
+{:else}
+<span class="empty">0</span>
+{/if}
