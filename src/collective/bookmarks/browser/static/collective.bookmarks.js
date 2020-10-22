@@ -2332,7 +2332,7 @@ var collectivebookmarks = (function (exports) {
     	return child_ctx;
     }
 
-    // (33:12) {:else}
+    // (33:16) {:else}
     function create_else_block$1(ctx) {
     	let t_value = /*bookmark*/ ctx[6]["uid"] + "";
     	let t;
@@ -2356,14 +2356,14 @@ var collectivebookmarks = (function (exports) {
     		block,
     		id: create_else_block$1.name,
     		type: "else",
-    		source: "(33:12) {:else}",
+    		source: "(33:16) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (31:12) {#if (bookmark['payload'].title)}
+    // (31:16) {#if (bookmark['payload'].title)}
     function create_if_block_2(ctx) {
     	let t_value = /*bookmark*/ ctx[6]["payload"].title + "";
     	let t;
@@ -2387,14 +2387,14 @@ var collectivebookmarks = (function (exports) {
     		block,
     		id: create_if_block_2.name,
     		type: "if",
-    		source: "(31:12) {#if (bookmark['payload'].title)}",
+    		source: "(31:16) {#if (bookmark['payload'].title)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (37:12) {#if (bookmark['payload'].description)}
+    // (37:16) {#if (bookmark['payload'].description)}
     function create_if_block_1(ctx) {
     	let p;
     	let t_value = /*bookmark*/ ctx[6]["payload"].description + "";
@@ -2404,7 +2404,7 @@ var collectivebookmarks = (function (exports) {
     		c: function create() {
     			p = element("p");
     			t = text(t_value);
-    			add_location(p, file$1, 37, 16, 899);
+    			add_location(p, file$1, 37, 20, 1010);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -2422,14 +2422,14 @@ var collectivebookmarks = (function (exports) {
     		block,
     		id: create_if_block_1.name,
     		type: "if",
-    		source: "(37:12) {#if (bookmark['payload'].description)}",
+    		source: "(37:16) {#if (bookmark['payload'].description)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (40:12) {#if (bookmark['payload'].imagetag)}
+    // (40:16) {#if (bookmark['payload'].imagetag)}
     function create_if_block$1(ctx) {
     	let html_tag;
     	let raw_value = /*bookmark*/ ctx[6]["payload"].imagetag + "";
@@ -2457,20 +2457,21 @@ var collectivebookmarks = (function (exports) {
     		block,
     		id: create_if_block$1.name,
     		type: "if",
-    		source: "(40:12) {#if (bookmark['payload'].imagetag)}",
+    		source: "(40:16) {#if (bookmark['payload'].imagetag)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (29:8) {#each bookmarks(group) as bookmark}
+    // (29:12) {#each bookmarks(group) as bookmark}
     function create_each_block_1(ctx) {
     	let li;
     	let a;
     	let a_href_value;
     	let t0;
     	let t1;
+    	let t2;
 
     	function select_block_type(ctx, dirty) {
     		if (/*bookmark*/ ctx[6]["payload"].title) return create_if_block_2;
@@ -2491,9 +2492,10 @@ var collectivebookmarks = (function (exports) {
     			if (if_block1) if_block1.c();
     			t1 = space();
     			if (if_block2) if_block2.c();
+    			t2 = space();
     			attr_dev(a, "href", a_href_value = "resolveuid/" + /*bookmark*/ ctx[6]["uid"]);
-    			add_location(a, file$1, 29, 12, 612);
-    			add_location(li, file$1, 29, 8, 608);
+    			add_location(a, file$1, 29, 16, 691);
+    			add_location(li, file$1, 29, 12, 687);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -2503,6 +2505,7 @@ var collectivebookmarks = (function (exports) {
     			if (if_block1) if_block1.m(li, null);
     			append_dev(li, t1);
     			if (if_block2) if_block2.m(li, null);
+    			append_dev(li, t2);
     		},
     		p: function update(ctx, dirty) {
     			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block0) {
@@ -2540,7 +2543,7 @@ var collectivebookmarks = (function (exports) {
     				} else {
     					if_block2 = create_if_block$1(ctx);
     					if_block2.c();
-    					if_block2.m(li, null);
+    					if_block2.m(li, t2);
     				}
     			} else if (if_block2) {
     				if_block2.d(1);
@@ -2559,21 +2562,23 @@ var collectivebookmarks = (function (exports) {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(29:8) {#each bookmarks(group) as bookmark}",
+    		source: "(29:12) {#each bookmarks(group) as bookmark}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (26:4) {#each groups($store) as group}
+    // (25:4) {#each groups($store) as group}
     function create_each_block(ctx) {
-    	let h2;
+    	let div1;
+    	let div0;
     	let t0_value = /*group*/ ctx[3] + "";
     	let t0;
     	let t1;
     	let ul;
     	let t2;
+    	let div1_class_value;
     	let each_value_1 = /*bookmarks*/ ctx[2](/*group*/ ctx[3]);
     	validate_each_argument(each_value_1);
     	let each_blocks = [];
@@ -2584,7 +2589,8 @@ var collectivebookmarks = (function (exports) {
 
     	const block = {
     		c: function create() {
-    			h2 = element("h2");
+    			div1 = element("div");
+    			div0 = element("div");
     			t0 = text(t0_value);
     			t1 = space();
     			ul = element("ul");
@@ -2594,20 +2600,24 @@ var collectivebookmarks = (function (exports) {
     			}
 
     			t2 = space();
-    			add_location(h2, file$1, 26, 4, 529);
-    			add_location(ul, file$1, 27, 4, 550);
+    			attr_dev(div0, "class", "group-header");
+    			add_location(div0, file$1, 26, 8, 573);
+    			add_location(ul, file$1, 27, 8, 621);
+    			attr_dev(div1, "class", div1_class_value = "bookmark-group " + /*group*/ ctx[3]);
+    			add_location(div1, file$1, 25, 4, 528);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, h2, anchor);
-    			append_dev(h2, t0);
-    			insert_dev(target, t1, anchor);
-    			insert_dev(target, ul, anchor);
+    			insert_dev(target, div1, anchor);
+    			append_dev(div1, div0);
+    			append_dev(div0, t0);
+    			append_dev(div1, t1);
+    			append_dev(div1, ul);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].m(ul, null);
     			}
 
-    			append_dev(ul, t2);
+    			append_dev(div1, t2);
     		},
     		p: function update(ctx, dirty) {
     			if (dirty & /*$store*/ 1 && t0_value !== (t0_value = /*group*/ ctx[3] + "")) set_data_dev(t0, t0_value);
@@ -2625,7 +2635,7 @@ var collectivebookmarks = (function (exports) {
     					} else {
     						each_blocks[i] = create_each_block_1(child_ctx);
     						each_blocks[i].c();
-    						each_blocks[i].m(ul, t2);
+    						each_blocks[i].m(ul, null);
     					}
     				}
 
@@ -2635,11 +2645,13 @@ var collectivebookmarks = (function (exports) {
 
     				each_blocks.length = each_value_1.length;
     			}
+
+    			if (dirty & /*$store*/ 1 && div1_class_value !== (div1_class_value = "bookmark-group " + /*group*/ ctx[3])) {
+    				attr_dev(div1, "class", div1_class_value);
+    			}
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(h2);
-    			if (detaching) detach_dev(t1);
-    			if (detaching) detach_dev(ul);
+    			if (detaching) detach_dev(div1);
     			destroy_each(each_blocks, detaching);
     		}
     	};
@@ -2648,7 +2660,7 @@ var collectivebookmarks = (function (exports) {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(26:4) {#each groups($store) as group}",
+    		source: "(25:4) {#each groups($store) as group}",
     		ctx
     	});
 
@@ -2657,8 +2669,6 @@ var collectivebookmarks = (function (exports) {
 
     function create_fragment$1(ctx) {
     	let div;
-    	let h2;
-    	let t1;
     	let each_value = /*groups*/ ctx[1](/*$store*/ ctx[0]);
     	validate_each_argument(each_value);
     	let each_blocks = [];
@@ -2670,15 +2680,12 @@ var collectivebookmarks = (function (exports) {
     	const block = {
     		c: function create() {
     			div = element("div");
-    			h2 = element("h2");
-    			h2.textContent = "Bookmarks";
-    			t1 = space();
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
 
-    			add_location(h2, file$1, 24, 4, 470);
+    			attr_dev(div, "class", "bookmark-list");
     			add_location(div, file$1, 23, 0, 460);
     		},
     		l: function claim(nodes) {
@@ -2686,15 +2693,13 @@ var collectivebookmarks = (function (exports) {
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
-    			append_dev(div, h2);
-    			append_dev(div, t1);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].m(div, null);
     			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*bookmarks, groups, $store*/ 7) {
+    			if (dirty & /*groups, $store, bookmarks*/ 7) {
     				each_value = /*groups*/ ctx[1](/*$store*/ ctx[0]);
     				validate_each_argument(each_value);
     				let i;

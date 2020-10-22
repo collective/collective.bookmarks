@@ -21,27 +21,28 @@ const bookmarks = (group) => {
 <style>
 </style>
 
-<div>
-    <h2>Bookmarks</h2>
+<div class="bookmark-list">
     {#each groups($store) as group}
-    <h2>{group}</h2>
-    <ul>
-        {#each bookmarks(group) as bookmark}
-        <li><a href="resolveuid/{bookmark['uid']}">
-            {#if (bookmark['payload'].title)}
-                {bookmark['payload'].title}
-            {:else}
-                {bookmark['uid']}
-            {/if}
-            </a>
-            {#if (bookmark['payload'].description)}
-                <p>{bookmark['payload'].description}</p>
-            {/if}
-            {#if (bookmark['payload'].imagetag)}
-                {@html bookmark['payload'].imagetag}
-            {/if}
-        </li>
-        {/each}
-    </ul>
+    <div class="bookmark-group {group}">
+        <div class="group-header">{group}</div>
+        <ul>
+            {#each bookmarks(group) as bookmark}
+            <li><a href="resolveuid/{bookmark['uid']}">
+                {#if (bookmark['payload'].title)}
+                    {bookmark['payload'].title}
+                {:else}
+                    {bookmark['uid']}
+                {/if}
+                </a>
+                {#if (bookmark['payload'].description)}
+                    <p>{bookmark['payload'].description}</p>
+                {/if}
+                {#if (bookmark['payload'].imagetag)}
+                    {@html bookmark['payload'].imagetag}
+                {/if}
+            </li>
+            {/each}
+        </ul>
+    </div>
     {/each}
 </div>

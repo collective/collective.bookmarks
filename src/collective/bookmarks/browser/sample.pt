@@ -15,6 +15,8 @@
   <p>Text is <span class="pat-collectivebookmark" data-pat-collectivebookmark="uid: d5397c7b-4186-4267-82c6-3d28053edf1e; group: Karten; textunmarked: boring; textmarked: <strong>awesome</strong>"></span></p>
 
   <hr />
+
+  <h2>Bookmarks</h2>
   <span class="pat-collectivebookmarklist"  />
 
 </metal:block>
