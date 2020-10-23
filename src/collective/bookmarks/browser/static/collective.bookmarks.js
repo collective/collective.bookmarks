@@ -2332,23 +2332,167 @@ var collectivebookmarks = (function (exports) {
     	return child_ctx;
     }
 
-    // (33:16) {:else}
+    // (30:12) {#if (bookmark['payload'].title)}
+    function create_if_block$1(ctx) {
+    	let div;
+    	let a;
+    	let t0;
+    	let a_href_value;
+    	let t1;
+    	let t2;
+    	let if_block0 = /*bookmark*/ ctx[6]["payload"].imagetag && create_if_block_3(ctx);
+
+    	function select_block_type(ctx, dirty) {
+    		if (/*bookmark*/ ctx[6]["payload"].title) return create_if_block_2;
+    		return create_else_block$1;
+    	}
+
+    	let current_block_type = select_block_type(ctx);
+    	let if_block1 = current_block_type(ctx);
+    	let if_block2 = /*bookmark*/ ctx[6]["payload"].description && create_if_block_1(ctx);
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			a = element("a");
+    			if (if_block0) if_block0.c();
+    			t0 = space();
+    			if_block1.c();
+    			t1 = space();
+    			if (if_block2) if_block2.c();
+    			t2 = space();
+    			attr_dev(a, "href", a_href_value = "resolveuid/" + /*bookmark*/ ctx[6]["uid"]);
+    			add_location(a, file$1, 30, 38, 779);
+    			attr_dev(div, "class", "bookmark");
+    			add_location(div, file$1, 30, 16, 757);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			append_dev(div, a);
+    			if (if_block0) if_block0.m(a, null);
+    			append_dev(a, t0);
+    			if_block1.m(a, null);
+    			append_dev(div, t1);
+    			if (if_block2) if_block2.m(div, null);
+    			append_dev(div, t2);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (/*bookmark*/ ctx[6]["payload"].imagetag) {
+    				if (if_block0) {
+    					if_block0.p(ctx, dirty);
+    				} else {
+    					if_block0 = create_if_block_3(ctx);
+    					if_block0.c();
+    					if_block0.m(a, t0);
+    				}
+    			} else if (if_block0) {
+    				if_block0.d(1);
+    				if_block0 = null;
+    			}
+
+    			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block1) {
+    				if_block1.p(ctx, dirty);
+    			} else {
+    				if_block1.d(1);
+    				if_block1 = current_block_type(ctx);
+
+    				if (if_block1) {
+    					if_block1.c();
+    					if_block1.m(a, null);
+    				}
+    			}
+
+    			if (dirty & /*$store*/ 1 && a_href_value !== (a_href_value = "resolveuid/" + /*bookmark*/ ctx[6]["uid"])) {
+    				attr_dev(a, "href", a_href_value);
+    			}
+
+    			if (/*bookmark*/ ctx[6]["payload"].description) {
+    				if (if_block2) {
+    					if_block2.p(ctx, dirty);
+    				} else {
+    					if_block2 = create_if_block_1(ctx);
+    					if_block2.c();
+    					if_block2.m(div, t2);
+    				}
+    			} else if (if_block2) {
+    				if_block2.d(1);
+    				if_block2 = null;
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    			if (if_block0) if_block0.d();
+    			if_block1.d();
+    			if (if_block2) if_block2.d();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$1.name,
+    		type: "if",
+    		source: "(30:12) {#if (bookmark['payload'].title)}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (32:20) {#if (bookmark['payload'].imagetag)}
+    function create_if_block_3(ctx) {
+    	let div;
+    	let raw_value = /*bookmark*/ ctx[6]["payload"].imagetag + "";
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			attr_dev(div, "class", "image");
+    			add_location(div, file$1, 32, 24, 900);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			div.innerHTML = raw_value;
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*$store*/ 1 && raw_value !== (raw_value = /*bookmark*/ ctx[6]["payload"].imagetag + "")) div.innerHTML = raw_value;		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_3.name,
+    		type: "if",
+    		source: "(32:20) {#if (bookmark['payload'].imagetag)}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (37:20) {:else}
     function create_else_block$1(ctx) {
+    	let div;
     	let t_value = /*bookmark*/ ctx[6]["uid"] + "";
     	let t;
 
     	const block = {
     		c: function create() {
+    			div = element("div");
     			t = text(t_value);
+    			attr_dev(div, "class", "uid");
+    			add_location(div, file$1, 37, 24, 1171);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, t, anchor);
+    			insert_dev(target, div, anchor);
+    			append_dev(div, t);
     		},
     		p: function update(ctx, dirty) {
     			if (dirty & /*$store*/ 1 && t_value !== (t_value = /*bookmark*/ ctx[6]["uid"] + "")) set_data_dev(t, t_value);
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(t);
+    			if (detaching) detach_dev(div);
     		}
     	};
 
@@ -2356,30 +2500,35 @@ var collectivebookmarks = (function (exports) {
     		block,
     		id: create_else_block$1.name,
     		type: "else",
-    		source: "(33:16) {:else}",
+    		source: "(37:20) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (31:16) {#if (bookmark['payload'].title)}
+    // (35:20) {#if (bookmark['payload'].title)}
     function create_if_block_2(ctx) {
+    	let div;
     	let t_value = /*bookmark*/ ctx[6]["payload"].title + "";
     	let t;
 
     	const block = {
     		c: function create() {
+    			div = element("div");
     			t = text(t_value);
+    			attr_dev(div, "class", "title");
+    			add_location(div, file$1, 35, 24, 1066);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, t, anchor);
+    			insert_dev(target, div, anchor);
+    			append_dev(div, t);
     		},
     		p: function update(ctx, dirty) {
     			if (dirty & /*$store*/ 1 && t_value !== (t_value = /*bookmark*/ ctx[6]["payload"].title + "")) set_data_dev(t, t_value);
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(t);
+    			if (detaching) detach_dev(div);
     		}
     	};
 
@@ -2387,14 +2536,14 @@ var collectivebookmarks = (function (exports) {
     		block,
     		id: create_if_block_2.name,
     		type: "if",
-    		source: "(31:16) {#if (bookmark['payload'].title)}",
+    		source: "(35:20) {#if (bookmark['payload'].title)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (37:16) {#if (bookmark['payload'].description)}
+    // (41:20) {#if (bookmark['payload'].description)}
     function create_if_block_1(ctx) {
     	let p;
     	let t_value = /*bookmark*/ ctx[6]["payload"].description + "";
@@ -2404,7 +2553,8 @@ var collectivebookmarks = (function (exports) {
     		c: function create() {
     			p = element("p");
     			t = text(t_value);
-    			add_location(p, file$1, 37, 20, 1010);
+    			attr_dev(p, "class", "description");
+    			add_location(p, file$1, 41, 24, 1347);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -2422,42 +2572,7 @@ var collectivebookmarks = (function (exports) {
     		block,
     		id: create_if_block_1.name,
     		type: "if",
-    		source: "(37:16) {#if (bookmark['payload'].description)}",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (40:16) {#if (bookmark['payload'].imagetag)}
-    function create_if_block$1(ctx) {
-    	let html_tag;
-    	let raw_value = /*bookmark*/ ctx[6]["payload"].imagetag + "";
-    	let html_anchor;
-
-    	const block = {
-    		c: function create() {
-    			html_anchor = empty();
-    			html_tag = new HtmlTag(html_anchor);
-    		},
-    		m: function mount(target, anchor) {
-    			html_tag.m(raw_value, target, anchor);
-    			insert_dev(target, html_anchor, anchor);
-    		},
-    		p: function update(ctx, dirty) {
-    			if (dirty & /*$store*/ 1 && raw_value !== (raw_value = /*bookmark*/ ctx[6]["payload"].imagetag + "")) html_tag.p(raw_value);
-    		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(html_anchor);
-    			if (detaching) html_tag.d();
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_if_block$1.name,
-    		type: "if",
-    		source: "(40:16) {#if (bookmark['payload'].imagetag)}",
+    		source: "(41:20) {#if (bookmark['payload'].description)}",
     		ctx
     	});
 
@@ -2466,95 +2581,35 @@ var collectivebookmarks = (function (exports) {
 
     // (29:12) {#each bookmarks(group) as bookmark}
     function create_each_block_1(ctx) {
-    	let li;
-    	let a;
-    	let a_href_value;
-    	let t0;
-    	let t1;
-    	let t2;
-
-    	function select_block_type(ctx, dirty) {
-    		if (/*bookmark*/ ctx[6]["payload"].title) return create_if_block_2;
-    		return create_else_block$1;
-    	}
-
-    	let current_block_type = select_block_type(ctx);
-    	let if_block0 = current_block_type(ctx);
-    	let if_block1 = /*bookmark*/ ctx[6]["payload"].description && create_if_block_1(ctx);
-    	let if_block2 = /*bookmark*/ ctx[6]["payload"].imagetag && create_if_block$1(ctx);
+    	let if_block_anchor;
+    	let if_block = /*bookmark*/ ctx[6]["payload"].title && create_if_block$1(ctx);
 
     	const block = {
     		c: function create() {
-    			li = element("li");
-    			a = element("a");
-    			if_block0.c();
-    			t0 = space();
-    			if (if_block1) if_block1.c();
-    			t1 = space();
-    			if (if_block2) if_block2.c();
-    			t2 = space();
-    			attr_dev(a, "href", a_href_value = "resolveuid/" + /*bookmark*/ ctx[6]["uid"]);
-    			add_location(a, file$1, 29, 16, 691);
-    			add_location(li, file$1, 29, 12, 687);
+    			if (if_block) if_block.c();
+    			if_block_anchor = empty();
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, li, anchor);
-    			append_dev(li, a);
-    			if_block0.m(a, null);
-    			append_dev(li, t0);
-    			if (if_block1) if_block1.m(li, null);
-    			append_dev(li, t1);
-    			if (if_block2) if_block2.m(li, null);
-    			append_dev(li, t2);
+    			if (if_block) if_block.m(target, anchor);
+    			insert_dev(target, if_block_anchor, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block0) {
-    				if_block0.p(ctx, dirty);
-    			} else {
-    				if_block0.d(1);
-    				if_block0 = current_block_type(ctx);
-
-    				if (if_block0) {
-    					if_block0.c();
-    					if_block0.m(a, null);
-    				}
-    			}
-
-    			if (dirty & /*$store*/ 1 && a_href_value !== (a_href_value = "resolveuid/" + /*bookmark*/ ctx[6]["uid"])) {
-    				attr_dev(a, "href", a_href_value);
-    			}
-
-    			if (/*bookmark*/ ctx[6]["payload"].description) {
-    				if (if_block1) {
-    					if_block1.p(ctx, dirty);
+    			if (/*bookmark*/ ctx[6]["payload"].title) {
+    				if (if_block) {
+    					if_block.p(ctx, dirty);
     				} else {
-    					if_block1 = create_if_block_1(ctx);
-    					if_block1.c();
-    					if_block1.m(li, t1);
+    					if_block = create_if_block$1(ctx);
+    					if_block.c();
+    					if_block.m(if_block_anchor.parentNode, if_block_anchor);
     				}
-    			} else if (if_block1) {
-    				if_block1.d(1);
-    				if_block1 = null;
-    			}
-
-    			if (/*bookmark*/ ctx[6]["payload"].imagetag) {
-    				if (if_block2) {
-    					if_block2.p(ctx, dirty);
-    				} else {
-    					if_block2 = create_if_block$1(ctx);
-    					if_block2.c();
-    					if_block2.m(li, t2);
-    				}
-    			} else if (if_block2) {
-    				if_block2.d(1);
-    				if_block2 = null;
+    			} else if (if_block) {
+    				if_block.d(1);
+    				if_block = null;
     			}
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(li);
-    			if_block0.d();
-    			if (if_block1) if_block1.d();
-    			if (if_block2) if_block2.d();
+    			if (if_block) if_block.d(detaching);
+    			if (detaching) detach_dev(if_block_anchor);
     		}
     	};
 
@@ -2571,14 +2626,14 @@ var collectivebookmarks = (function (exports) {
 
     // (25:4) {#each groups($store) as group}
     function create_each_block(ctx) {
-    	let div1;
+    	let div2;
     	let div0;
     	let t0_value = /*group*/ ctx[3] + "";
     	let t0;
     	let t1;
-    	let ul;
+    	let div1;
     	let t2;
-    	let div1_class_value;
+    	let div2_class_value;
     	let each_value_1 = /*bookmarks*/ ctx[2](/*group*/ ctx[3]);
     	validate_each_argument(each_value_1);
     	let each_blocks = [];
@@ -2589,11 +2644,11 @@ var collectivebookmarks = (function (exports) {
 
     	const block = {
     		c: function create() {
-    			div1 = element("div");
+    			div2 = element("div");
     			div0 = element("div");
     			t0 = text(t0_value);
     			t1 = space();
-    			ul = element("ul");
+    			div1 = element("div");
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
@@ -2602,22 +2657,23 @@ var collectivebookmarks = (function (exports) {
     			t2 = space();
     			attr_dev(div0, "class", "group-header");
     			add_location(div0, file$1, 26, 8, 573);
-    			add_location(ul, file$1, 27, 8, 621);
-    			attr_dev(div1, "class", div1_class_value = "bookmark-group " + /*group*/ ctx[3]);
-    			add_location(div1, file$1, 25, 4, 528);
+    			attr_dev(div1, "class", "group-list");
+    			add_location(div1, file$1, 27, 8, 621);
+    			attr_dev(div2, "class", div2_class_value = "bookmark-group " + /*group*/ ctx[3]);
+    			add_location(div2, file$1, 25, 4, 528);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div1, anchor);
-    			append_dev(div1, div0);
+    			insert_dev(target, div2, anchor);
+    			append_dev(div2, div0);
     			append_dev(div0, t0);
-    			append_dev(div1, t1);
-    			append_dev(div1, ul);
+    			append_dev(div2, t1);
+    			append_dev(div2, div1);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].m(ul, null);
+    				each_blocks[i].m(div1, null);
     			}
 
-    			append_dev(div1, t2);
+    			append_dev(div2, t2);
     		},
     		p: function update(ctx, dirty) {
     			if (dirty & /*$store*/ 1 && t0_value !== (t0_value = /*group*/ ctx[3] + "")) set_data_dev(t0, t0_value);
@@ -2635,7 +2691,7 @@ var collectivebookmarks = (function (exports) {
     					} else {
     						each_blocks[i] = create_each_block_1(child_ctx);
     						each_blocks[i].c();
-    						each_blocks[i].m(ul, null);
+    						each_blocks[i].m(div1, null);
     					}
     				}
 
@@ -2646,12 +2702,12 @@ var collectivebookmarks = (function (exports) {
     				each_blocks.length = each_value_1.length;
     			}
 
-    			if (dirty & /*$store*/ 1 && div1_class_value !== (div1_class_value = "bookmark-group " + /*group*/ ctx[3])) {
-    				attr_dev(div1, "class", div1_class_value);
+    			if (dirty & /*$store*/ 1 && div2_class_value !== (div2_class_value = "bookmark-group " + /*group*/ ctx[3])) {
+    				attr_dev(div2, "class", div2_class_value);
     			}
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div1);
+    			if (detaching) detach_dev(div2);
     			destroy_each(each_blocks, detaching);
     		}
     	};
