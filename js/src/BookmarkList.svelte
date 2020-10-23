@@ -17,8 +17,14 @@ const bookmarks = (group) => {
     })
     return result
 }
+function handleRemove(uid, group) {
+    store.delete(uid, group)
+}
 </script>
 <style>
+.remove {
+        cursor: pointer;
+    }
 </style>
 
 <div class="bookmark-list">
@@ -41,6 +47,7 @@ const bookmarks = (group) => {
                     {#if (bookmark['payload'].description)}
                         <p class="description">{bookmark['payload'].description}</p>
                     {/if}
+                    <span class="remove" on:click={() => handleRemove(bookmark['uid'], bookmark['group'])}>[X]</span>
                 </div>
             {/if}
             {/each}
