@@ -14,6 +14,10 @@ store.add = (uid, group, payload) => {
         }
         storage.set(uid+group, record)
         create(record)
+        let event = new
+        Event('collective.bookmarks.changed')
+        document.dispatchEvent(event)
+
         return storage
     })
 }
