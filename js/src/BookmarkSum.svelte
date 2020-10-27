@@ -9,7 +9,13 @@ const sum = (storage) => {
 <style>
 </style>
 {#if (sum($store))}
-<span class="filled">{sum($store)}</span>
+<span class="count filled" data-bookmarks-count="{sum($store)}">
+    <i class="bookmark-icon" />
+    <span class="amount">{sum($store)}</span>
+</span>
 {:else}
-<span class="empty">0</span>
+<span class="count empty" data-bookmarks-count="{sum($store)}">
+    <i class="bookmark-icon" />
+    <span class="amount">0</span>
+</span>
 {/if}
