@@ -15,9 +15,8 @@ store.add = (uid, group, payload) => {
         storage.set(uid+group, record)
         create(record)
         let event = new
-        Event('collective.bookmarks.changed')
+        Event('collective.bookmarks.added.bookmark')
         document.dispatchEvent(event)
-
         return storage
     })
 }
@@ -25,6 +24,9 @@ store.delete = (uid, group) => {
     store.update(storage => {
         del(storage.get(uid+group))
         storage.delete(uid+group)
+        let event = new
+        Event('collective.bookmarks.removed.bookmark')
+        document.dispatchEvent(event)
         return storage
     })
 }

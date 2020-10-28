@@ -1,10 +1,18 @@
 <script>
+import { afterUpdate } from 'svelte';
 import { select_multiple_value } from 'svelte/internal'
 import store from './store.js'
 
 const sum = (storage) => {
     return storage.size
 }
+
+afterUpdate(() => {
+    let event = new
+    Event('collective.bookmarks.updated.sum')
+    document.dispatchEvent(event)
+});
+
 </script>
 <style>
 </style>
