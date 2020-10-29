@@ -1,6 +1,7 @@
 from collective.bookmarks.api.utils import bookmark_dict_to_json_dict
 from collective.bookmarks.api.utils import get_owner
 from collective.bookmarks.storage import Bookmarks
+from plone import api
 from plone.restapi.services import Service
 from zExceptions import NotFound
 
@@ -14,5 +15,6 @@ class BookmarksGet(Service):
             raise NotFound("No such bookmark found.")
         result = []
         for bookmark in bookmarks:
-            result.append(bookmark_dict_to_json_dict(bookmark))
+            if api.content.find(UID=str(bookmark["uid"])):
+                result.append(bookmark_dict_to_json_dict(bookmark))
         return result
