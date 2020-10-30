@@ -1,14 +1,7 @@
-
-(function(l, r) { if (l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (window.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(window.document);
 var collectivebookmarks = (function (exports) {
     'use strict';
 
     function noop() { }
-    function add_location(element, file, line, column, char) {
-        element.__svelte_meta = {
-            loc: { file, line, column, char }
-        };
-    }
     function run(fn) {
         return fn();
     }
@@ -26,11 +19,6 @@ var collectivebookmarks = (function (exports) {
     }
     function is_empty(obj) {
         return Object.keys(obj).length === 0;
-    }
-    function validate_store(store, name) {
-        if (store != null && typeof store.subscribe !== 'function') {
-            throw new Error(`'${name}' is not a store with a 'subscribe' method`);
-        }
     }
     function subscribe(store, ...callbacks) {
         if (store == null) {
@@ -83,13 +71,10 @@ var collectivebookmarks = (function (exports) {
     function children(element) {
         return Array.from(element.childNodes);
     }
-    function select_multiple_value(select) {
-        return [].map.call(select.querySelectorAll(':checked'), option => option.__value);
-    }
-    function custom_event(type, detail) {
-        const e = document.createEvent('CustomEvent');
-        e.initCustomEvent(type, false, false, detail);
-        return e;
+    function set_data(text, data) {
+        data = '' + data;
+        if (text.wholeText !== data)
+            text.data = data;
     }
     class HtmlTag {
         constructor(anchor = null) {
@@ -322,81 +307,6 @@ var collectivebookmarks = (function (exports) {
                 this.$$.skip_bound = false;
             }
         }
-    }
-
-    function dispatch_dev(type, detail) {
-        document.dispatchEvent(custom_event(type, Object.assign({ version: '3.24.1' }, detail)));
-    }
-    function append_dev(target, node) {
-        dispatch_dev("SvelteDOMInsert", { target, node });
-        append(target, node);
-    }
-    function insert_dev(target, node, anchor) {
-        dispatch_dev("SvelteDOMInsert", { target, node, anchor });
-        insert(target, node, anchor);
-    }
-    function detach_dev(node) {
-        dispatch_dev("SvelteDOMRemove", { node });
-        detach(node);
-    }
-    function listen_dev(node, event, handler, options, has_prevent_default, has_stop_propagation) {
-        const modifiers = options === true ? ["capture"] : options ? Array.from(Object.keys(options)) : [];
-        if (has_prevent_default)
-            modifiers.push('preventDefault');
-        if (has_stop_propagation)
-            modifiers.push('stopPropagation');
-        dispatch_dev("SvelteDOMAddEventListener", { node, event, handler, modifiers });
-        const dispose = listen(node, event, handler, options);
-        return () => {
-            dispatch_dev("SvelteDOMRemoveEventListener", { node, event, handler, modifiers });
-            dispose();
-        };
-    }
-    function attr_dev(node, attribute, value) {
-        attr(node, attribute, value);
-        if (value == null)
-            dispatch_dev("SvelteDOMRemoveAttribute", { node, attribute });
-        else
-            dispatch_dev("SvelteDOMSetAttribute", { node, attribute, value });
-    }
-    function set_data_dev(text, data) {
-        data = '' + data;
-        if (text.wholeText === data)
-            return;
-        dispatch_dev("SvelteDOMSetData", { node: text, data });
-        text.data = data;
-    }
-    function validate_each_argument(arg) {
-        if (typeof arg !== 'string' && !(arg && typeof arg === 'object' && 'length' in arg)) {
-            let msg = '{#each} only iterates over array-like objects.';
-            if (typeof Symbol === 'function' && arg && Symbol.iterator in arg) {
-                msg += ' You can use a spread to convert this iterable into an array.';
-            }
-            throw new Error(msg);
-        }
-    }
-    function validate_slots(name, slot, keys) {
-        for (const slot_key of Object.keys(slot)) {
-            if (!~keys.indexOf(slot_key)) {
-                console.warn(`<${name}> received an unexpected slot "${slot_key}".`);
-            }
-        }
-    }
-    class SvelteComponentDev extends SvelteComponent {
-        constructor(options) {
-            if (!options || (!options.target && !options.$$inline)) {
-                throw new Error(`'target' is a required option`);
-            }
-            super();
-        }
-        $destroy() {
-            super.$destroy();
-            this.$destroy = () => {
-                console.warn(`Component was already destroyed`); // eslint-disable-line no-console
-            };
-        }
-        $capture_state() { }
-        $inject_state() { }
     }
 
     const subscriber_queue = [];
@@ -2048,40 +1958,28 @@ var collectivebookmarks = (function (exports) {
     });
 
     /* src/Bookmark.svelte generated by Svelte v3.24.1 */
-    const file = "src/Bookmark.svelte";
 
-    // (28:4) {:else}
     function create_else_block(ctx) {
     	let html_tag;
     	let html_anchor;
 
-    	const block = {
-    		c: function create() {
+    	return {
+    		c() {
     			html_anchor = empty();
     			html_tag = new HtmlTag(html_anchor);
     		},
-    		m: function mount(target, anchor) {
+    		m(target, anchor) {
     			html_tag.m(/*textunmarked*/ ctx[3], target, anchor);
-    			insert_dev(target, html_anchor, anchor);
+    			insert(target, html_anchor, anchor);
     		},
-    		p: function update(ctx, dirty) {
+    		p(ctx, dirty) {
     			if (dirty & /*textunmarked*/ 8) html_tag.p(/*textunmarked*/ ctx[3]);
     		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(html_anchor);
+    		d(detaching) {
+    			if (detaching) detach(html_anchor);
     			if (detaching) html_tag.d();
     		}
     	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_else_block.name,
-    		type: "else",
-    		source: "(28:4) {:else}",
-    		ctx
-    	});
-
-    	return block;
     }
 
     // (26:4) {#if ($store.get(uid+group)) }
@@ -2089,33 +1987,23 @@ var collectivebookmarks = (function (exports) {
     	let html_tag;
     	let html_anchor;
 
-    	const block = {
-    		c: function create() {
+    	return {
+    		c() {
     			html_anchor = empty();
     			html_tag = new HtmlTag(html_anchor);
     		},
-    		m: function mount(target, anchor) {
+    		m(target, anchor) {
     			html_tag.m(/*textmarked*/ ctx[2], target, anchor);
-    			insert_dev(target, html_anchor, anchor);
+    			insert(target, html_anchor, anchor);
     		},
-    		p: function update(ctx, dirty) {
+    		p(ctx, dirty) {
     			if (dirty & /*textmarked*/ 4) html_tag.p(/*textmarked*/ ctx[2]);
     		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(html_anchor);
+    		d(detaching) {
+    			if (detaching) detach(html_anchor);
     			if (detaching) html_tag.d();
     		}
     	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_if_block.name,
-    		type: "if",
-    		source: "(26:4) {#if ($store.get(uid+group)) }",
-    		ctx
-    	});
-
-    	return block;
     }
 
     function create_fragment(ctx) {
@@ -2133,26 +2021,22 @@ var collectivebookmarks = (function (exports) {
     	let current_block_type = select_block_type(ctx, -1);
     	let if_block = current_block_type(ctx);
 
-    	const block = {
-    		c: function create() {
+    	return {
+    		c() {
     			span = element("span");
     			if_block.c();
-    			attr_dev(span, "class", "collectivebookmarks marker svelte-ll4xj3");
-    			add_location(span, file, 24, 0, 364);
+    			attr(span, "class", "collectivebookmarks marker svelte-ll4xj3");
     		},
-    		l: function claim(nodes) {
-    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
-    		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, span, anchor);
+    		m(target, anchor) {
+    			insert(target, span, anchor);
     			if_block.m(span, null);
 
     			if (!mounted) {
-    				dispose = listen_dev(span, "click", /*toggle*/ ctx[5], false, false, false);
+    				dispose = listen(span, "click", /*toggle*/ ctx[5]);
     				mounted = true;
     			}
     		},
-    		p: function update(ctx, [dirty]) {
+    		p(ctx, [dirty]) {
     			if (current_block_type === (current_block_type = select_block_type(ctx, dirty)) && if_block) {
     				if_block.p(ctx, dirty);
     			} else {
@@ -2167,28 +2051,17 @@ var collectivebookmarks = (function (exports) {
     		},
     		i: noop,
     		o: noop,
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(span);
+    		d(detaching) {
+    			if (detaching) detach(span);
     			if_block.d();
     			mounted = false;
     			dispose();
     		}
     	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_fragment.name,
-    		type: "component",
-    		source: "",
-    		ctx
-    	});
-
-    	return block;
     }
 
     function instance($$self, $$props, $$invalidate) {
     	let $store;
-    	validate_store(store, "store");
     	component_subscribe($$self, store, $$value => $$invalidate(4, $store = $$value));
     	let { uid } = $$props;
     	let { group } = $$props;
@@ -2204,15 +2077,6 @@ var collectivebookmarks = (function (exports) {
     		}
     	}
 
-    	const writable_props = ["uid", "group", "payload", "textmarked", "textunmarked"];
-
-    	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<Bookmark> was created with unknown prop '${key}'`);
-    	});
-
-    	let { $$slots = {}, $$scope } = $$props;
-    	validate_slots("Bookmark", $$slots, []);
-
     	$$self.$$set = $$props => {
     		if ("uid" in $$props) $$invalidate(0, uid = $$props.uid);
     		if ("group" in $$props) $$invalidate(1, group = $$props.group);
@@ -2221,35 +2085,12 @@ var collectivebookmarks = (function (exports) {
     		if ("textunmarked" in $$props) $$invalidate(3, textunmarked = $$props.textunmarked);
     	};
 
-    	$$self.$capture_state = () => ({
-    		store,
-    		uid,
-    		group,
-    		payload,
-    		textmarked,
-    		textunmarked,
-    		toggle,
-    		$store
-    	});
-
-    	$$self.$inject_state = $$props => {
-    		if ("uid" in $$props) $$invalidate(0, uid = $$props.uid);
-    		if ("group" in $$props) $$invalidate(1, group = $$props.group);
-    		if ("payload" in $$props) $$invalidate(6, payload = $$props.payload);
-    		if ("textmarked" in $$props) $$invalidate(2, textmarked = $$props.textmarked);
-    		if ("textunmarked" in $$props) $$invalidate(3, textunmarked = $$props.textunmarked);
-    	};
-
-    	if ($$props && "$$inject" in $$props) {
-    		$$self.$inject_state($$props.$$inject);
-    	}
-
     	return [uid, group, textmarked, textunmarked, $store, toggle, payload];
     }
 
-    class Bookmark extends SvelteComponentDev {
+    class Bookmark extends SvelteComponent {
     	constructor(options) {
-    		super(options);
+    		super();
 
     		init(this, options, instance, create_fragment, safe_not_equal, {
     			uid: 0,
@@ -2258,81 +2099,10 @@ var collectivebookmarks = (function (exports) {
     			textmarked: 2,
     			textunmarked: 3
     		});
-
-    		dispatch_dev("SvelteRegisterComponent", {
-    			component: this,
-    			tagName: "Bookmark",
-    			options,
-    			id: create_fragment.name
-    		});
-
-    		const { ctx } = this.$$;
-    		const props = options.props || {};
-
-    		if (/*uid*/ ctx[0] === undefined && !("uid" in props)) {
-    			console.warn("<Bookmark> was created without expected prop 'uid'");
-    		}
-
-    		if (/*group*/ ctx[1] === undefined && !("group" in props)) {
-    			console.warn("<Bookmark> was created without expected prop 'group'");
-    		}
-
-    		if (/*payload*/ ctx[6] === undefined && !("payload" in props)) {
-    			console.warn("<Bookmark> was created without expected prop 'payload'");
-    		}
-
-    		if (/*textmarked*/ ctx[2] === undefined && !("textmarked" in props)) {
-    			console.warn("<Bookmark> was created without expected prop 'textmarked'");
-    		}
-
-    		if (/*textunmarked*/ ctx[3] === undefined && !("textunmarked" in props)) {
-    			console.warn("<Bookmark> was created without expected prop 'textunmarked'");
-    		}
-    	}
-
-    	get uid() {
-    		throw new Error("<Bookmark>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	set uid(value) {
-    		throw new Error("<Bookmark>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	get group() {
-    		throw new Error("<Bookmark>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	set group(value) {
-    		throw new Error("<Bookmark>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	get payload() {
-    		throw new Error("<Bookmark>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	set payload(value) {
-    		throw new Error("<Bookmark>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	get textmarked() {
-    		throw new Error("<Bookmark>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	set textmarked(value) {
-    		throw new Error("<Bookmark>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	get textunmarked() {
-    		throw new Error("<Bookmark>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	set textunmarked(value) {
-    		throw new Error("<Bookmark>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
 
     /* src/BookmarkList.svelte generated by Svelte v3.24.1 */
-    const file$1 = "src/BookmarkList.svelte";
 
     function get_each_context_1(ctx, list, i) {
     	const child_ctx = ctx.slice();
@@ -2350,29 +2120,18 @@ var collectivebookmarks = (function (exports) {
     function create_if_block_4(ctx) {
     	let div;
 
-    	const block = {
-    		c: function create() {
+    	return {
+    		c() {
     			div = element("div");
-    			attr_dev(div, "class", "empty-bookmarks-list");
-    			add_location(div, file$1, 35, 8, 718);
+    			attr(div, "class", "empty-bookmarks-list");
     		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
+    		m(target, anchor) {
+    			insert(target, div, anchor);
     		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div);
+    		d(detaching) {
+    			if (detaching) detach(div);
     		}
     	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_if_block_4.name,
-    		type: "if",
-    		source: "(35:4) {#if !sum($store)}",
-    		ctx
-    	});
-
-    	return block;
     }
 
     // (43:12) {#if (bookmark['payload'].title)}
@@ -2392,28 +2151,26 @@ var collectivebookmarks = (function (exports) {
     	let current_block_type = select_block_type(ctx);
     	let if_block1 = current_block_type(ctx);
 
-    	const block = {
-    		c: function create() {
+    	return {
+    		c() {
     			div = element("div");
     			a = element("a");
     			if (if_block0) if_block0.c();
     			t0 = space();
     			if_block1.c();
     			t1 = space();
-    			attr_dev(a, "href", a_href_value = "resolveuid/" + /*bookmark*/ ctx[9]["uid"]);
-    			add_location(a, file$1, 44, 20, 1081);
-    			attr_dev(div, "class", "bookmark");
-    			add_location(div, file$1, 43, 16, 1038);
+    			attr(a, "href", a_href_value = "resolveuid/" + /*bookmark*/ ctx[9]["uid"]);
+    			attr(div, "class", "bookmark");
     		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
-    			append_dev(div, a);
+    		m(target, anchor) {
+    			insert(target, div, anchor);
+    			append(div, a);
     			if (if_block0) if_block0.m(a, null);
-    			append_dev(div, t0);
+    			append(div, t0);
     			if_block1.m(div, null);
-    			append_dev(div, t1);
+    			append(div, t1);
     		},
-    		p: function update(ctx, dirty) {
+    		p(ctx, dirty) {
     			if (/*bookmark*/ ctx[9]["payload"].imagetag) {
     				if (if_block0) {
     					if_block0.p(ctx, dirty);
@@ -2428,7 +2185,7 @@ var collectivebookmarks = (function (exports) {
     			}
 
     			if (dirty & /*$store*/ 1 && a_href_value !== (a_href_value = "resolveuid/" + /*bookmark*/ ctx[9]["uid"])) {
-    				attr_dev(a, "href", a_href_value);
+    				attr(a, "href", a_href_value);
     			}
 
     			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block1) {
@@ -2443,22 +2200,12 @@ var collectivebookmarks = (function (exports) {
     				}
     			}
     		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div);
+    		d(detaching) {
+    			if (detaching) detach(div);
     			if (if_block0) if_block0.d();
     			if_block1.d();
     		}
     	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_if_block$1.name,
-    		type: "if",
-    		source: "(43:12) {#if (bookmark['payload'].title)}",
-    		ctx
-    	});
-
-    	return block;
     }
 
     // (46:20) {#if (bookmark['payload'].imagetag)}
@@ -2466,32 +2213,21 @@ var collectivebookmarks = (function (exports) {
     	let div;
     	let raw_value = /*bookmark*/ ctx[9]["payload"].imagetag + "";
 
-    	const block = {
-    		c: function create() {
+    	return {
+    		c() {
     			div = element("div");
-    			attr_dev(div, "class", "image");
-    			add_location(div, file$1, 46, 24, 1202);
+    			attr(div, "class", "image");
     		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
+    		m(target, anchor) {
+    			insert(target, div, anchor);
     			div.innerHTML = raw_value;
     		},
-    		p: function update(ctx, dirty) {
+    		p(ctx, dirty) {
     			if (dirty & /*$store*/ 1 && raw_value !== (raw_value = /*bookmark*/ ctx[9]["payload"].imagetag + "")) div.innerHTML = raw_value;		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div);
+    		d(detaching) {
+    			if (detaching) detach(div);
     		}
     	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_if_block_3.name,
-    		type: "if",
-    		source: "(46:20) {#if (bookmark['payload'].imagetag)}",
-    		ctx
-    	});
-
-    	return block;
     }
 
     // (61:20) {:else}
@@ -2500,34 +2236,23 @@ var collectivebookmarks = (function (exports) {
     	let t_value = /*bookmark*/ ctx[9]["uid"] + "";
     	let t;
 
-    	const block = {
-    		c: function create() {
+    	return {
+    		c() {
     			div = element("div");
     			t = text(t_value);
-    			attr_dev(div, "class", "uid");
-    			add_location(div, file$1, 61, 24, 2080);
+    			attr(div, "class", "uid");
     		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
-    			append_dev(div, t);
+    		m(target, anchor) {
+    			insert(target, div, anchor);
+    			append(div, t);
     		},
-    		p: function update(ctx, dirty) {
-    			if (dirty & /*$store*/ 1 && t_value !== (t_value = /*bookmark*/ ctx[9]["uid"] + "")) set_data_dev(t, t_value);
+    		p(ctx, dirty) {
+    			if (dirty & /*$store*/ 1 && t_value !== (t_value = /*bookmark*/ ctx[9]["uid"] + "")) set_data(t, t_value);
     		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div);
+    		d(detaching) {
+    			if (detaching) detach(div);
     		}
     	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_else_block$1.name,
-    		type: "else",
-    		source: "(61:20) {:else}",
-    		ctx
-    	});
-
-    	return block;
     }
 
     // (51:20) {#if (bookmark['payload'].title)}
@@ -2541,8 +2266,6 @@ var collectivebookmarks = (function (exports) {
     	let a_href_value;
     	let t2;
     	let div1;
-    	let span1;
-    	let span0;
     	let mounted;
     	let dispose;
     	let if_block = /*bookmark*/ ctx[9]["payload"].description && create_if_block_2(ctx);
@@ -2551,8 +2274,8 @@ var collectivebookmarks = (function (exports) {
     		return /*click_handler*/ ctx[5](/*bookmark*/ ctx[9], ...args);
     	}
 
-    	const block = {
-    		c: function create() {
+    	return {
+    		c() {
     			div2 = element("div");
     			a = element("a");
     			div0 = element("div");
@@ -2561,42 +2284,30 @@ var collectivebookmarks = (function (exports) {
     			if (if_block) if_block.c();
     			t2 = space();
     			div1 = element("div");
-    			span1 = element("span");
-    			span0 = element("span");
-    			span0.textContent = "Remove";
-    			attr_dev(div0, "class", "title");
-    			add_location(div0, file$1, 53, 32, 1513);
-    			attr_dev(a, "href", a_href_value = "resolveuid/" + /*bookmark*/ ctx[9]["uid"]);
-    			add_location(a, file$1, 52, 28, 1441);
-    			attr_dev(span0, "class", "label");
-    			add_location(span0, file$1, 58, 140, 1950);
-    			attr_dev(span1, "class", "placeholder");
-    			add_location(span1, file$1, 58, 114, 1924);
-    			attr_dev(div1, "class", "remove svelte-6a93td");
-    			add_location(div1, file$1, 58, 28, 1838);
-    			attr_dev(div2, "class", "info");
-    			add_location(div2, file$1, 51, 24, 1394);
+    			div1.innerHTML = `<span class="placeholder"><span class="label">Remove</span></span>`;
+    			attr(div0, "class", "title");
+    			attr(a, "href", a_href_value = "resolveuid/" + /*bookmark*/ ctx[9]["uid"]);
+    			attr(div1, "class", "remove svelte-6a93td");
+    			attr(div2, "class", "info");
     		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, div2, anchor);
-    			append_dev(div2, a);
-    			append_dev(a, div0);
-    			append_dev(div0, t0);
-    			append_dev(a, t1);
+    		m(target, anchor) {
+    			insert(target, div2, anchor);
+    			append(div2, a);
+    			append(a, div0);
+    			append(div0, t0);
+    			append(a, t1);
     			if (if_block) if_block.m(a, null);
-    			append_dev(div2, t2);
-    			append_dev(div2, div1);
-    			append_dev(div1, span1);
-    			append_dev(span1, span0);
+    			append(div2, t2);
+    			append(div2, div1);
 
     			if (!mounted) {
-    				dispose = listen_dev(div1, "click", click_handler, false, false, false);
+    				dispose = listen(div1, "click", click_handler);
     				mounted = true;
     			}
     		},
-    		p: function update(new_ctx, dirty) {
+    		p(new_ctx, dirty) {
     			ctx = new_ctx;
-    			if (dirty & /*$store*/ 1 && t0_value !== (t0_value = /*bookmark*/ ctx[9]["payload"].title + "")) set_data_dev(t0, t0_value);
+    			if (dirty & /*$store*/ 1 && t0_value !== (t0_value = /*bookmark*/ ctx[9]["payload"].title + "")) set_data(t0, t0_value);
 
     			if (/*bookmark*/ ctx[9]["payload"].description) {
     				if (if_block) {
@@ -2612,26 +2323,16 @@ var collectivebookmarks = (function (exports) {
     			}
 
     			if (dirty & /*$store*/ 1 && a_href_value !== (a_href_value = "resolveuid/" + /*bookmark*/ ctx[9]["uid"])) {
-    				attr_dev(a, "href", a_href_value);
+    				attr(a, "href", a_href_value);
     			}
     		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div2);
+    		d(detaching) {
+    			if (detaching) detach(div2);
     			if (if_block) if_block.d();
     			mounted = false;
     			dispose();
     		}
     	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_if_block_1.name,
-    		type: "if",
-    		source: "(51:20) {#if (bookmark['payload'].title)}",
-    		ctx
-    	});
-
-    	return block;
     }
 
     // (55:32) {#if (bookmark['payload'].description)}
@@ -2640,34 +2341,23 @@ var collectivebookmarks = (function (exports) {
     	let t_value = /*bookmark*/ ctx[9]["payload"].description + "";
     	let t;
 
-    	const block = {
-    		c: function create() {
+    	return {
+    		c() {
     			div = element("div");
     			t = text(t_value);
-    			attr_dev(div, "class", "description");
-    			add_location(div, file$1, 55, 36, 1674);
+    			attr(div, "class", "description");
     		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
-    			append_dev(div, t);
+    		m(target, anchor) {
+    			insert(target, div, anchor);
+    			append(div, t);
     		},
-    		p: function update(ctx, dirty) {
-    			if (dirty & /*$store*/ 1 && t_value !== (t_value = /*bookmark*/ ctx[9]["payload"].description + "")) set_data_dev(t, t_value);
+    		p(ctx, dirty) {
+    			if (dirty & /*$store*/ 1 && t_value !== (t_value = /*bookmark*/ ctx[9]["payload"].description + "")) set_data(t, t_value);
     		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div);
+    		d(detaching) {
+    			if (detaching) detach(div);
     		}
     	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_if_block_2.name,
-    		type: "if",
-    		source: "(55:32) {#if (bookmark['payload'].description)}",
-    		ctx
-    	});
-
-    	return block;
     }
 
     // (42:12) {#each bookmarks(group) as bookmark}
@@ -2675,16 +2365,16 @@ var collectivebookmarks = (function (exports) {
     	let if_block_anchor;
     	let if_block = /*bookmark*/ ctx[9]["payload"].title && create_if_block$1(ctx);
 
-    	const block = {
-    		c: function create() {
+    	return {
+    		c() {
     			if (if_block) if_block.c();
     			if_block_anchor = empty();
     		},
-    		m: function mount(target, anchor) {
+    		m(target, anchor) {
     			if (if_block) if_block.m(target, anchor);
-    			insert_dev(target, if_block_anchor, anchor);
+    			insert(target, if_block_anchor, anchor);
     		},
-    		p: function update(ctx, dirty) {
+    		p(ctx, dirty) {
     			if (/*bookmark*/ ctx[9]["payload"].title) {
     				if (if_block) {
     					if_block.p(ctx, dirty);
@@ -2698,21 +2388,11 @@ var collectivebookmarks = (function (exports) {
     				if_block = null;
     			}
     		},
-    		d: function destroy(detaching) {
+    		d(detaching) {
     			if (if_block) if_block.d(detaching);
-    			if (detaching) detach_dev(if_block_anchor);
+    			if (detaching) detach(if_block_anchor);
     		}
     	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_each_block_1.name,
-    		type: "each",
-    		source: "(42:12) {#each bookmarks(group) as bookmark}",
-    		ctx
-    	});
-
-    	return block;
     }
 
     // (38:4) {#each groups($store) as group}
@@ -2726,15 +2406,14 @@ var collectivebookmarks = (function (exports) {
     	let t2;
     	let div2_class_value;
     	let each_value_1 = /*bookmarks*/ ctx[3](/*group*/ ctx[6]);
-    	validate_each_argument(each_value_1);
     	let each_blocks = [];
 
     	for (let i = 0; i < each_value_1.length; i += 1) {
     		each_blocks[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
     	}
 
-    	const block = {
-    		c: function create() {
+    	return {
+    		c() {
     			div2 = element("div");
     			div0 = element("div");
     			t0 = text(t0_value);
@@ -2746,32 +2425,28 @@ var collectivebookmarks = (function (exports) {
     			}
 
     			t2 = space();
-    			attr_dev(div0, "class", "group-header");
-    			add_location(div0, file$1, 39, 8, 854);
-    			attr_dev(div1, "class", "group-list");
-    			add_location(div1, file$1, 40, 8, 902);
-    			attr_dev(div2, "class", div2_class_value = "bookmark-group " + /*group*/ ctx[6] + " svelte-6a93td");
-    			add_location(div2, file$1, 38, 4, 809);
+    			attr(div0, "class", "group-header");
+    			attr(div1, "class", "group-list");
+    			attr(div2, "class", div2_class_value = "bookmark-group " + /*group*/ ctx[6] + " svelte-6a93td");
     		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, div2, anchor);
-    			append_dev(div2, div0);
-    			append_dev(div0, t0);
-    			append_dev(div2, t1);
-    			append_dev(div2, div1);
+    		m(target, anchor) {
+    			insert(target, div2, anchor);
+    			append(div2, div0);
+    			append(div0, t0);
+    			append(div2, t1);
+    			append(div2, div1);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].m(div1, null);
     			}
 
-    			append_dev(div2, t2);
+    			append(div2, t2);
     		},
-    		p: function update(ctx, dirty) {
-    			if (dirty & /*$store*/ 1 && t0_value !== (t0_value = /*group*/ ctx[6] + "")) set_data_dev(t0, t0_value);
+    		p(ctx, dirty) {
+    			if (dirty & /*$store*/ 1 && t0_value !== (t0_value = /*group*/ ctx[6] + "")) set_data(t0, t0_value);
 
     			if (dirty & /*handleRemove, bookmarks, groups, $store*/ 29) {
     				each_value_1 = /*bookmarks*/ ctx[3](/*group*/ ctx[6]);
-    				validate_each_argument(each_value_1);
     				let i;
 
     				for (i = 0; i < each_value_1.length; i += 1) {
@@ -2794,24 +2469,14 @@ var collectivebookmarks = (function (exports) {
     			}
 
     			if (dirty & /*$store*/ 1 && div2_class_value !== (div2_class_value = "bookmark-group " + /*group*/ ctx[6] + " svelte-6a93td")) {
-    				attr_dev(div2, "class", div2_class_value);
+    				attr(div2, "class", div2_class_value);
     			}
     		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div2);
+    		d(detaching) {
+    			if (detaching) detach(div2);
     			destroy_each(each_blocks, detaching);
     		}
     	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_each_block.name,
-    		type: "each",
-    		source: "(38:4) {#each groups($store) as group}",
-    		ctx
-    	});
-
-    	return block;
     }
 
     function create_fragment$1(ctx) {
@@ -2819,17 +2484,16 @@ var collectivebookmarks = (function (exports) {
     	let show_if = !/*sum*/ ctx[1](/*$store*/ ctx[0]);
     	let t;
     	let div_data_bookmarks_count_value;
-    	let if_block = show_if && create_if_block_4(ctx);
+    	let if_block = show_if && create_if_block_4();
     	let each_value = /*groups*/ ctx[2](/*$store*/ ctx[0]);
-    	validate_each_argument(each_value);
     	let each_blocks = [];
 
     	for (let i = 0; i < each_value.length; i += 1) {
     		each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
     	}
 
-    	const block = {
-    		c: function create() {
+    	return {
+    		c() {
     			div = element("div");
     			if (if_block) if_block.c();
     			t = space();
@@ -2838,28 +2502,24 @@ var collectivebookmarks = (function (exports) {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(div, "class", "bookmark-list");
-    			attr_dev(div, "data-bookmarks-count", div_data_bookmarks_count_value = /*sum*/ ctx[1](/*$store*/ ctx[0]));
-    			add_location(div, file$1, 33, 0, 622);
+    			attr(div, "class", "bookmark-list");
+    			attr(div, "data-bookmarks-count", div_data_bookmarks_count_value = /*sum*/ ctx[1](/*$store*/ ctx[0]));
     		},
-    		l: function claim(nodes) {
-    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
-    		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
+    		m(target, anchor) {
+    			insert(target, div, anchor);
     			if (if_block) if_block.m(div, null);
-    			append_dev(div, t);
+    			append(div, t);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].m(div, null);
     			}
     		},
-    		p: function update(ctx, [dirty]) {
+    		p(ctx, [dirty]) {
     			if (dirty & /*$store*/ 1) show_if = !/*sum*/ ctx[1](/*$store*/ ctx[0]);
 
     			if (show_if) {
     				if (if_block) ; else {
-    					if_block = create_if_block_4(ctx);
+    					if_block = create_if_block_4();
     					if_block.c();
     					if_block.m(div, t);
     				}
@@ -2870,7 +2530,6 @@ var collectivebookmarks = (function (exports) {
 
     			if (dirty & /*groups, $store, bookmarks, handleRemove*/ 29) {
     				each_value = /*groups*/ ctx[2](/*$store*/ ctx[0]);
-    				validate_each_argument(each_value);
     				let i;
 
     				for (i = 0; i < each_value.length; i += 1) {
@@ -2893,32 +2552,21 @@ var collectivebookmarks = (function (exports) {
     			}
 
     			if (dirty & /*$store*/ 1 && div_data_bookmarks_count_value !== (div_data_bookmarks_count_value = /*sum*/ ctx[1](/*$store*/ ctx[0]))) {
-    				attr_dev(div, "data-bookmarks-count", div_data_bookmarks_count_value);
+    				attr(div, "data-bookmarks-count", div_data_bookmarks_count_value);
     			}
     		},
     		i: noop,
     		o: noop,
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div);
+    		d(detaching) {
+    			if (detaching) detach(div);
     			if (if_block) if_block.d();
     			destroy_each(each_blocks, detaching);
     		}
     	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_fragment$1.name,
-    		type: "component",
-    		source: "",
-    		ctx
-    	});
-
-    	return block;
     }
 
     function instance$1($$self, $$props, $$invalidate) {
     	let $store;
-    	validate_store(store, "store");
     	component_subscribe($$self, store, $$value => $$invalidate(0, $store = $$value));
 
     	const sum = storage => {
@@ -2951,46 +2599,19 @@ var collectivebookmarks = (function (exports) {
     		store.delete(uid, group);
     	}
 
-    	const writable_props = [];
-
-    	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<BookmarkList> was created with unknown prop '${key}'`);
-    	});
-
-    	let { $$slots = {}, $$scope } = $$props;
-    	validate_slots("BookmarkList", $$slots, []);
     	const click_handler = bookmark => handleRemove(bookmark["uid"], bookmark["group"]);
-
-    	$$self.$capture_state = () => ({
-    		store,
-    		sum,
-    		groups,
-    		bookmarks,
-    		handleRemove,
-    		$store
-    	});
-
     	return [$store, sum, groups, bookmarks, handleRemove, click_handler];
     }
 
-    class BookmarkList extends SvelteComponentDev {
+    class BookmarkList extends SvelteComponent {
     	constructor(options) {
-    		super(options);
+    		super();
     		init(this, options, instance$1, create_fragment$1, safe_not_equal, {});
-
-    		dispatch_dev("SvelteRegisterComponent", {
-    			component: this,
-    			tagName: "BookmarkList",
-    			options,
-    			id: create_fragment$1.name
-    		});
     	}
     }
 
     /* src/BookmarkSum.svelte generated by Svelte v3.24.1 */
-    const file$2 = "src/BookmarkSum.svelte";
 
-    // (24:0) {:else}
     function create_else_block$2(ctx) {
     	let span1;
     	let i;
@@ -2998,46 +2619,33 @@ var collectivebookmarks = (function (exports) {
     	let span0;
     	let span1_data_bookmarks_count_value;
 
-    	const block = {
-    		c: function create() {
+    	return {
+    		c() {
     			span1 = element("span");
     			i = element("i");
     			t0 = space();
     			span0 = element("span");
     			span0.textContent = "0";
-    			attr_dev(i, "class", "bookmark-icon");
-    			add_location(i, file$2, 25, 4, 588);
-    			attr_dev(span0, "class", "amount");
-    			add_location(span0, file$2, 26, 4, 620);
-    			attr_dev(span1, "class", "count empty");
-    			attr_dev(span1, "data-bookmarks-count", span1_data_bookmarks_count_value = /*sum*/ ctx[1](/*$store*/ ctx[0]));
-    			add_location(span1, file$2, 24, 0, 520);
+    			attr(i, "class", "bookmark-icon");
+    			attr(span0, "class", "amount");
+    			attr(span1, "class", "count empty");
+    			attr(span1, "data-bookmarks-count", span1_data_bookmarks_count_value = /*sum*/ ctx[1](/*$store*/ ctx[0]));
     		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, span1, anchor);
-    			append_dev(span1, i);
-    			append_dev(span1, t0);
-    			append_dev(span1, span0);
+    		m(target, anchor) {
+    			insert(target, span1, anchor);
+    			append(span1, i);
+    			append(span1, t0);
+    			append(span1, span0);
     		},
-    		p: function update(ctx, dirty) {
+    		p(ctx, dirty) {
     			if (dirty & /*$store*/ 1 && span1_data_bookmarks_count_value !== (span1_data_bookmarks_count_value = /*sum*/ ctx[1](/*$store*/ ctx[0]))) {
-    				attr_dev(span1, "data-bookmarks-count", span1_data_bookmarks_count_value);
+    				attr(span1, "data-bookmarks-count", span1_data_bookmarks_count_value);
     			}
     		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(span1);
+    		d(detaching) {
+    			if (detaching) detach(span1);
     		}
     	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_else_block$2.name,
-    		type: "else",
-    		source: "(24:0) {:else}",
-    		ctx
-    	});
-
-    	return block;
     }
 
     // (19:0) {#if (sum($store))}
@@ -3050,49 +2658,36 @@ var collectivebookmarks = (function (exports) {
     	let t1;
     	let span1_data_bookmarks_count_value;
 
-    	const block = {
-    		c: function create() {
+    	return {
+    		c() {
     			span1 = element("span");
     			i = element("i");
     			t0 = space();
     			span0 = element("span");
     			t1 = text(t1_value);
-    			attr_dev(i, "class", "bookmark-icon");
-    			add_location(i, file$2, 20, 4, 430);
-    			attr_dev(span0, "class", "amount");
-    			add_location(span0, file$2, 21, 4, 462);
-    			attr_dev(span1, "class", "count filled");
-    			attr_dev(span1, "data-bookmarks-count", span1_data_bookmarks_count_value = /*sum*/ ctx[1](/*$store*/ ctx[0]));
-    			add_location(span1, file$2, 19, 0, 361);
+    			attr(i, "class", "bookmark-icon");
+    			attr(span0, "class", "amount");
+    			attr(span1, "class", "count filled");
+    			attr(span1, "data-bookmarks-count", span1_data_bookmarks_count_value = /*sum*/ ctx[1](/*$store*/ ctx[0]));
     		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, span1, anchor);
-    			append_dev(span1, i);
-    			append_dev(span1, t0);
-    			append_dev(span1, span0);
-    			append_dev(span0, t1);
+    		m(target, anchor) {
+    			insert(target, span1, anchor);
+    			append(span1, i);
+    			append(span1, t0);
+    			append(span1, span0);
+    			append(span0, t1);
     		},
-    		p: function update(ctx, dirty) {
-    			if (dirty & /*$store*/ 1 && t1_value !== (t1_value = /*sum*/ ctx[1](/*$store*/ ctx[0]) + "")) set_data_dev(t1, t1_value);
+    		p(ctx, dirty) {
+    			if (dirty & /*$store*/ 1 && t1_value !== (t1_value = /*sum*/ ctx[1](/*$store*/ ctx[0]) + "")) set_data(t1, t1_value);
 
     			if (dirty & /*$store*/ 1 && span1_data_bookmarks_count_value !== (span1_data_bookmarks_count_value = /*sum*/ ctx[1](/*$store*/ ctx[0]))) {
-    				attr_dev(span1, "data-bookmarks-count", span1_data_bookmarks_count_value);
+    				attr(span1, "data-bookmarks-count", span1_data_bookmarks_count_value);
     			}
     		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(span1);
+    		d(detaching) {
+    			if (detaching) detach(span1);
     		}
     	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_if_block$2.name,
-    		type: "if",
-    		source: "(19:0) {#if (sum($store))}",
-    		ctx
-    	});
-
-    	return block;
     }
 
     function create_fragment$2(ctx) {
@@ -3108,19 +2703,16 @@ var collectivebookmarks = (function (exports) {
     	let current_block_type = select_block_type(ctx, -1);
     	let if_block = current_block_type(ctx);
 
-    	const block = {
-    		c: function create() {
+    	return {
+    		c() {
     			if_block.c();
     			if_block_anchor = empty();
     		},
-    		l: function claim(nodes) {
-    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
-    		},
-    		m: function mount(target, anchor) {
+    		m(target, anchor) {
     			if_block.m(target, anchor);
-    			insert_dev(target, if_block_anchor, anchor);
+    			insert(target, if_block_anchor, anchor);
     		},
-    		p: function update(ctx, [dirty]) {
+    		p(ctx, [dirty]) {
     			if (current_block_type === (current_block_type = select_block_type(ctx, dirty)) && if_block) {
     				if_block.p(ctx, dirty);
     			} else {
@@ -3135,26 +2727,15 @@ var collectivebookmarks = (function (exports) {
     		},
     		i: noop,
     		o: noop,
-    		d: function destroy(detaching) {
+    		d(detaching) {
     			if_block.d(detaching);
-    			if (detaching) detach_dev(if_block_anchor);
+    			if (detaching) detach(if_block_anchor);
     		}
     	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_fragment$2.name,
-    		type: "component",
-    		source: "",
-    		ctx
-    	});
-
-    	return block;
     }
 
     function instance$2($$self, $$props, $$invalidate) {
     	let $store;
-    	validate_store(store, "store");
     	component_subscribe($$self, store, $$value => $$invalidate(0, $store = $$value));
 
     	const sum = storage => {
@@ -3166,37 +2747,13 @@ var collectivebookmarks = (function (exports) {
     		document.dispatchEvent(event);
     	});
 
-    	const writable_props = [];
-
-    	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<BookmarkSum> was created with unknown prop '${key}'`);
-    	});
-
-    	let { $$slots = {}, $$scope } = $$props;
-    	validate_slots("BookmarkSum", $$slots, []);
-
-    	$$self.$capture_state = () => ({
-    		afterUpdate,
-    		select_multiple_value,
-    		store,
-    		sum,
-    		$store
-    	});
-
     	return [$store, sum];
     }
 
-    class BookmarkSum extends SvelteComponentDev {
+    class BookmarkSum extends SvelteComponent {
     	constructor(options) {
-    		super(options);
+    		super();
     		init(this, options, instance$2, create_fragment$2, safe_not_equal, {});
-
-    		dispatch_dev("SvelteRegisterComponent", {
-    			component: this,
-    			tagName: "BookmarkSum",
-    			options,
-    			id: create_fragment$2.name
-    		});
     	}
     }
 
