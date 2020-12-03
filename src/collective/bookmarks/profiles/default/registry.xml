@@ -14,7 +14,7 @@
       <element>collective-bookmarks</element>
     </value>
     <value key="last_compilation">2020-08-19 12:53:00</value>
-    <value key="jscompilation">++plone++collective.bookmarks/collective.bookmarks-pattern.js</value>
+    <value key="jscompilation">++plone++collective.bookmarks/collective.bookmarks.js</value>
     <value key="csscompilation">++plone++collective.bookmarks/collective.bookmarks.css</value>
     <value key="develop_javascript">False</value>
     <value key="develop_css">False</value>
@@ -22,6 +22,7 @@
     <value key="resources"></value>
     <value key="compile">False</value>
     <value key="enabled">True</value>
+    <value key="load_defer">True</value>
   </records>
 
 </registry>
