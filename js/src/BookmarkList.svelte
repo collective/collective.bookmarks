@@ -31,6 +31,8 @@ function handleRemove(uid, group) {
     }
 </style>
 
+<svelte:options tag="bookmark-list" />
+
 <div class="bookmark-list" data-bookmarks-count="{sum($store)}">
     {#if !sum($store)}
         <div class="empty-bookmarks-list"></div>

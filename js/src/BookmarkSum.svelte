@@ -15,6 +15,10 @@ afterUpdate(() => {
 </script>
 <style>
 </style>
+
+
+<svelte:options tag="bookmark-sum" />
+
 {#if (sum($store))}
 <span class="count filled" data-bookmarks-count="{sum($store)}">
     <i class="bookmark-icon" />

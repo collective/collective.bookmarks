@@ -33,6 +33,8 @@
   }
 </style>
 
+<svelte:options tag="bookmark-element" />
+
 <span class="collectivebookmarks marker" on:click={toggle}>
   {#if $store.get(uid + group)}
     {@html textmarked}
