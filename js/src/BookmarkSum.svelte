@@ -6,11 +6,19 @@ const sum = (storage) => {
     return storage.size
 }
 
-afterUpdate(() => {
+$:{
+    store;
     let event = new
-    Event('collective.bookmarks.updated.sum')
+    Event('collective.bookmarks.sum.updated')
     document.dispatchEvent(event)
-});
+}
+
+// alternative event dispatch after dom is udpated
+// afterUpdate(() => {
+//     let event = new
+//     Event('collective.bookmarks.sum.updated')
+//     document.dispatchEvent(event)
+// });
 
 </script>
 <style>
