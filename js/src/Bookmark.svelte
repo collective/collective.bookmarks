@@ -30,6 +30,9 @@
 <style>
   .marker {
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-content: center;
   }
 </style>
 
