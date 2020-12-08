@@ -2430,17 +2430,17 @@
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[6] = list[i];
+    	child_ctx[7] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[9] = list[i];
+    	child_ctx[10] = list[i];
     	return child_ctx;
     }
 
-    // (37:4) {#if !sum($store)}
+    // (41:4) {#if !sum($store)}
     function create_if_block_4(ctx) {
     	let div;
 
@@ -2448,7 +2448,7 @@
     		c: function create() {
     			div = element("div");
     			attr_dev(div, "class", "empty-bookmarks-list");
-    			add_location(div, file$1, 37, 8, 758);
+    			add_location(div, file$1, 41, 8, 805);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -2462,24 +2462,24 @@
     		block,
     		id: create_if_block_4.name,
     		type: "if",
-    		source: "(37:4) {#if !sum($store)}",
+    		source: "(41:4) {#if !sum($store)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (45:12) {#if (bookmark['payload'].title)}
+    // (49:12) {#if (bookmark['payload'].title)}
     function create_if_block$1(ctx) {
     	let div;
     	let a;
     	let a_href_value;
     	let t0;
     	let t1;
-    	let if_block0 = /*bookmark*/ ctx[9]["payload"].imagetag && create_if_block_3(ctx);
+    	let if_block0 = /*bookmark*/ ctx[10]["payload"].imagetag && create_if_block_3(ctx);
 
     	function select_block_type(ctx, dirty) {
-    		if (/*bookmark*/ ctx[9]["payload"].title) return create_if_block_1;
+    		if (/*bookmark*/ ctx[10]["payload"].title) return create_if_block_1;
     		return create_else_block$1;
     	}
 
@@ -2494,10 +2494,10 @@
     			t0 = space();
     			if_block1.c();
     			t1 = space();
-    			attr_dev(a, "href", a_href_value = "resolveuid/" + /*bookmark*/ ctx[9]["uid"]);
-    			add_location(a, file$1, 46, 20, 1121);
+    			attr_dev(a, "href", a_href_value = "resolveuid/" + /*bookmark*/ ctx[10]["uid"]);
+    			add_location(a, file$1, 50, 20, 1168);
     			attr_dev(div, "class", "bookmark");
-    			add_location(div, file$1, 45, 16, 1078);
+    			add_location(div, file$1, 49, 16, 1125);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -2508,7 +2508,7 @@
     			append_dev(div, t1);
     		},
     		p: function update(ctx, dirty) {
-    			if (/*bookmark*/ ctx[9]["payload"].imagetag) {
+    			if (/*bookmark*/ ctx[10]["payload"].imagetag) {
     				if (if_block0) {
     					if_block0.p(ctx, dirty);
     				} else {
@@ -2521,7 +2521,7 @@
     				if_block0 = null;
     			}
 
-    			if (dirty & /*$store*/ 1 && a_href_value !== (a_href_value = "resolveuid/" + /*bookmark*/ ctx[9]["uid"])) {
+    			if (dirty & /*$store*/ 2 && a_href_value !== (a_href_value = "resolveuid/" + /*bookmark*/ ctx[10]["uid"])) {
     				attr_dev(a, "href", a_href_value);
     			}
 
@@ -2548,30 +2548,30 @@
     		block,
     		id: create_if_block$1.name,
     		type: "if",
-    		source: "(45:12) {#if (bookmark['payload'].title)}",
+    		source: "(49:12) {#if (bookmark['payload'].title)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (48:20) {#if (bookmark['payload'].imagetag)}
+    // (52:20) {#if (bookmark['payload'].imagetag)}
     function create_if_block_3(ctx) {
     	let div;
-    	let raw_value = /*bookmark*/ ctx[9]["payload"].imagetag + "";
+    	let raw_value = /*bookmark*/ ctx[10]["payload"].imagetag + "";
 
     	const block = {
     		c: function create() {
     			div = element("div");
     			attr_dev(div, "class", "image");
-    			add_location(div, file$1, 48, 24, 1242);
+    			add_location(div, file$1, 52, 24, 1289);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
     			div.innerHTML = raw_value;
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*$store*/ 1 && raw_value !== (raw_value = /*bookmark*/ ctx[9]["payload"].imagetag + "")) div.innerHTML = raw_value;		},
+    			if (dirty & /*$store*/ 2 && raw_value !== (raw_value = /*bookmark*/ ctx[10]["payload"].imagetag + "")) div.innerHTML = raw_value;		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div);
     		}
@@ -2581,17 +2581,17 @@
     		block,
     		id: create_if_block_3.name,
     		type: "if",
-    		source: "(48:20) {#if (bookmark['payload'].imagetag)}",
+    		source: "(52:20) {#if (bookmark['payload'].imagetag)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (63:20) {:else}
+    // (67:20) {:else}
     function create_else_block$1(ctx) {
     	let div;
-    	let t_value = /*bookmark*/ ctx[9]["uid"] + "";
+    	let t_value = /*bookmark*/ ctx[10]["uid"] + "";
     	let t;
 
     	const block = {
@@ -2599,14 +2599,14 @@
     			div = element("div");
     			t = text(t_value);
     			attr_dev(div, "class", "uid");
-    			add_location(div, file$1, 63, 24, 2120);
+    			add_location(div, file$1, 67, 24, 2167);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
     			append_dev(div, t);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*$store*/ 1 && t_value !== (t_value = /*bookmark*/ ctx[9]["uid"] + "")) set_data_dev(t, t_value);
+    			if (dirty & /*$store*/ 2 && t_value !== (t_value = /*bookmark*/ ctx[10]["uid"] + "")) set_data_dev(t, t_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div);
@@ -2617,19 +2617,19 @@
     		block,
     		id: create_else_block$1.name,
     		type: "else",
-    		source: "(63:20) {:else}",
+    		source: "(67:20) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (53:20) {#if (bookmark['payload'].title)}
+    // (57:20) {#if (bookmark['payload'].title)}
     function create_if_block_1(ctx) {
     	let div2;
     	let a;
     	let div0;
-    	let t0_value = /*bookmark*/ ctx[9]["payload"].title + "";
+    	let t0_value = /*bookmark*/ ctx[10]["payload"].title + "";
     	let t0;
     	let t1;
     	let a_href_value;
@@ -2639,10 +2639,10 @@
     	let span0;
     	let mounted;
     	let dispose;
-    	let if_block = /*bookmark*/ ctx[9]["payload"].description && create_if_block_2(ctx);
+    	let if_block = /*bookmark*/ ctx[10]["payload"].description && create_if_block_2(ctx);
 
     	function click_handler() {
-    		return /*click_handler*/ ctx[5](/*bookmark*/ ctx[9]);
+    		return /*click_handler*/ ctx[6](/*bookmark*/ ctx[10]);
     	}
 
     	const block = {
@@ -2659,17 +2659,17 @@
     			span0 = element("span");
     			span0.textContent = "Remove";
     			attr_dev(div0, "class", "title");
-    			add_location(div0, file$1, 55, 32, 1553);
-    			attr_dev(a, "href", a_href_value = "resolveuid/" + /*bookmark*/ ctx[9]["uid"]);
-    			add_location(a, file$1, 54, 28, 1481);
+    			add_location(div0, file$1, 59, 32, 1600);
+    			attr_dev(a, "href", a_href_value = "resolveuid/" + /*bookmark*/ ctx[10]["uid"]);
+    			add_location(a, file$1, 58, 28, 1528);
     			attr_dev(span0, "class", "label");
-    			add_location(span0, file$1, 60, 140, 1990);
+    			add_location(span0, file$1, 64, 140, 2037);
     			attr_dev(span1, "class", "placeholder");
-    			add_location(span1, file$1, 60, 114, 1964);
+    			add_location(span1, file$1, 64, 114, 2011);
     			attr_dev(div1, "class", "remove");
-    			add_location(div1, file$1, 60, 28, 1878);
+    			add_location(div1, file$1, 64, 28, 1925);
     			attr_dev(div2, "class", "info");
-    			add_location(div2, file$1, 53, 24, 1434);
+    			add_location(div2, file$1, 57, 24, 1481);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -2690,9 +2690,9 @@
     		},
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
-    			if (dirty & /*$store*/ 1 && t0_value !== (t0_value = /*bookmark*/ ctx[9]["payload"].title + "")) set_data_dev(t0, t0_value);
+    			if (dirty & /*$store*/ 2 && t0_value !== (t0_value = /*bookmark*/ ctx[10]["payload"].title + "")) set_data_dev(t0, t0_value);
 
-    			if (/*bookmark*/ ctx[9]["payload"].description) {
+    			if (/*bookmark*/ ctx[10]["payload"].description) {
     				if (if_block) {
     					if_block.p(ctx, dirty);
     				} else {
@@ -2705,7 +2705,7 @@
     				if_block = null;
     			}
 
-    			if (dirty & /*$store*/ 1 && a_href_value !== (a_href_value = "resolveuid/" + /*bookmark*/ ctx[9]["uid"])) {
+    			if (dirty & /*$store*/ 2 && a_href_value !== (a_href_value = "resolveuid/" + /*bookmark*/ ctx[10]["uid"])) {
     				attr_dev(a, "href", a_href_value);
     			}
     		},
@@ -2721,17 +2721,17 @@
     		block,
     		id: create_if_block_1.name,
     		type: "if",
-    		source: "(53:20) {#if (bookmark['payload'].title)}",
+    		source: "(57:20) {#if (bookmark['payload'].title)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (57:32) {#if (bookmark['payload'].description)}
+    // (61:32) {#if (bookmark['payload'].description)}
     function create_if_block_2(ctx) {
     	let div;
-    	let t_value = /*bookmark*/ ctx[9]["payload"].description + "";
+    	let t_value = /*bookmark*/ ctx[10]["payload"].description + "";
     	let t;
 
     	const block = {
@@ -2739,14 +2739,14 @@
     			div = element("div");
     			t = text(t_value);
     			attr_dev(div, "class", "description");
-    			add_location(div, file$1, 57, 36, 1714);
+    			add_location(div, file$1, 61, 36, 1761);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
     			append_dev(div, t);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*$store*/ 1 && t_value !== (t_value = /*bookmark*/ ctx[9]["payload"].description + "")) set_data_dev(t, t_value);
+    			if (dirty & /*$store*/ 2 && t_value !== (t_value = /*bookmark*/ ctx[10]["payload"].description + "")) set_data_dev(t, t_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div);
@@ -2757,17 +2757,17 @@
     		block,
     		id: create_if_block_2.name,
     		type: "if",
-    		source: "(57:32) {#if (bookmark['payload'].description)}",
+    		source: "(61:32) {#if (bookmark['payload'].description)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (44:12) {#each bookmarks(group) as bookmark}
+    // (48:12) {#each bookmarks(group) as bookmark}
     function create_each_block_1(ctx) {
     	let if_block_anchor;
-    	let if_block = /*bookmark*/ ctx[9]["payload"].title && create_if_block$1(ctx);
+    	let if_block = /*bookmark*/ ctx[10]["payload"].title && create_if_block$1(ctx);
 
     	const block = {
     		c: function create() {
@@ -2779,7 +2779,7 @@
     			insert_dev(target, if_block_anchor, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (/*bookmark*/ ctx[9]["payload"].title) {
+    			if (/*bookmark*/ ctx[10]["payload"].title) {
     				if (if_block) {
     					if_block.p(ctx, dirty);
     				} else {
@@ -2802,24 +2802,24 @@
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(44:12) {#each bookmarks(group) as bookmark}",
+    		source: "(48:12) {#each bookmarks(group) as bookmark}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (40:4) {#each groups($store) as group}
+    // (44:4) {#each groups($store) as group}
     function create_each_block(ctx) {
     	let div2;
     	let div0;
-    	let t0_value = /*group*/ ctx[6] + "";
+    	let t0_value = /*group*/ ctx[7] + "";
     	let t0;
     	let t1;
     	let div1;
     	let t2;
     	let div2_class_value;
-    	let each_value_1 = /*bookmarks*/ ctx[3](/*group*/ ctx[6]);
+    	let each_value_1 = /*bookmarks*/ ctx[4](/*group*/ ctx[7]);
     	validate_each_argument(each_value_1);
     	let each_blocks = [];
 
@@ -2841,11 +2841,11 @@
 
     			t2 = space();
     			attr_dev(div0, "class", "group-header");
-    			add_location(div0, file$1, 41, 8, 894);
+    			add_location(div0, file$1, 45, 8, 941);
     			attr_dev(div1, "class", "group-list");
-    			add_location(div1, file$1, 42, 8, 942);
-    			attr_dev(div2, "class", div2_class_value = "bookmark-group " + /*group*/ ctx[6]);
-    			add_location(div2, file$1, 40, 4, 849);
+    			add_location(div1, file$1, 46, 8, 989);
+    			attr_dev(div2, "class", div2_class_value = "bookmark-group " + /*group*/ ctx[7]);
+    			add_location(div2, file$1, 44, 4, 896);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -2861,10 +2861,10 @@
     			append_dev(div2, t2);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*$store*/ 1 && t0_value !== (t0_value = /*group*/ ctx[6] + "")) set_data_dev(t0, t0_value);
+    			if (dirty & /*$store*/ 2 && t0_value !== (t0_value = /*group*/ ctx[7] + "")) set_data_dev(t0, t0_value);
 
-    			if (dirty & /*handleRemove, bookmarks, groups, $store*/ 29) {
-    				each_value_1 = /*bookmarks*/ ctx[3](/*group*/ ctx[6]);
+    			if (dirty & /*handleRemove, bookmarks, groups, $store*/ 58) {
+    				each_value_1 = /*bookmarks*/ ctx[4](/*group*/ ctx[7]);
     				validate_each_argument(each_value_1);
     				let i;
 
@@ -2887,7 +2887,7 @@
     				each_blocks.length = each_value_1.length;
     			}
 
-    			if (dirty & /*$store*/ 1 && div2_class_value !== (div2_class_value = "bookmark-group " + /*group*/ ctx[6])) {
+    			if (dirty & /*$store*/ 2 && div2_class_value !== (div2_class_value = "bookmark-group " + /*group*/ ctx[7])) {
     				attr_dev(div2, "class", div2_class_value);
     			}
     		},
@@ -2901,7 +2901,7 @@
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(40:4) {#each groups($store) as group}",
+    		source: "(44:4) {#each groups($store) as group}",
     		ctx
     	});
 
@@ -2910,11 +2910,13 @@
 
     function create_fragment$1(ctx) {
     	let div;
-    	let show_if = !/*sum*/ ctx[1](/*$store*/ ctx[0]);
-    	let t;
+    	let html_tag;
+    	let t0;
+    	let show_if = !/*sum*/ ctx[2](/*$store*/ ctx[1]);
+    	let t1;
     	let div_data_bookmarks_count_value;
     	let if_block = show_if && create_if_block_4(ctx);
-    	let each_value = /*groups*/ ctx[2](/*$store*/ ctx[0]);
+    	let each_value = /*groups*/ ctx[3](/*$store*/ ctx[1]);
     	validate_each_argument(each_value);
     	let each_blocks = [];
 
@@ -2925,46 +2927,51 @@
     	const block = {
     		c: function create() {
     			div = element("div");
+    			t0 = space();
     			if (if_block) if_block.c();
-    			t = space();
+    			t1 = space();
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
 
     			this.c = noop;
+    			html_tag = new HtmlTag(t0);
     			attr_dev(div, "class", "bookmark-list");
-    			attr_dev(div, "data-bookmarks-count", div_data_bookmarks_count_value = /*sum*/ ctx[1](/*$store*/ ctx[0]));
-    			add_location(div, file$1, 35, 0, 662);
+    			attr_dev(div, "data-bookmarks-count", div_data_bookmarks_count_value = /*sum*/ ctx[2](/*$store*/ ctx[1]));
+    			add_location(div, file$1, 38, 0, 689);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
+    			html_tag.m(/*styling*/ ctx[0], div);
+    			append_dev(div, t0);
     			if (if_block) if_block.m(div, null);
-    			append_dev(div, t);
+    			append_dev(div, t1);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].m(div, null);
     			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*$store*/ 1) show_if = !/*sum*/ ctx[1](/*$store*/ ctx[0]);
+    			if (dirty & /*styling*/ 1) html_tag.p(/*styling*/ ctx[0]);
+    			if (dirty & /*$store*/ 2) show_if = !/*sum*/ ctx[2](/*$store*/ ctx[1]);
 
     			if (show_if) {
     				if (if_block) ; else {
     					if_block = create_if_block_4(ctx);
     					if_block.c();
-    					if_block.m(div, t);
+    					if_block.m(div, t1);
     				}
     			} else if (if_block) {
     				if_block.d(1);
     				if_block = null;
     			}
 
-    			if (dirty & /*groups, $store, bookmarks, handleRemove*/ 29) {
-    				each_value = /*groups*/ ctx[2](/*$store*/ ctx[0]);
+    			if (dirty & /*groups, $store, bookmarks, handleRemove*/ 58) {
+    				each_value = /*groups*/ ctx[3](/*$store*/ ctx[1]);
     				validate_each_argument(each_value);
     				let i;
 
@@ -2987,7 +2994,7 @@
     				each_blocks.length = each_value.length;
     			}
 
-    			if (dirty & /*$store*/ 1 && div_data_bookmarks_count_value !== (div_data_bookmarks_count_value = /*sum*/ ctx[1](/*$store*/ ctx[0]))) {
+    			if (dirty & /*$store*/ 2 && div_data_bookmarks_count_value !== (div_data_bookmarks_count_value = /*sum*/ ctx[2](/*$store*/ ctx[1]))) {
     				attr_dev(div, "data-bookmarks-count", div_data_bookmarks_count_value);
     			}
     		},
@@ -3014,9 +3021,10 @@
     function instance$1($$self, $$props, $$invalidate) {
     	let $store;
     	validate_store(store, "store");
-    	component_subscribe($$self, store, $$value => $$invalidate(0, $store = $$value));
+    	component_subscribe($$self, store, $$value => $$invalidate(1, $store = $$value));
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots("bookmark-list", slots, []);
+    	let { styling = "" } = $$props;
 
     	const sum = storage => {
     		return storage.size;
@@ -3048,7 +3056,7 @@
     		store.delete(uid, group);
     	}
 
-    	const writable_props = [];
+    	const writable_props = ["styling"];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<bookmark-list> was created with unknown prop '${key}'`);
@@ -3056,8 +3064,13 @@
 
     	const click_handler = bookmark => handleRemove(bookmark["uid"], bookmark["group"]);
 
+    	$$self.$$set = $$props => {
+    		if ("styling" in $$props) $$invalidate(0, styling = $$props.styling);
+    	};
+
     	$$self.$capture_state = () => ({
     		store,
+    		styling,
     		sum,
     		groups,
     		bookmarks,
@@ -3065,7 +3078,15 @@
     		$store
     	});
 
-    	return [$store, sum, groups, bookmarks, handleRemove, click_handler];
+    	$$self.$inject_state = $$props => {
+    		if ("styling" in $$props) $$invalidate(0, styling = $$props.styling);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [styling, $store, sum, groups, bookmarks, handleRemove, click_handler];
     }
 
     class BookmarkList extends SvelteElement {
@@ -3082,14 +3103,32 @@
     			instance$1,
     			create_fragment$1,
     			safe_not_equal,
-    			{}
+    			{ styling: 0 }
     		);
 
     		if (options) {
     			if (options.target) {
     				insert_dev(options.target, this, options.anchor);
     			}
+
+    			if (options.props) {
+    				this.$set(options.props);
+    				flush();
+    			}
     		}
+    	}
+
+    	static get observedAttributes() {
+    		return ["styling"];
+    	}
+
+    	get styling() {
+    		return this.$$.ctx[0];
+    	}
+
+    	set styling(styling) {
+    		this.$set({ styling });
+    		flush();
     	}
     }
 
@@ -3273,7 +3312,7 @@
     	};
 
     	afterUpdate(() => {
-    		let event = new Event("collective.bookmarks.updated.sum");
+    		let event = new Event("collective.bookmarks.sum.updated");
     		document.dispatchEvent(event);
     	});
 
