@@ -2,6 +2,7 @@
 import store from './store.js'
 
 export let styling = '';
+export let layout = '';
 
 const sum = (storage) => {
     return storage.size
@@ -36,7 +37,7 @@ function handleRemove(uid, group) {
 
 <svelte:options tag="bookmark-list" />
 
-<div class="bookmark-list" data-bookmarks-count="{sum($store)}">
+<div class="bookmark-list {layout}" data-bookmarks-count="{sum($store)}">
     {@html styling}
     {#if !sum($store)}
         <div class="empty-bookmarks-list"></div>
