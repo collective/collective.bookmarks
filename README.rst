@@ -31,6 +31,7 @@ Data Format
     - ``created``: date in ISO (like in plone.restapi)
     - ``group``: group name or empty string for *global* group
     - ``owner``: unique owner identifier (str)
+    - ``queryparams``: String: Identifies bookmark together with uid, owner and group
     - ``payload``: arbitary dict with custom key-value data (optional)
 
 RESTAPI
@@ -63,10 +64,16 @@ Frontend
 Control-Panel
 -------------
 
-Registry  entry with control panel
+Registry entry with control panel
 
 - Heading of lists. Defaults to "Bookmarks", but maybe one needs "bookmarks" or "Wishlist" or alike.
 - List of bookmarkable portal-types.
+
+
+Administration of catalog
+-------------------------
+
+Install Souper Plone add-on in controlpanel.
 
 
 Installation

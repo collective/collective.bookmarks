@@ -5,6 +5,11 @@ Changelog
 1.1.a1 (unreleased)
 ------------------
 
+- unique identifier changed to (uid, owner, group, queryparams), was before (uid, owner, group). Allows to bookmark searchquery urls.
+  [ksuess]
+- BREAKING: 'created' in format like plone.restapi does: 
+  from plone.restapi.serializer.converters import json_compatible
+  [ksuess]
 - Convert to custom element
   Various extensions / optimizations
   [jensens]
