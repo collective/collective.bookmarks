@@ -34,6 +34,7 @@ store.delete = (uid, group) => {
 // init from localstorage
 if (localStorage.getItem(STORAGEKEY)) {
   // read stored
+  console.log('Object.entries(JSON.parse(localStorage.getItem(STORAGEKEY)))', Object.entries(JSON.parse(localStorage.getItem(STORAGEKEY))));
   for (const [key, bookmark] of Object.entries(JSON.parse(localStorage.getItem(STORAGEKEY)))) {
     store.update(storage => {
       storage.set(key, bookmark)
