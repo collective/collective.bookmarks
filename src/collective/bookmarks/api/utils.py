@@ -41,7 +41,7 @@ def get_bookmark_from_request(request, loadjson=False):
 
 
 def bookmark_dict_to_json_dict(bookmark):
-    """Prepare result item for responseself.
+    """Prepare result item for response.
 
     Enrich more if needed.
     """
