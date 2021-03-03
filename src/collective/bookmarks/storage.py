@@ -1,4 +1,7 @@
+
+from datetime import datetime
 from plone import api
+from plone.restapi.serializer.converters import json_compatible
 from repoze.catalog.catalog import Catalog
 from repoze.catalog.indexes.field import CatalogFieldIndex
 from repoze.catalog.query import Eq
@@ -23,6 +26,7 @@ class BookmarksCatalogFactory:
         catalog["group"] = CatalogFieldIndex(NodeAttributeIndexer("group"))
         catalog["created"] = CatalogFieldIndex(NodeAttributeIndexer("created"))
         catalog["owner"] = CatalogFieldIndex(NodeAttributeIndexer("owner"))
+        catalog["queryparams"] = CatalogFieldIndex(NodeAttributeIndexer("queryparams"))        
         return catalog
 
 
@@ -57,23 +61,26 @@ class Bookmarks:
         result["owner"] = record.attrs["owner"]
         result["uid"] = record.attrs["uid"]
         result["group"] = record.attrs["group"]
+        result["queryparams"] = record.attrs["queryparams"]
         result["created"] = record.attrs["created"]
         result["payload"] = record.attrs["payload"]
         return result
 
     def add(
-        self, owner: str, uid: uuid.UUID, group: str, payload: dict
+        self, owner: str, uid: uuid.UUID, group: str, queryparams: str, payload: dict
     ) -> typing.Union[int, None]:
         """add new entry.
 
-        uniqueness is given by triple of owner, uid and group.
+        uniqueness is given by triple of owner, uid, group and queryparams.
 
         returns None if such a triple already exists
         returns record_id if successful added
         """
         # check existing
         if (
-            self._fetch_one(Eq("owner", owner) & Eq("uid", uid) & Eq("group", group))
+            self._fetch_one(
+                Eq("owner", owner) & Eq("uid", uid) & Eq("group", group) & Eq("queryparams", queryparams)
+            )
             is not None
         ):
             return None
@@ -81,55 +88,57 @@ class Bookmarks:
         record.attrs["owner"] = owner
         record.attrs["uid"] = uid
         record.attrs["group"] = group
+        record.attrs["queryparams"] = queryparams
         record.attrs["payload"] = payload
-        record.attrs["created"] = math.floor(time.time())
+        record.attrs["created"] = json_compatible(datetime.utcnow())
         if self._soup.add(record):
             return self._dictify(record)
 
     def update(
-        self, owner: str, uid: uuid.UUID, group: str, payload: dict
+        self, owner: str, uid: uuid.UUID, group: str, queryparams: str, payload: dict
     ) -> typing.Union[dict, None]:
         """update payload of an existing entry
 
-        uniqueness is given by triple of owner, uid and group.
+        uniqueness is given by triple of owner, uid, group and queryparams.
 
         returns None if no such a triple already exists
         returns the Record if update was successful
         """
         record = self._fetch_one(
-            Eq("owner", owner) & Eq("uid", uid) & Eq("group", group)
+            Eq("owner", owner) & Eq("uid", uid) & Eq("group", group) & Eq("queryparams", queryparams)
         )
         if record is None:
             return None
         record.attrs["payload"] = payload
         return self._dictify(record)
 
-    def delete(self, owner: str, uid: uuid.UUID, group: str) -> bool:
+    def delete(self, owner: str, uid: uuid.UUID, group: str, queryparams: str) -> bool:
         """delete existing entry
 
-        uniqueness is given by triple of owner, uid and group.
+        uniqueness is given by triple of owner, uid, group and queryparams.
 
         returns False if no such a triple already exists
         returns True if the Record was successfully deleted
         """
         record = self._fetch_one(
-            Eq("owner", owner) & Eq("uid", uid) & Eq("group", group)
+            Eq("owner", owner) & Eq("uid", uid) & Eq("group", group) & Eq("queryparams", queryparams)
         )
         if record is None:
             return False
         del self._soup[record]
         return True
 
-    def get(self, owner: str, uid: uuid.UUID, group: str) -> typing.Union[dict, None]:
+    def get(self, owner: str, uid: uuid.UUID, group: str, queryparams: str) -> typing.Union[dict, None]:
         """get one bookmark
 
-        uniqueness is given by triple of owner, uid and group.
+        uniqueness is given by triple of owner, uid, group and queryparams.
 
         returns None if no such a triple already exists
         returns dictified data if update was successful
         """
+
         record = self._fetch_one(
-            Eq("owner", owner) & Eq("uid", uid) & Eq("group", group)
+            Eq("owner", owner) & Eq("uid", uid) & Eq("group", group) & Eq("queryparams", queryparams)
         )
         if record is None:
             return None
