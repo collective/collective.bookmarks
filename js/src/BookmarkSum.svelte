@@ -1,6 +1,5 @@
 <script>
 import { afterUpdate } from 'svelte';
-import { select_multiple_value } from 'svelte/internal'
 import store from './store.js'
 
 const sum = (storage) => {
@@ -9,13 +8,17 @@ const sum = (storage) => {
 
 afterUpdate(() => {
     let event = new
-    Event('collective.bookmarks.updated.sum')
+    Event('collective.bookmarks.sum.updated')
     document.dispatchEvent(event)
 });
 
 </script>
 <style>
 </style>
+
+
+<svelte:options tag="bookmark-sum" />
+
 {#if (sum($store))}
 <span class="count filled" data-bookmarks-count="{sum($store)}">
     <i class="bookmark-icon" />

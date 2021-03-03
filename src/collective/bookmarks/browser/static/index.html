@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset='utf-8'>
+	<meta name='viewport' content='width=device-width,initial-scale=1'>
+
+	<title>Bookmarks</title>
+
+	<link rel='stylesheet' href='collective.bookmarks.css'>
+  <script defered src='collective.bookmarks.js'></script>
+
+  <script type="module">
+    window.onload = (event) => {
+      var btn = document.createElement("bookmark-element");   // Create a <button> element
+      btn.setAttribute('textmarked', "juhu");
+      btn.setAttribute('textmunarked', "jaha");
+      btn.setAttribute('uid', "a5397c7b-4186-4267-82c6-3d28053edf1r");
+      document.body.appendChild(btn);
+    }
+  </script>
+</head>
+
+<body>
+
+
+  <p>
+    Fancy Stars <bookmark-element
+      textmarked="&#9733;"
+      textunmarked="&#9734;"
+      uid="a5397c7b-4186-4267-82c6-3d28053edf1e"
+      group="stars"
+      title="foo"
+      description="foobar"
+      />
+  </p>
+  <p>
+    Hearts are fragile <bookmark-element
+      textmarked="&#128150;"
+      textunmarked="&#128148;"
+      uid="c5397c7b-4186-4267-82c6-3d28053edf1e"
+      />
+  </p>
+
+  <bookmark-list></bookmark-list>
+  <hr />
+  <bookmark-sum></bookmark-sum>
+
+
+
+
+<!--
+  <p>Fancy Stars <span class="pat-collectivebookmark" data-pat-collectivebookmark="uid: a5397c7b-4186-4267-82c6-3d28053edf1e; group: stars; title: foo; description: foobar"></span></p>
+  <p>More stars <span class="pat-collectivebookmark" data-pat-collectivebookmark="uid: b5397c7b-4186-4267-82c6-3d28053edf1e; group: stars"></span></p>
+  <p>Hearts are fragile <span class="pat-collectivebookmark" data-pat-collectivebookmark="uid: c5397c7b-4186-4267-82c6-3d28053edf1e; textunmarked: '&#128148;'; textmarked: '&#128150;'"></span></p>
+  <p>Text is <span class="pat-collectivebookmark" data-pat-collectivebookmark="uid: d5397c7b-4186-4267-82c6-3d28053edf1e; group: Karten; textunmarked: boring; textmarked: <strong>awesome</strong>"></span></p>
+
+  <hr />
+
+  <h2>Bookmarks</h2>
+  <span class="pat-collectivebookmarklist"  /> -->
+
+</body>
+</html>
