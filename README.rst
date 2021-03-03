@@ -56,18 +56,10 @@ Endpoints:
 Frontend
 --------
 
-- Bookmark action-button (enable/disable)
-- personal-bar entry with count of bookmarks
-- Viewlet as entry point for React
-
-
-Control-Panel
--------------
-
-Registry entry with control panel
-
-- Heading of lists. Defaults to "Bookmarks", but maybe one needs "bookmarks" or "Wishlist" or alike.
-- List of bookmarkable portal-types.
+Check ``@@bookmarks_sample`` for example usage
+  - ``<bookmark-element>`` Bookmark action-button (enable/disable)
+  - ``<bookmark-sum>`` Count of Bookmarks as possible personal action entry
+  - ``<bookmark-list>`` List of Bookmarks of the user
 
 
 Administration of catalog
