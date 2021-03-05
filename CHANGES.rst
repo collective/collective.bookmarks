@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.1.a1 (unreleased)
+1.1a1 (2021-03-05)
 ------------------
 
 - unique identifier changed to (uid, owner, group, queryparams), was before (uid, owner, group). Allows to bookmark searchquery urls.
