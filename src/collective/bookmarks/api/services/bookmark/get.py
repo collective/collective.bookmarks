@@ -14,7 +14,9 @@ class BookmarkGet(Service):
         group
         queryparams (optional): serialized querystring
         """
-        owner, uid, group, queryparams, payload = get_bookmark_from_request(self.request)
+        owner, uid, group, queryparams, payload = get_bookmark_from_request(
+            self.request
+        )
         bookmarks = Bookmarks()
         bookmark = bookmarks.get(owner, uid, group, queryparams)
         if bookmark:

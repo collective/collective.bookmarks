@@ -6,8 +6,6 @@
 collective.bookmarks
 ====================
 
-.. image:: https://travis-ci.com/collective/collective.bookmarks.svg?branch=master
-    :target: https://travis-ci.com/collective/collective.bookmarks
 
 Bookmarks (aka favorites, wishlists) for Plone Classic.
 
