@@ -1,4 +1,3 @@
-
 from datetime import datetime
 from plone import api
 from plone.restapi.serializer.converters import json_compatible
@@ -77,7 +76,10 @@ class Bookmarks:
         # check existing
         if (
             self._fetch_one(
-                Eq("owner", owner) & Eq("uid", uid) & Eq("group", group) & Eq("queryparams", queryparams)
+                Eq("owner", owner)
+                & Eq("uid", uid)
+                & Eq("group", group)
+                & Eq("queryparams", queryparams)
             )
             is not None
         ):
@@ -103,7 +105,10 @@ class Bookmarks:
         returns the Record if update was successful
         """
         record = self._fetch_one(
-            Eq("owner", owner) & Eq("uid", uid) & Eq("group", group) & Eq("queryparams", queryparams)
+            Eq("owner", owner)
+            & Eq("uid", uid)
+            & Eq("group", group)
+            & Eq("queryparams", queryparams)
         )
         if record is None:
             return None
@@ -119,14 +124,19 @@ class Bookmarks:
         returns True if the Record was successfully deleted
         """
         record = self._fetch_one(
-            Eq("owner", owner) & Eq("uid", uid) & Eq("group", group) & Eq("queryparams", queryparams)
+            Eq("owner", owner)
+            & Eq("uid", uid)
+            & Eq("group", group)
+            & Eq("queryparams", queryparams)
         )
         if record is None:
             return False
         del self._soup[record]
         return True
 
-    def get(self, owner: str, uid: uuid.UUID, group: str, queryparams: str) -> typing.Union[dict, None]:
+    def get(
+        self, owner: str, uid: uuid.UUID, group: str, queryparams: str
+    ) -> typing.Union[dict, None]:
         """get one bookmark
 
         uniqueness is given by triple of owner, uid, group and queryparams.
@@ -136,7 +146,10 @@ class Bookmarks:
         """
 
         record = self._fetch_one(
-            Eq("owner", owner) & Eq("uid", uid) & Eq("group", group) & Eq("queryparams", queryparams)
+            Eq("owner", owner)
+            & Eq("uid", uid)
+            & Eq("group", group)
+            & Eq("queryparams", queryparams)
         )
         if record is None:
             return None
