@@ -4,8 +4,6 @@ from collective.bookmarks.api.utils import get_bookmark_from_request
 from collective.bookmarks.storage import Bookmarks
 from plone.protect.interfaces import IDisableCSRFProtection
 from plone.restapi.services import Service
-from zExceptions import BadRequest
-from zExceptions import MethodNotAllowed
 from zope.interface import alsoProvides
 
 
