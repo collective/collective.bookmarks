@@ -9,7 +9,9 @@ collective.bookmarks
 .. image:: https://travis-ci.com/collective/collective.bookmarks.svg?branch=master
     :target: https://travis-ci.com/collective/collective.bookmarks
 
-Bookmarks (aka favorites, wishlists) for Plone
+Bookmarks (aka favorites, wishlists) for Plone Classic.
+
+The Plone pendent is `collective/volto-bookmarks <https://github.com/collective/volto-bookmarks>`_
 
 Features
 --------
