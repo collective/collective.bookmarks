@@ -3,7 +3,6 @@ from collective.bookmarks.api.utils import get_owner
 from collective.bookmarks.storage import Bookmarks
 from plone import api
 from plone.restapi.services import Service
-from zExceptions import NotFound
 
 
 class BookmarksGet(Service):

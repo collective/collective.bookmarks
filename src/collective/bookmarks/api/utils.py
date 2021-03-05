@@ -47,10 +47,9 @@ def bookmark_dict_to_json_dict(bookmark):
     """
     bookmark["uid"] = bookmark["uid"].hex
 
-
     bookmarkBrain = api.content.find(UID=bookmark["uid"])
-    bookmarkUrl = len(bookmarkBrain)>0 and bookmarkBrain[0].getObject().absolute_url() or '#'
+    bookmarkUrl = len(bookmarkBrain) > 0 and bookmarkBrain[0].getObject().absolute_url() or '#'
     bookmark["@id"] = bookmarkUrl
-    bookmark["title"] = len(bookmarkBrain)>0 and bookmarkBrain[0].getObject().title or ''
-    bookmark["@type"] = len(bookmarkBrain)>0 and bookmarkBrain[0].getObject().portal_type or ''
+    bookmark["title"] = len(bookmarkBrain) > 0 and bookmarkBrain[0].getObject().title or ''
+    bookmark["@type"] = len(bookmarkBrain) > 0 and bookmarkBrain[0].getObject().portal_type or ''
     return bookmark

@@ -12,8 +12,6 @@ from souper.soup import NodeAttributeIndexer
 from souper.soup import Record
 from zope.interface import implementer
 
-import math
-import time
 import typing
 import uuid
 
@@ -26,7 +24,7 @@ class BookmarksCatalogFactory:
         catalog["group"] = CatalogFieldIndex(NodeAttributeIndexer("group"))
         catalog["created"] = CatalogFieldIndex(NodeAttributeIndexer("created"))
         catalog["owner"] = CatalogFieldIndex(NodeAttributeIndexer("owner"))
-        catalog["queryparams"] = CatalogFieldIndex(NodeAttributeIndexer("queryparams"))        
+        catalog["queryparams"] = CatalogFieldIndex(NodeAttributeIndexer("queryparams"))
         return catalog
 
 
