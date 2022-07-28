@@ -5,7 +5,8 @@ Changelog
 1.1a2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Return 204 if content is not bookmarked instead of raising NotFound.
+  [ksuess]
 
 
 1.1a1 (2021-03-05)
