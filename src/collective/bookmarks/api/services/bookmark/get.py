@@ -21,4 +21,4 @@ class BookmarkGet(Service):
         bookmark = bookmarks.get(owner, uid, group, queryparams)
         if bookmark:
             return bookmark_dict_to_json_dict(bookmark)
-        raise NotFound("No such bookmark found.")
+        return self.reply_no_content()
