@@ -3,7 +3,7 @@ from plone import api
 from plone.restapi.serializer.converters import json_compatible
 from repoze.catalog.catalog import Catalog
 from repoze.catalog.indexes.field import CatalogFieldIndex
-from repoze.catalog.query import Eq
+from repoze.catalog.query import Eq, NotEq
 from repoze.catalog.query import Query
 from souper.interfaces import ICatalogFactory
 from souper.soup import get_soup
@@ -154,6 +154,15 @@ class Bookmarks:
         if record is None:
             return None
         return self._dictify(record)
+
+    def get_all(self) -> typing.Iterator[dict]:
+        """get all bookmarks
+
+        return dictified data
+        """
+        query = NotEq("owner", "foo")
+        for lazy_record in self._soup.lazy(query):
+            yield self._dictify(lazy_record())
 
     def by_owner(
         self, owner: str, group: typing.Union[str, None] = None
