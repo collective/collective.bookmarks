@@ -16,7 +16,7 @@
     "rollup-plugin-terser": "^6.0.0"
   },
   "dependencies": {
-    "axios": "^1.6.0",
+    "axios": "^1.8.2",
     "sirv-cli": "^1.0.0",
     "svelte": "3.31.0"
   }
