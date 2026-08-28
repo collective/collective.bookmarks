@@ -1,51 +1,52 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
-      metal:use-macro="context/main_template/macros/master">
+      metal:use-macro="context/main_template/macros/master"
+>
 
-<metal:block fill-slot="content-core">
+  <metal:block fill-slot="content-core">
 
-  <p>
-    Fancy Stars <bookmark-element
-      textmarked="&#9733;"
-      textunmarked="&#9734;"
-      uid="a5397c7b-4186-4267-82c6-3d28053edf1e"
-      group="stars"
-      title="foo"
-      description="foobar"
-      />
-  </p>
-  <p>
-    More Stars <bookmark-element
-      textmarked="&#9733;"
-      textunmarked="&#9734;"
-      uid="b5397c7b-4186-4267-82c6-3d28053edf1e"
-      group="stars"
-      />
-  </p>
-  <p>
-    Hearts are fragile <bookmark-element
-      textmarked="&#128150;"
-      textunmarked="&#128148;"
-      uid="c5397c7b-4186-4267-82c6-3d28053edf1e"
-      />
-  </p>
-  <p>
-    Text is <bookmark-element
-      textmarked="boring"
-      textunmarked="<strong>awesome</strong>"
-      uid="d5397c7b-4186-4267-82c6-3d28053edf1e"
-      group="Karten"
-      />
-  </p>
+    <p>
+    Fancy Stars
+      <bookmark-element description="foobar"
+                        group="stars"
+                        textmarked="&#9733;"
+                        textunmarked="&#9734;"
+                        title="foo"
+                        uid="a5397c7b-4186-4267-82c6-3d28053edf1e"
+      ></bookmark-element>
+    </p>
+    <p>
+    More Stars
+      <bookmark-element group="stars"
+                        textmarked="&#9733;"
+                        textunmarked="&#9734;"
+                        uid="b5397c7b-4186-4267-82c6-3d28053edf1e"
+      ></bookmark-element>
+    </p>
+    <p>
+    Hearts are fragile
+      <bookmark-element textmarked="&#128150;"
+                        textunmarked="&#128148;"
+                        uid="c5397c7b-4186-4267-82c6-3d28053edf1e"
+      ></bookmark-element>
+    </p>
+    <p>
+    Text is
+      <bookmark-element group="Karten"
+                        textmarked="boring"
+                        textunmarked="&lt;strong&gt;awesome&lt;/strong&gt;"
+                        uid="d5397c7b-4186-4267-82c6-3d28053edf1e"
+      ></bookmark-element>
+    </p>
 
-  <h2>Bookmarks</h2>
-  <bookmark-list></bookmark-list>
-  <hr />
-  <h2>Sum</h2>
-  <bookmark-sum></bookmark-sum>
+    <h2>Bookmarks</h2>
+    <bookmark-list></bookmark-list>
+    <hr />
+    <h2>Sum</h2>
+    <bookmark-sum></bookmark-sum>
 
-</metal:block>
+  </metal:block>
 
 
 </html>

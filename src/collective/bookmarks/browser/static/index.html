@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset='utf-8'>
-	<meta name='viewport' content='width=device-width,initial-scale=1'>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1"
+    />
 
-	<title>Bookmarks</title>
+    <title>Bookmarks</title>
 
-	<link rel='stylesheet' href='collective.bookmarks.css'>
-  <script defered src='collective.bookmarks.js'></script>
+    <link href="collective.bookmarks.css"
+          rel="stylesheet"
+    />
+    <script defered=""
+            src="collective.bookmarks.js"
+    ></script>
 
-  <script type="module">
+    <script type="module">
     window.onload = (event) => {
       var btn = document.createElement("bookmark-element");   // Create a <button> element
       btn.setAttribute('textmarked', "juhu");
@@ -17,38 +23,38 @@
       btn.setAttribute('uid', "a5397c7b-4186-4267-82c6-3d28053edf1r");
       document.body.appendChild(btn);
     }
-  </script>
-</head>
+    </script>
+  </head>
 
-<body>
-
-
-  <p>
-    Fancy Stars <bookmark-element
-      textmarked="&#9733;"
-      textunmarked="&#9734;"
-      uid="a5397c7b-4186-4267-82c6-3d28053edf1e"
-      group="stars"
-      title="foo"
-      description="foobar"
-      />
-  </p>
-  <p>
-    Hearts are fragile <bookmark-element
-      textmarked="&#128150;"
-      textunmarked="&#128148;"
-      uid="c5397c7b-4186-4267-82c6-3d28053edf1e"
-      />
-  </p>
-
-  <bookmark-list></bookmark-list>
-  <hr />
-  <bookmark-sum></bookmark-sum>
+  <body>
 
 
+    <p>
+    Fancy Stars
+      <bookmark-element description="foobar"
+                        group="stars"
+                        textmarked="&#9733;"
+                        textunmarked="&#9734;"
+                        title="foo"
+                        uid="a5397c7b-4186-4267-82c6-3d28053edf1e"
+      ></bookmark-element>
+    </p>
+    <p>
+    Hearts are fragile
+      <bookmark-element textmarked="&#128150;"
+                        textunmarked="&#128148;"
+                        uid="c5397c7b-4186-4267-82c6-3d28053edf1e"
+      ></bookmark-element>
+    </p>
+
+    <bookmark-list></bookmark-list>
+    <hr />
+    <bookmark-sum></bookmark-sum>
 
 
-<!--
+
+
+    <!--
   <p>Fancy Stars <span class="pat-collectivebookmark" data-pat-collectivebookmark="uid: a5397c7b-4186-4267-82c6-3d28053edf1e; group: stars; title: foo; description: foobar"></span></p>
   <p>More stars <span class="pat-collectivebookmark" data-pat-collectivebookmark="uid: b5397c7b-4186-4267-82c6-3d28053edf1e; group: stars"></span></p>
   <p>Hearts are fragile <span class="pat-collectivebookmark" data-pat-collectivebookmark="uid: c5397c7b-4186-4267-82c6-3d28053edf1e; textunmarked: '&#128148;'; textmarked: '&#128150;'"></span></p>
@@ -59,5 +65,5 @@
   <h2>Bookmarks</h2>
   <span class="pat-collectivebookmarklist"  /> -->
 
-</body>
+  </body>
 </html>
