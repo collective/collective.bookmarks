@@ -155,9 +155,7 @@ class Bookmarks:
             return None
         return self._dictify(record)
 
-    def by_owner(
-        self, owner: str, group: str | None = None
-    ) -> typing.Iterator[dict]:
+    def by_owner(self, owner: str, group: str | None = None) -> typing.Iterator[dict]:
         """get all bookmarks of an owner, optional filtered by group
 
         return dictified data

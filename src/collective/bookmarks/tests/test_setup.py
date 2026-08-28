@@ -1,4 +1,5 @@
 """Setup tests for this package."""
+
 from collective.bookmarks.testing import COLLECTIVE_BOOKMARKS_INTEGRATION_TESTING
 from plone import api
 from plone.app.testing import setRoles
