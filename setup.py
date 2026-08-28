@@ -47,14 +47,23 @@ setup(
     zip_safe=False,
     python_requires=">=3.10",
     install_requires=[
+        "Products.CMFPlone",
+        "Products.GenericSetup",
+        "plone.api",
+        "plone.protect",
         "plone.restapi",
-        "setuptools",
+        "repoze.catalog",
+        "souper",
         "souper.plone",
+        "Zope",
     ],
     extras_require={
         "test": [
-            "plone.app.contenttypes[test]",
             "Products.CMFPlone[test]",
+            "plone.app.testing",
+            "plone.app.contenttypes[test]",
+            "plone.base",
+            "plone.browserlayer",
         ],
     },
     entry_points="""
