@@ -1,5 +1,0 @@
--c constraints_plone52.txt
-wheel
-setuptools
-zc.buildout
-
