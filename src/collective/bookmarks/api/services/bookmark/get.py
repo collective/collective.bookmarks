@@ -2,7 +2,6 @@ from collective.bookmarks.api.utils import bookmark_dict_to_json_dict
 from collective.bookmarks.api.utils import get_bookmark_from_request
 from collective.bookmarks.storage import Bookmarks
 from plone.restapi.services import Service
-from zExceptions import NotFound
 
 
 class BookmarkGet(Service):
