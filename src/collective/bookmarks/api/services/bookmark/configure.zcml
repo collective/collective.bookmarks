@@ -1,37 +1,38 @@
 <configure
-  xmlns="http://namespaces.zope.org/zope"
-  xmlns:plone="http://namespaces.plone.org/plone">
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    >
 
   <plone:service
-    method="GET"
-    for="zope.interface.Interface"
-    factory=".get.BookmarkGet"
-    name="@bookmark"
-    permission="zope2.View"
-    />
+      method="GET"
+      factory=".get.BookmarkGet"
+      for="zope.interface.Interface"
+      permission="zope2.View"
+      name="@bookmark"
+      />
 
   <plone:service
-    method="POST"
-    for="zope.interface.Interface"
-    factory=".post.BookmarkPost"
-    name="@bookmark"
-    permission="zope2.View"
-    />
+      method="POST"
+      factory=".post.BookmarkPost"
+      for="zope.interface.Interface"
+      permission="zope2.View"
+      name="@bookmark"
+      />
 
   <plone:service
-    method="PUT"
-    for="zope.interface.Interface"
-    factory=".put.BookmarkPut"
-    name="@bookmark"
-    permission="zope2.View"
-    />
+      method="PUT"
+      factory=".put.BookmarkPut"
+      for="zope.interface.Interface"
+      permission="zope2.View"
+      name="@bookmark"
+      />
 
   <plone:service
-    method="DELETE"
-    for="zope.interface.Interface"
-    factory=".delete.BookmarkDelete"
-    name="@bookmark"
-    permission="zope2.View"
-    />
+      method="DELETE"
+      factory=".delete.BookmarkDelete"
+      for="zope.interface.Interface"
+      permission="zope2.View"
+      name="@bookmark"
+      />
 
 </configure>
