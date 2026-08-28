@@ -22,7 +22,7 @@ def get_owner(data=None, request=None, loadjson=None):
     if owner is None:
         owner = api.user.get_current().getId()
         if owner is None:
-            raise BadRequest(f"Property 'owner' is mandatory for anonymous users.")
+            raise BadRequest("Property 'owner' is mandatory for anonymous users.")
     return owner
 
 

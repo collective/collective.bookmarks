@@ -17,7 +17,7 @@ import uuid
 
 @implementer(ICatalogFactory)
 class BookmarksCatalogFactory:
-    def __call__(self, context: typing.Union[Record, None] = None) -> Catalog:
+    def __call__(self, context: Record | None = None) -> Catalog:
         catalog = Catalog()
         catalog["uid"] = CatalogFieldIndex(NodeAttributeIndexer("uid"))
         catalog["group"] = CatalogFieldIndex(NodeAttributeIndexer("group"))
@@ -39,7 +39,7 @@ class Bookmarks:
             setattr(self, "_soup_instance", soup)
         return soup
 
-    def _fetch_one(self, query: Query) -> typing.Union[Record, None]:
+    def _fetch_one(self, query: Query) -> Record | None:
         """fetch a single record from query.
 
         return None if non-existing
@@ -65,7 +65,7 @@ class Bookmarks:
 
     def add(
         self, owner: str, uid: uuid.UUID, group: str, queryparams: str, payload: dict
-    ) -> typing.Union[int, None]:
+    ) -> int | None:
         """add new entry.
 
         uniqueness is given by triple of owner, uid, group and queryparams.
@@ -96,7 +96,7 @@ class Bookmarks:
 
     def update(
         self, owner: str, uid: uuid.UUID, group: str, queryparams: str, payload: dict
-    ) -> typing.Union[dict, None]:
+    ) -> dict | None:
         """update payload of an existing entry
 
         uniqueness is given by triple of owner, uid, group and queryparams.
@@ -136,7 +136,7 @@ class Bookmarks:
 
     def get(
         self, owner: str, uid: uuid.UUID, group: str, queryparams: str
-    ) -> typing.Union[dict, None]:
+    ) -> dict | None:
         """get one bookmark
 
         uniqueness is given by triple of owner, uid, group and queryparams.
@@ -155,9 +155,7 @@ class Bookmarks:
             return None
         return self._dictify(record)
 
-    def by_owner(
-        self, owner: str, group: typing.Union[str, None] = None
-    ) -> typing.Iterator[dict]:
+    def by_owner(self, owner: str, group: str | None = None) -> typing.Iterator[dict]:
         """get all bookmarks of an owner, optional filtered by group
 
         return dictified data
@@ -168,7 +166,7 @@ class Bookmarks:
         for lazy_record in self._soup.lazy(query):
             yield self._dictify(lazy_record())
 
-    def groups(self, owner: str) -> typing.List[str]:
+    def groups(self, owner: str) -> list[str]:
         """get all groups of an owner.
 
         return sorted list of group names

@@ -1,15 +1,17 @@
-<?xml version="1.0"?>
-<registry
-    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-    i18n:domain="collective.bookmarks">
+<?xml version="1.0" encoding="utf-8"?>
+<registry xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+          i18n:domain="collective.bookmarks"
+>
 
-  <records prefix="plone.resources/collective-bookmarks"
-           interface='Products.CMFPlone.interfaces.IResourceRegistry'>
-      <value key="js">++plone++collective.bookmarks/collective.bookmarks.js</value>
+  <records interface="Products.CMFPlone.interfaces.IResourceRegistry"
+           prefix="plone.resources/collective-bookmarks"
+  >
+    <value key="js">++plone++collective.bookmarks/collective.bookmarks.js</value>
   </records>
 
-  <records prefix="plone.bundles/collective-bookmarks-app"
-           interface="Products.CMFPlone.interfaces.IBundleRegistry">
+  <records interface="Products.CMFPlone.interfaces.IBundleRegistry"
+           prefix="plone.bundles/collective-bookmarks-app"
+  >
     <value key="resources">
       <element>collective-bookmarks</element>
     </value>
@@ -18,8 +20,8 @@
     <value key="csscompilation">++plone++collective.bookmarks/collective.bookmarks.css</value>
     <value key="develop_javascript">False</value>
     <value key="develop_css">False</value>
-    <value key="merge_with"></value>
-    <value key="resources"></value>
+    <value key="merge_with" />
+    <value key="resources" />
     <value key="compile">False</value>
     <value key="enabled">True</value>
     <value key="load_defer">True</value>

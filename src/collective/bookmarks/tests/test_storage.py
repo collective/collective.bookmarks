@@ -1,4 +1,5 @@
 """Setup tests for this package."""
+
 from collective.bookmarks.testing import COLLECTIVE_BOOKMARKS_INTEGRATION_TESTING
 
 import unittest
@@ -90,6 +91,7 @@ class TestStorage(unittest.TestCase):
             "uid": uuid.uuid4(),
             "group": "",
             "payload": {},
+            "queryparams": "",
             "created": math.floor(time.time()),
         }
         record = Record()
@@ -98,6 +100,7 @@ class TestStorage(unittest.TestCase):
         record.attrs["group"] = data["group"]
         record.attrs["payload"] = data["payload"]
         record.attrs["created"] = data["created"]
+        record.attrs["queryparams"] = data["queryparams"]
 
         dictified = bookmarks._dictify(record)
         self.assertEqual(data, dictified)
@@ -117,9 +120,10 @@ class TestStorage(unittest.TestCase):
             "group": "",
             "payload": {},
             "created": math.floor(time.time()),
+            "queryparams": "",
         }
         result = bookmarks.add(
-            data["owner"], data["uid"], data["group"], data["payload"]
+            data["owner"], data["uid"], data["group"], "", data["payload"]
         )
         self.assertIsNotNone(result)
 
@@ -140,11 +144,11 @@ class TestStorage(unittest.TestCase):
         bookmarks = Bookmarks()
         data = {"owner": "kim stanley", "uid": uuid.uuid4(), "group": "", "payload": {}}
         result1 = bookmarks.add(
-            data["owner"], data["uid"], data["group"], data["payload"]
+            data["owner"], data["uid"], data["group"], "", data["payload"]
         )
         self.assertIsNotNone(result1)
         result2 = bookmarks.add(
-            data["owner"], data["uid"], data["group"], data["payload"]
+            data["owner"], data["uid"], data["group"], "", data["payload"]
         )
         self.assertIsNone(result2)
 
@@ -156,10 +160,10 @@ class TestStorage(unittest.TestCase):
 
         bookmarks = Bookmarks()
         data = {"owner": "kim stanley", "uid": uuid.uuid4(), "group": "", "payload": {}}
-        bookmarks.add(data["owner"], data["uid"], data["group"], data["payload"])
+        bookmarks.add(data["owner"], data["uid"], data["group"], "", data["payload"])
         new_payload = {"foo": "bar"}
         result = bookmarks.update(
-            data["owner"], data["uid"], data["group"], new_payload
+            data["owner"], data["uid"], data["group"], "", new_payload
         )
         self.assertIsNotNone(result)
 
@@ -179,7 +183,7 @@ class TestStorage(unittest.TestCase):
         data = {"owner": "kim stanley", "uid": uuid.uuid4(), "group": "", "payload": {}}
         new_payload = {"foo": "bar"}
         result = bookmarks.update(
-            data["owner"], data["uid"], data["group"], new_payload
+            data["owner"], data["uid"], data["group"], "", new_payload
         )
         self.assertIsNone(result)
 
@@ -191,8 +195,8 @@ class TestStorage(unittest.TestCase):
 
         bookmarks = Bookmarks()
         data = {"owner": "kim stanley", "uid": uuid.uuid4(), "group": "", "payload": {}}
-        bookmarks.add(data["owner"], data["uid"], data["group"], data["payload"])
-        result = bookmarks.delete(data["owner"], data["uid"], data["group"])
+        bookmarks.add(data["owner"], data["uid"], data["group"], "", data["payload"])
+        result = bookmarks.delete(data["owner"], data["uid"], "", data["group"])
         self.assertIs(result, True)
 
         record = bookmarks._fetch_one(
@@ -209,7 +213,7 @@ class TestStorage(unittest.TestCase):
 
         bookmarks = Bookmarks()
         data = {"owner": "kim stanley", "uid": uuid.uuid4(), "group": "", "payload": {}}
-        result = bookmarks.delete(data["owner"], data["uid"], data["group"])
+        result = bookmarks.delete(data["owner"], data["uid"], data["group"], "")
         self.assertIs(result, False)
 
     def test_get_existing(self):
@@ -219,8 +223,8 @@ class TestStorage(unittest.TestCase):
 
         bookmarks = Bookmarks()
         data = {"owner": "kim stanley", "uid": uuid.uuid4(), "group": "", "payload": {}}
-        bookmarks.add(data["owner"], data["uid"], data["group"], data["payload"])
-        result = bookmarks.get(data["owner"], data["uid"], data["group"])
+        bookmarks.add(data["owner"], data["uid"], data["group"], "", data["payload"])
+        result = bookmarks.get(data["owner"], data["uid"], data["group"], "")
         result["created"] = None
         self.assertEqual(
             result,
@@ -229,6 +233,7 @@ class TestStorage(unittest.TestCase):
                 "group": "",
                 "owner": "kim stanley",
                 "payload": {},
+                "queryparams": "",
                 "uid": data["uid"],
             },
         )
@@ -240,9 +245,9 @@ class TestStorage(unittest.TestCase):
 
         bookmarks = Bookmarks()
         data = {"owner": "kim stanley", "uid": uuid.uuid4(), "group": "", "payload": {}}
-        bookmarks.add(data["owner"], data["uid"], data["group"], data["payload"])
-        bookmarks.add(data["owner"], data["uid"], "chilli", data["payload"])
-        bookmarks.add("ian mcdonald", data["uid"], data["group"], data["payload"])
+        bookmarks.add(data["owner"], data["uid"], data["group"], "", data["payload"])
+        bookmarks.add(data["owner"], data["uid"], "chilli", "", data["payload"])
+        bookmarks.add("ian mcdonald", data["uid"], data["group"], "", data["payload"])
 
         result = bookmarks.by_owner(data["owner"])
         self.assertEqual(len([x for x in result]), 2)
@@ -260,9 +265,9 @@ class TestStorage(unittest.TestCase):
 
         bookmarks = Bookmarks()
         data = {"owner": "kim stanley", "uid": uuid.uuid4(), "group": "", "payload": {}}
-        bookmarks.add(data["owner"], data["uid"], data["group"], data["payload"])
-        bookmarks.add(data["owner"], data["uid"], "chilli", data["payload"])
-        bookmarks.add("ian mcdonald", data["uid"], data["group"], data["payload"])
+        bookmarks.add(data["owner"], data["uid"], data["group"], "", data["payload"])
+        bookmarks.add(data["owner"], data["uid"], "chilli", "", data["payload"])
+        bookmarks.add("ian mcdonald", data["uid"], data["group"], "", data["payload"])
 
         result = bookmarks.groups(data["owner"])
         self.assertEqual(result, ["", "chilli"])

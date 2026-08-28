@@ -2,22 +2,23 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:plone="http://namespaces.plone.org/plone"
-    i18n_domain="collective.bookmarks">
+    i18n_domain="collective.bookmarks"
+    >
 
 
   <!-- Publish static files -->
   <plone:static
+      directory="static"
       name="collective.bookmarks"
       type="plone"
-      directory="static"
       />
 
   <browser:page
-      for="*"
       name="bookmarks_sample"
-      layer="..interfaces.ICollectiveBookmarksLayer"
+      for="*"
       template="sample.pt"
       permission="zope2.View"
+      layer="..interfaces.ICollectiveBookmarksLayer"
       />
 
 </configure>

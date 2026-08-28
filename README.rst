@@ -32,7 +32,7 @@ Data Format
     - ``group``: group name or empty string for *global* group
     - ``owner``: unique owner identifier (str)
     - ``queryparams``: String: Identifies bookmark together with uid, owner and group
-    - ``payload``: arbitary dict with custom key-value data (optional)
+    - ``payload``: arbitrary dict with custom key-value data (optional)
 
 RESTAPI
 -------

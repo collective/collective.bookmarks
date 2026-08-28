@@ -2,11 +2,14 @@ Changelog
 =========
 
 
-1.2 (unreleased)
-----------------
+2.0.0 (unreleased)
+------------------
 
-- Nothing changed yet.
+- Revamp package configuration with ``plone.meta``.
+  [gforcada]
 
+- Switch to python native namespace.
+  [gforcada]
 
 1.1 (2023-03-06)
 ----------------

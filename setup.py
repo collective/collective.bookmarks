@@ -1,9 +1,6 @@
-# -*- coding: utf-8 -*-
 """Installer for the collective.bookmarks package."""
 
-from setuptools import find_packages
 from setuptools import setup
-
 
 long_description = "\n\n".join(
     [
@@ -16,22 +13,22 @@ long_description = "\n\n".join(
 
 setup(
     name="collective.bookmarks",
-    version="1.2.dev0",
+    version="2.0.0.dev0",
     description="Bookmarks/ favorites (internal) for Plone",
     long_description=long_description,
     # Get more from https://pypi.org/classifiers/
     classifiers=[
+        "Development Status :: 5 - Production/Stable",
         "Environment :: Web Environment",
         "Framework :: Plone",
         "Framework :: Plone :: Addon",
-        "Framework :: Plone :: 5.2",
-        "Framework :: Plone :: 6.0",
+        "Framework :: Plone :: 6.2",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 3.7",
-        "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
+        "Programming Language :: Python :: 3.14",
         "Operating System :: OS Independent",
         "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
     ],
@@ -46,21 +43,27 @@ setup(
         # 'Documentation': 'https://collective.bookmarks.readthedocs.io/en/latest/',
     },
     license="GPL version 2",
-    packages=find_packages("src", exclude=["ez_setup"]),
-    namespace_packages=["collective"],
-    package_dir={"": "src"},
     include_package_data=True,
     zip_safe=False,
-    python_requires=">=3.7",
+    python_requires=">=3.10",
     install_requires=[
+        "Products.CMFPlone",
+        "Products.GenericSetup",
+        "plone.api",
+        "plone.protect",
         "plone.restapi",
-        "setuptools",
+        "repoze.catalog",
+        "souper",
         "souper.plone",
+        "Zope",
     ],
     extras_require={
         "test": [
-            "plone.app.contenttypes[test]",
             "Products.CMFPlone[test]",
+            "plone.app.testing",
+            "plone.app.contenttypes[test]",
+            "plone.base",
+            "plone.browserlayer",
         ],
     },
     entry_points="""
