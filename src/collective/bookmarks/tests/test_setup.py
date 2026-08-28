@@ -6,7 +6,6 @@ from plone.app.testing import TEST_USER_ID
 
 import unittest
 
-
 try:
     from Products.CMFPlone.utils import get_installer
 except ImportError:
